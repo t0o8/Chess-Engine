@@ -135,6 +135,11 @@ namespace TOML
                     return EvaluationConstants.CHECKMATE_BASE_EVAL - depth;
                 }
             }
+            if (boardPosition.FoundRepetition(boardPosition.ZobristHash) == true)
+            {
+                //draw by repetition
+                return 0;
+            }
 
             Move BestMove = MoveArray[0];
 

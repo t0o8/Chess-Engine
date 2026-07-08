@@ -15,10 +15,13 @@ namespace TOML
         public ushort EnPassantTargetSquare = PositionConstants.NoEnPassantMoves;
         public ushort CastlingAvailability; // positions from left to right 1,2,3,4 corresponds to kqKQ castling
         public ushort ActiveColor;
+        public ushort CurrentPly;
 
         //information about the position, pregenerated when position is created or updated
         
         public ulong ZobristHash;
+        public ulong[] RepetitionTable = new ulong[4096];
+
 
         public ulong WhiteAttackingSquares;
         public ulong BlackAttackingSquares;
@@ -138,6 +141,12 @@ namespace TOML
                 }
             }
             this.ZobristHash = ZobristHashing.GetZobristKey(this);
+            CurrentPly = (ushort)(FullMoveNumber * 2);
+            if (ActiveColor == Piece.BLACK)
+            {
+                CurrentPly++;
+            }
+            RepetitionTable[CurrentPly] = ZobristHash;
             UpdatePositionStats();
         }
         
@@ -149,9 +158,13 @@ namespace TOML
             this.EnPassantTargetSquare = referencePosition.EnPassantTargetSquare;
             this.CastlingAvailability = referencePosition.CastlingAvailability;
             this.ActiveColor = referencePosition.ActiveColor;
+            this.CurrentPly = referencePosition.CurrentPly;
 
             this.ZobristHash = referencePosition.ZobristHash;
+            
+            
             referencePosition.BitBoards.CopyTo(this.BitBoards, 0);
+            referencePosition.RepetitionTable.CopyTo(this.RepetitionTable, 0);
 
         }
 
@@ -176,6 +189,8 @@ namespace TOML
             ushort PieceWithoutColor = GetPieceWithoutColor(piece);
             ushort Color = GetColor(piece);
 
+            CurrentPly++;
+
             //remove the EnPassant square from zobrist hash if necessary
             if (EnPassantTargetSquare != PositionConstants.NoEnPassantMoves)
             {
@@ -194,7 +209,6 @@ namespace TOML
             if (EndingPosition == 7 && (CastlingAvailability & 1) == 1) { CastlingAvailability -= 1; ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, 1); }
             if (EndingPosition == 56 && ((CastlingAvailability >> 3) & 1) == 1) { CastlingAvailability -= 8; ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, 8); }
             if (EndingPosition == 63 && ((CastlingAvailability >> 2) & 1) == 1) { CastlingAvailability -= 4; ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, 4); }
-
 
             HalfMoveClock++;
             if (Color == Piece.BLACK)
@@ -227,6 +241,7 @@ namespace TOML
 
                 AddPiece(EndingPosition, PromotedPiece);
 
+                RepetitionTable[CurrentPly] = ZobristHash;
                 SwitchActiveColor();
                 return new UnMove(move, UnMoveInfo);
             } else if (move.moveInfo == 4)
@@ -290,7 +305,7 @@ namespace TOML
                 if (StartingPosition == 63 && ((CastlingAvailability >> 2) & 1) == 1) { CastlingAvailability -= 4; ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, 4); }
             }
             MovePiece(StartingPosition, EndingPosition, piece);
-
+            RepetitionTable[CurrentPly] = ZobristHash;
             SwitchActiveColor();
             return new UnMove(move, UnMoveInfo);
         }
@@ -303,8 +318,8 @@ namespace TOML
             //next 7, en passaent target square
             //next 7, half move count
             //next 8, move count
-
-
+            
+            CurrentPly--;
             //revert castling rights 
             ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, CastlingAvailability);
             CastlingAvailability = (ushort)(move.UnMoveInfo & 15);
@@ -600,6 +615,17 @@ namespace TOML
             BitBoards[piece] -= 1ul << pos;
             UshortBoard[pos] = Piece.EMPTY;
             ZobristHash = ZobristHashing.RemovePiece(ZobristHash, pos, piece);
+        }
+        public bool FoundRepetition(ulong ZobristKey)
+        {
+            for (int i = 2; i <= HalfMoveClock; i +=2 )
+            {
+                if (RepetitionTable[CurrentPly - i] == ZobristKey)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

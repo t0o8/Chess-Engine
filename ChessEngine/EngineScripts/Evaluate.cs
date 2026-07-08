@@ -67,6 +67,18 @@ namespace TOML
             -50, -47, -45, -43, -43, -45, -47, -50,
         };
 
+        public static int[] PawnPositionBonuses = new int[]
+        {
+              0,   0,   0,   0,   0,   0,   0,   0,
+             60,  50,  50,  50,  50,  50,  50,  60,
+             30,  30,  30,  30,  30,  30,  30,  30,
+              0,   0,  10,  25,  25,  10,   0,   0,
+            -40, -40,   0,  20,  20,   0, -40, -40,
+            -40, -40, -20,  10,  10, -40, -40, -40,
+             40,  40,  40,   0,   0,   0,  40,  40,
+              0,   0,   0,   0,   0,   0,   0,   0,
+        };
+
         public static int GetRelativeEvaluation(Position boardPosition)
         {
             if (boardPosition.ActiveColor == Piece.WHITE)
@@ -127,7 +139,14 @@ namespace TOML
 
                 WhiteScore += QueenPositionBonuses[pos];
             }
+            /*Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
+            while (Mask != 0)
+            {
+                int pos = BitOperations.TrailingZeroCount(Mask);
+                Mask -= 1ul << pos;
 
+                WhiteScore += PawnPositionBonuses[pos];
+            }*/
             Mask = boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK];
             while (Mask != 0)
             {
@@ -160,6 +179,14 @@ namespace TOML
 
                 BlackScore += QueenPositionBonuses[pos];
             }
+            /*Mask = boardPosition.BitBoards[Piece.PAWN + Piece.BLACK];
+            while (Mask != 0)
+            {
+                int pos = BitOperations.TrailingZeroCount(Mask);
+                Mask -= 1ul << pos;
+
+                BlackScore += PawnPositionBonuses[64 - pos]; //flip the score table
+            }*/
 
             return WhiteScore - BlackScore;
         }
