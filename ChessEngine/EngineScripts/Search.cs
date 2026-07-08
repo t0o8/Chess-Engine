@@ -80,7 +80,14 @@ namespace TOML
                     return BestMove;
                 }
                 BestMove = BestMoveThisDepth;
-                Console.WriteLine("serached to depth: " + Depth + " bestmove = " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos) + "eval: " + lowerBound);
+                Console.WriteLine(lowerBound);
+                if (lowerBound >= -EvaluationConstants.CHECKMATE_BASE_EVAL)
+                {
+                    Console.WriteLine("info depth " + Depth + " score mate " + (lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL - Depth));
+                } else
+                {
+                    Console.WriteLine("info depth " + Depth + " score cp " + lowerBound);
+                }
                 Depth++;
                 TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, Depth, lowerBound, NodeConstants.PV);
                 if (Depth == byte.MaxValue)
@@ -221,9 +228,26 @@ namespace TOML
             MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
 
             //not all captures are forced, we only want to look at those which lead to a better position. Assume that the base evaluation is the evaluation of a "quiet" move
+            //null move observation
             lowerBound = Math.Max(lowerBound, PositionEvaluation);
+
             foreach (Move move in MoveOrder.GetOrderedMoves())
             {
+                //delta pruning
+                ushort PositionEvalIncrease = Evaluation.PieceTypeToPieceValue[PieceColors.GetColorlessPiece(boardPosition.UshortBoard[move.endPos])];
+                ushort DeltaPruningSafetyMargin = 300;
+                if ((move.moveInfo & 8) == 8)
+                {
+                    //promotion add promotion value 
+                    PositionEvalIncrease += Evaluation.PieceTypeToPieceValue[Piece.QUEEN];
+                }
+
+                if (PositionEvaluation + PositionEvalIncrease + DeltaPruningSafetyMargin < lowerBound)
+                {
+                    //even after capture this postision is still not good enough, ignore this move
+                    continue;
+                }
+
                 UnMove Unmove = boardPosition.MakeMove(move);
                 int Eval = -SearchCaptures(boardPosition, -upperBound, -lowerBound);
                 boardPosition.UnMakeMove(Unmove);

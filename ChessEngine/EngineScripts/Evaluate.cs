@@ -14,6 +14,7 @@ namespace TOML
         private const ushort QUEEN = 900;
 
         public static Dictionary<ushort, ushort> PieceTypeToPieceValue = new Dictionary<ushort, ushort>() {
+            {(ushort)PieceType.EMPTY , PAWN }, //empty will mean it is enpassent
             {(ushort)PieceType.PAWN , PAWN },
             {(ushort)PieceType.KNIGHT , KNIGHT },
             {(ushort)PieceType.BISHOP , BISHOP },
