@@ -15,7 +15,8 @@ namespace TOML
         public static int TranspositionsUsed = 0;
 
         public static bool SearchCancelled = false;
-        static DateTime SearchStartTime = System.DateTime.Now;
+
+        public static Stopwatch NPSStopWatch = new Stopwatch();
 
 
         //time limit is in miliseconds
@@ -24,8 +25,10 @@ namespace TOML
             TimeManager.StartStopWatch();
             TimeManager.SetTimeLimit(timeLimit);
 
+            NPSStopWatch.Restart();
+            EvaluatedPositions = 0;
+
             byte Depth = 1;
-            SearchStartTime = System.DateTime.Now;
             SearchCancelled = false;
 
             Position boardPosition = new Position(boardPositionReference);
@@ -43,6 +46,7 @@ namespace TOML
             //iterative deepening
             while (SearchCancelled == false)
             {
+
                 int lowerBound = EvaluationConstants.ABSOLUTE_LOWER_BOUND;
                 int upperBound = EvaluationConstants.ABSOLUTE_UPPER_BOUND;
 
@@ -51,6 +55,8 @@ namespace TOML
                 Move BestMoveThisDepth = MoveArray[0];
 
                 MoveOrder.OrderMoves(BestMove);
+
+                EvaluatedPositions++;
 
                 for (int i = 0; i < MoveArray.Length; i++)
                 {
@@ -80,13 +86,15 @@ namespace TOML
                     return BestMove;
                 }
                 BestMove = BestMoveThisDepth;
-                Console.WriteLine(lowerBound);
+                int NPS = (int)((long)EvaluatedPositions / (long)Math.Max(NPSStopWatch.ElapsedMilliseconds, 1) * 1000);
+
+
                 if (lowerBound >= -EvaluationConstants.CHECKMATE_BASE_EVAL)
                 {
-                    Console.WriteLine("info depth " + Depth + " score mate " + (lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL - Depth));
+                    Console.WriteLine("info depth " + Depth + " score mate " + (lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL - Depth) + " nps " + NPS);
                 } else
                 {
-                    Console.WriteLine("info depth " + Depth + " score cp " + lowerBound);
+                    Console.WriteLine("info depth " + Depth + " score cp " + lowerBound + " nps " + NPS);
                 }
                 Depth++;
                 TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, Depth, lowerBound, NodeConstants.PV);
@@ -117,16 +125,19 @@ namespace TOML
                 if (entry.Depth >= depth && entry.NodeType == NodeConstants.PV)
                 {
                     return entry.Eval;
-                } else
+                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.CUT && entry.Eval >= upperBound)
                 {
-                    if (entry.Depth >= depth && entry.NodeType == NodeConstants.CUT && entry.Eval > upperBound)
-                    {
-                        return entry.Eval;
-                    }
-                    PredictedBestMove = entry.BestMove;
+                    return entry.Eval;
+                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.ALL && entry.Eval <= lowerBound)
+                {
+                    return entry.Eval;
                 } 
+                else
+                {
+                    PredictedBestMove = entry.BestMove;
+                }
             }
-
+            EvaluatedPositions++;
             MoveGeneration MoveGen = new MoveGeneration(boardPosition);
             Move[] MoveArray = MoveGen.GenerateAllLegalMoves();
 
@@ -154,6 +165,7 @@ namespace TOML
             {
                 return SearchCaptures(boardPosition, lowerBound, upperBound);
             }
+
 
             MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
             MoveOrder.OrderMoves(PredictedBestMove);
@@ -230,7 +242,7 @@ namespace TOML
             //not all captures are forced, we only want to look at those which lead to a better position. Assume that the base evaluation is the evaluation of a "quiet" move
             //null move observation
             lowerBound = Math.Max(lowerBound, PositionEvaluation);
-
+            
             foreach (Move move in MoveOrder.GetOrderedMoves())
             {
                 //delta pruning
@@ -244,7 +256,7 @@ namespace TOML
 
                 if (PositionEvaluation + PositionEvalIncrease + DeltaPruningSafetyMargin < lowerBound)
                 {
-                    //even after capture this postision is still not good enough, ignore this move
+                    //even after capture this position is still not good enough, ignore this move
                     continue;
                 }
 

@@ -30,10 +30,6 @@ namespace TOML{
 
         public static void StorePosition(ulong zobristKey, Move bestMove, byte depth, int eval, byte nodeType)
         {
-            if (Search.SearchCancelled == true)
-            {
-                return;
-            }
             int Index = GetIndex(zobristKey);
             if (Table[Index].Depth < depth)
             {
