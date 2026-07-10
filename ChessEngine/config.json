@@ -32,7 +32,7 @@
         "additional_lines_rgx": [],
         "event_name": "Fastchess Tournament",
         "site": "?",
-        "file": ".\\output\\ChessEngine_vs_ChessEngine_V1.1_DeltaPrune.pgn",
+        "file": ".\\output\\ChessEngine_vs_ChessEngine_V1.2TTFix.pgn",
         "notation": 0,
         "append_file": true,
         "track_nodes": false,
@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 4726524090378339535,
+    "seed": 13672347507203257545,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -108,9 +108,9 @@
             "variant": 0
         },
         {
-            "name": "ChessEngine_V1.1_DeltaPrune",
+            "name": "ChessEngine_V1.2TTFix",
             "dir": "",
-            "cmd": "C:\\Users\\123ja\\OneDrive\\Desktop\\Random stuff\\Engines\\ChessEngine_V1.1_DeltaPrune.exe",
+            "cmd": "C:\\Users\\123ja\\OneDrive\\Desktop\\Random stuff\\Engines\\ChessEngine_V1.2TTFix.exe",
             "args": "",
             "restart": false,
             "options": [],
@@ -129,16 +129,16 @@
         }
     ],
     "stats": {
-        "ChessEngine vs ChessEngine_V1.1_DeltaPrune": {
-            "wins": 116,
-            "losses": 32,
-            "draws": 190,
-            "penta_WW": 22,
-            "penta_WD": 63,
-            "penta_WL": 9,
-            "penta_DD": 56,
-            "penta_LD": 15,
-            "penta_LL": 4
+        "ChessEngine vs ChessEngine_V1.2TTFix": {
+            "wins": 105,
+            "losses": 20,
+            "draws": 153,
+            "penta_WW": 18,
+            "penta_WD": 59,
+            "penta_WL": 10,
+            "penta_DD": 43,
+            "penta_LD": 8,
+            "penta_LL": 1
         }
     }
 }

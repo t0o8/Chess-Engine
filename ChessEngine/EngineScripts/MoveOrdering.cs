@@ -11,6 +11,7 @@ namespace TOML
         int[] MoveValues;
         public Move[] Moves;
         Move PredictedGoodMove;
+        int DepthFromRoot = 100;
 
         int MoveIndex;
         public MoveOrdering(Move[] moves, Position boardPosition)
@@ -32,6 +33,10 @@ namespace TOML
                 if (move.IsEqual(PredictedGoodMove))
                 {
                     MoveValue += 200000; //arbitrary really large number, bumps move to the front
+                }
+                if (KillerMoves.ContainsMove(move, DepthFromRoot))
+                {
+                    MoveValue += 100000; // arbitrary really large number, should be smaller than the TT bump though
                 }
                 if ((move.moveInfo) == (ushort)MoveEncodingCodes.CAPTURE)
                 {
@@ -67,9 +72,10 @@ namespace TOML
             PredictedGoodMove = bestMove;
             return Moves;
         }
-        public void OrderMoves(Move bestMove)
+        public void OrderMoves(Move bestMove, int depthFromRoot)
         {
             PredictedGoodMove = bestMove;
+            DepthFromRoot = depthFromRoot;
             GenerateMoveValues();
             MoveIndex = 0;
         }

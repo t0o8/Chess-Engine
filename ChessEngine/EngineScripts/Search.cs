@@ -18,7 +18,7 @@ namespace TOML
 
         public static Stopwatch NPSStopWatch = new Stopwatch();
 
-
+        static byte CurrentSearchDepth = 1;
         //time limit is in miliseconds
         public static Move BeginSearch(Position boardPositionReference, int timeLimit)
         {
@@ -28,10 +28,12 @@ namespace TOML
             NPSStopWatch.Restart();
             EvaluatedPositions = 0;
 
-            byte Depth = 1;
+            CurrentSearchDepth = 1;
             SearchCancelled = false;
 
             Position boardPosition = new Position(boardPositionReference);
+
+            KillerMoves.ResetTable();
 
             MoveGeneration MoveGen = new MoveGeneration(boardPosition);
             Move[] MoveArray = MoveGen.GenerateAllLegalMoves();
@@ -54,7 +56,7 @@ namespace TOML
 
                 Move BestMoveThisDepth = MoveArray[0];
 
-                MoveOrder.OrderMoves(BestMove);
+                MoveOrder.OrderMoves(BestMove, CurrentSearchDepth);
 
                 EvaluatedPositions++;
 
@@ -69,7 +71,7 @@ namespace TOML
                     }
 
                     UnMove Unmove = boardPosition.MakeMove(move);
-                    PositionRelativeEval = -GetEval(boardPosition, Depth, -upperBound, -lowerBound);
+                    PositionRelativeEval = -GetEval(boardPosition, CurrentSearchDepth, -upperBound, -lowerBound);
 
                     boardPosition.UnMakeMove(Unmove);
 
@@ -89,16 +91,16 @@ namespace TOML
                 int NPS = (int)((long)EvaluatedPositions / (long)Math.Max(NPSStopWatch.ElapsedMilliseconds, 1) * 1000);
 
 
-                if (lowerBound >= -EvaluationConstants.CHECKMATE_BASE_EVAL)
+                if (lowerBound >= -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    Console.WriteLine("info depth " + Depth + " score mate " + (lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL - Depth) + " nps " + NPS);
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + (-(lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL)) + " nps " + NPS);
                 } else
                 {
-                    Console.WriteLine("info depth " + Depth + " score cp " + lowerBound + " nps " + NPS);
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound + " nps " + NPS);
                 }
-                Depth++;
-                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, Depth, lowerBound, NodeConstants.PV);
-                if (Depth == byte.MaxValue)
+                CurrentSearchDepth++;
+                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, CurrentSearchDepth, lowerBound, NodeConstants.PV);
+                if (CurrentSearchDepth == byte.MaxValue)
                 {
                     return BestMove;
                 }
@@ -114,6 +116,7 @@ namespace TOML
             {
                 return 0;
             }
+            int DepthFromRoot = CurrentSearchDepth - depth + 1;
             int PositionRelativeEval = lowerBound;
             int OriginalLowerBound = lowerBound;
             Move PredictedBestMove = new Move();
@@ -150,7 +153,7 @@ namespace TOML
                 } else
                 {
                     //checkmate
-                    return EvaluationConstants.CHECKMATE_BASE_EVAL - depth;
+                    return EvaluationConstants.CHECKMATE_BASE_EVAL + DepthFromRoot;
                 }
             }
             if (boardPosition.FoundRepetition(boardPosition.ZobristHash) == true)
@@ -168,7 +171,7 @@ namespace TOML
 
 
             MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
-            MoveOrder.OrderMoves(PredictedBestMove);
+            MoveOrder.OrderMoves(PredictedBestMove, DepthFromRoot);
 
             int BestRelativeEval = EvaluationConstants.ABSOLUTE_LOWER_BOUND;
 
@@ -189,6 +192,7 @@ namespace TOML
                 if (PositionRelativeEval >= upperBound)
                 {
                     TranspositionTable.StorePosition(boardPosition.ZobristHash, move, depth, PositionRelativeEval, NodeConstants.CUT);
+                    KillerMoves.AddMove(move, DepthFromRoot);
                     return PositionRelativeEval;
                 } else if (PositionRelativeEval > BestRelativeEval)
                 {

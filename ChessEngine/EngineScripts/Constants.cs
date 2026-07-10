@@ -17,6 +17,7 @@ namespace TOML
         public const int ABSOLUTE_UPPER_BOUND = 999999;
 
         public const int CHECKMATE_BASE_EVAL = -99999; //this value must be much lower than any eval a position can have but still around 50-100 higher than the absolute lower bound so that when the depth is subtracted it's still higher than the lower bound
+        public const int CHECKMATE_MINIMAL_EVAL = CHECKMATE_BASE_EVAL + byte.MaxValue;
     }
     static class NodeConstants
     {
