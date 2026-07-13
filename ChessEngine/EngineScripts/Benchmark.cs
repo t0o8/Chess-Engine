@@ -18,6 +18,10 @@ namespace TOML
 
             Correct &= PerftTest(TestPosition, 5, 193690690);
 
+            TestPosition = new Position("8/8/6K1/8/8/4N3/7R/1k6 w - - 7 74");
+
+            Correct &= PerftTest(TestPosition, 4, 5968);
+
             TestPosition = new Position("8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1");
 
             Correct &= PerftTest(TestPosition, 6, 11030083);
@@ -27,7 +31,7 @@ namespace TOML
             Correct &= PerftTest(TestPosition, 5, 15833292);
 
             TestPosition = new Position("rnbq1k1r/pp1Pbppp/2p5/8/2B5/8/PPP1NnPP/RNBQK2R w KQ - 1 8");
-            Console.WriteLine(TestPosition.CurrentPly);
+
             Correct &= PerftTest(TestPosition, 5, 89941194);
 
             TestPosition = new Position("r4rk1/1pp1qppp/p1np1n2/2b1p1B1/2B1P1b1/P1NP1N2/1PP1QPPP/R4RK1 w - - 0 10");

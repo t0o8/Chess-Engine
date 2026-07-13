@@ -32,7 +32,7 @@
         "additional_lines_rgx": [],
         "event_name": "Fastchess Tournament",
         "site": "?",
-        "file": ".\\output\\ChessEngine_vs_ChessEngine_V1.2TTFix.pgn",
+        "file": ".\\output\\ChessEngine_vs_stash-bot-10.pgn",
         "notation": 0,
         "append_file": true,
         "track_nodes": false,
@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 13672347507203257545,
+    "seed": 5415467080135073530,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -108,9 +108,9 @@
             "variant": 0
         },
         {
-            "name": "ChessEngine_V1.2TTFix",
+            "name": "stash-bot-10",
             "dir": "",
-            "cmd": "C:\\Users\\123ja\\OneDrive\\Desktop\\Random stuff\\Engines\\ChessEngine_V1.2TTFix.exe",
+            "cmd": "C:\\Users\\123ja\\OneDrive\\Desktop\\Random stuff\\Engines\\stash-bot-10.exe",
             "args": "",
             "restart": false,
             "options": [],
@@ -129,16 +129,16 @@
         }
     ],
     "stats": {
-        "ChessEngine vs ChessEngine_V1.2TTFix": {
-            "wins": 105,
-            "losses": 20,
-            "draws": 153,
-            "penta_WW": 18,
-            "penta_WD": 59,
-            "penta_WL": 10,
-            "penta_DD": 43,
-            "penta_LD": 8,
-            "penta_LL": 1
+        "ChessEngine vs stash-bot-10": {
+            "wins": 43,
+            "losses": 59,
+            "draws": 16,
+            "penta_WW": 9,
+            "penta_WD": 5,
+            "penta_WL": 20,
+            "penta_DD": 2,
+            "penta_LD": 7,
+            "penta_LL": 16
         }
     }
 }

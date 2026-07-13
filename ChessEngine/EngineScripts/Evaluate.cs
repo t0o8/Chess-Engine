@@ -72,13 +72,44 @@ namespace TOML
         {
               0,   0,   0,   0,   0,   0,   0,   0,
              60,  50,  50,  50,  50,  50,  50,  60,
-             30,  30,  30,  30,  30,  30,  30,  30,
-              0,   0,  10,  25,  25,  10,   0,   0,
-            -40, -40,   0,  20,  20,   0, -40, -40,
-            -40, -40, -20,  10,  10, -40, -40, -40,
+             30,  30,  30,  45,  45,  30,  30,  30,
+              0,   0,  10,  40,  40,  10,   0,   0,
+            -40, -40,   0,  40,  40,   0, -40, -40,
+             30, -40, -20,  30,  30, -40, -40,  30,
              40,  40,  40,   0,   0,   0,  40,  40,
               0,   0,   0,   0,   0,   0,   0,   0,
         };
+
+        public static int[] PassedPawnBonuses = new int[] { 0, 10, 10, 15, 30, 50, 100 };
+
+        public static int[] PawnChainBonuses = new int[] { 0, 20, 35, 50, 60, 70, 75, 80 };
+        public static ulong GetPassedPawnMask(int pos, ushort color)
+        {
+            ushort File = 0;
+            Position.GetXYPosition((ushort)pos, out File, out ushort Y);
+            ulong Mask = 0;
+            if (File != 0)
+            {
+                Mask |= BitBoardConstants.A_FILE << (File - 1);
+            }
+            if (File != 7)
+            {
+                Mask |= BitBoardConstants.A_FILE << (File + 1);
+            }
+            
+            Mask |= BitBoardConstants.A_FILE << File;
+            if (color == Piece.WHITE)
+            {
+                Mask &= ulong.MaxValue << ((Y + 1) * 8);
+            } else
+            {
+                Mask &= ulong.MaxValue >> (8 - (Y + 1) * 8);
+
+            }
+
+            return Mask;
+        }
+
 
         public static int GetRelativeEvaluation(Position boardPosition)
         {
@@ -140,14 +171,37 @@ namespace TOML
 
                 WhiteScore += QueenPositionBonuses[pos];
             }
-            /*Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
+            Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
             while (Mask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask -= 1ul << pos;
+                if ((GetPassedPawnMask(pos, Piece.WHITE) & boardPosition.BitBoards[Piece.PAWN + Piece.BLACK]) == 0)
+                {
+                    WhiteScore += PassedPawnBonuses[pos >> 3];
+                }
+                
+                ushort File = 0;
+                ulong IsolatedMask = 0;
+                Position.GetXYPosition((ushort)pos, out File, out ushort Y);
+                if (File != 0)
+                {
+                    IsolatedMask |= BitBoardConstants.A_FILE << (File - 1);
+                }
+                if (File != 7)
+                {
+                    IsolatedMask |= BitBoardConstants.A_FILE << (File + 1);
+                }
+                if ((IsolatedMask & boardPosition.BitBoards[Piece.WHITE + Piece.PAWN]) == 0)
+                {
+                    //isolated
 
-                WhiteScore += PawnPositionBonuses[pos];
-            }*/
+                    WhiteScore -= 20;
+                }
+
+                //WhiteScore += PawnPositionBonuses[pos]; 
+            }
+
             Mask = boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK];
             while (Mask != 0)
             {
@@ -180,14 +234,42 @@ namespace TOML
 
                 BlackScore += QueenPositionBonuses[pos];
             }
-            /*Mask = boardPosition.BitBoards[Piece.PAWN + Piece.BLACK];
+            Mask = boardPosition.BitBoards[Piece.PAWN + Piece.BLACK];
             while (Mask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask -= 1ul << pos;
 
-                BlackScore += PawnPositionBonuses[64 - pos]; //flip the score table
-            }*/
+                if ((GetPassedPawnMask(pos, Piece.BLACK) & boardPosition.BitBoards[Piece.PAWN + Piece.WHITE]) == 0)
+                {
+                    BlackScore += PassedPawnBonuses[7 - (pos >> 3)];
+                }
+
+                ushort File = 0;
+                ulong IsolatedMask = 0;
+                Position.GetXYPosition((ushort)pos, out File, out ushort Y);
+                if (File != 0)
+                {
+                    IsolatedMask |= BitBoardConstants.A_FILE << (File - 1);
+                }
+                if (File != 7)
+                {
+                    IsolatedMask |= BitBoardConstants.A_FILE << (File + 1);
+                }
+                if ((IsolatedMask & boardPosition.BitBoards[Piece.BLACK + Piece.PAWN]) == 0)
+                {
+                    //isolated
+
+                    BlackScore -= 20;
+                }
+
+                //BlackScore += PawnPositionBonuses[64 - pos]; //flip the score table
+            }
+
+            //calculate pawn chain bonuses
+            //not working
+            //WhiteScore += PawnChainBonuses[BitOperations.PopCount(boardPosition.BitBoards[Piece.WHITE + Piece.PAWN] & boardPosition.AttackingSquaresBitBoard[Piece.WHITE + Piece.PAWN])];
+            //BlackScore += PawnChainBonuses[BitOperations.PopCount(boardPosition.BitBoards[Piece.BLACK + Piece.PAWN] & boardPosition.AttackingSquaresBitBoard[Piece.BLACK + Piece.PAWN])];
 
             return WhiteScore - BlackScore;
         }

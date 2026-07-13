@@ -6,7 +6,6 @@ using TOML;
 
 Main.Start();
 
-
 while (true)
 {
     string Msg = Console.ReadLine();
@@ -25,7 +24,7 @@ while (true)
             return;
             break;
         case "uci":
-            Console.WriteLine("id name SkibEngine");
+            Console.WriteLine("id name SkibEngine V2.0");
             Console.WriteLine("id author Jason Jiang");
             Console.WriteLine("uciok");
             break;

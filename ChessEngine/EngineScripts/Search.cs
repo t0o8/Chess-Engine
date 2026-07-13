@@ -72,7 +72,6 @@ namespace TOML
 
                     UnMove Unmove = boardPosition.MakeMove(move);
                     PositionRelativeEval = -GetEval(boardPosition, CurrentSearchDepth, -upperBound, -lowerBound);
-
                     boardPosition.UnMakeMove(Unmove);
 
                     if (PositionRelativeEval > lowerBound)
@@ -90,20 +89,18 @@ namespace TOML
                 BestMove = BestMoveThisDepth;
                 int NPS = (int)((long)EvaluatedPositions / (long)Math.Max(NPSStopWatch.ElapsedMilliseconds, 1) * 1000);
 
-
                 if (lowerBound >= -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + (-(lowerBound + EvaluationConstants.CHECKMATE_BASE_EVAL)) + " nps " + NPS);
-                } else
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(-lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions + " nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
+                } else if (lowerBound <= EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound + " nps " + NPS);
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions +" nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
+                } else 
+                {
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound.ToString() + " nodes " + EvaluatedPositions +" nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
                 }
-                CurrentSearchDepth++;
                 TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, CurrentSearchDepth, lowerBound, NodeConstants.PV);
-                if (CurrentSearchDepth == byte.MaxValue)
-                {
-                    return BestMove;
-                }
+                CurrentSearchDepth++;
             }
             return BestMove;
         }
@@ -116,6 +113,12 @@ namespace TOML
             {
                 return 0;
             }
+            if (boardPosition.FoundRepetition(boardPosition.ZobristHash) == true)
+            {
+                //draw by repetition
+                return 0;
+            }
+
             int DepthFromRoot = CurrentSearchDepth - depth + 1;
             int PositionRelativeEval = lowerBound;
             int OriginalLowerBound = lowerBound;
@@ -125,21 +128,30 @@ namespace TOML
             {
                 TranspositionEntry entry = TranspositionTable.GetTransposition(boardPosition.ZobristHash);
                 TranspositionsUsed++;
+
+                int ttEval = entry.Eval;
+                if (ttEval > -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                {
+                    ttEval -= DepthFromRoot; 
+                } else if (ttEval < EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                {
+                    ttEval += DepthFromRoot;
+                }
+
                 if (entry.Depth >= depth && entry.NodeType == NodeConstants.PV)
                 {
-                    return entry.Eval;
-                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.CUT && entry.Eval >= upperBound)
+                    return ttEval;
+                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.CUT && ttEval >= upperBound)
                 {
-                    return entry.Eval;
-                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.ALL && entry.Eval <= lowerBound)
+                    return ttEval;
+                } else if (entry.Depth >= depth && entry.NodeType == NodeConstants.ALL && ttEval <= lowerBound)
                 {
-                    return entry.Eval;
-                } 
-                else
+                    return ttEval;
+                } else
                 {
                     PredictedBestMove = entry.BestMove;
                 }
-            }
+            } 
             EvaluatedPositions++;
             MoveGeneration MoveGen = new MoveGeneration(boardPosition);
             Move[] MoveArray = MoveGen.GenerateAllLegalMoves();
@@ -155,11 +167,6 @@ namespace TOML
                     //checkmate
                     return EvaluationConstants.CHECKMATE_BASE_EVAL + DepthFromRoot;
                 }
-            }
-            if (boardPosition.FoundRepetition(boardPosition.ZobristHash) == true)
-            {
-                //draw by repetition
-                return 0;
             }
 
             Move BestMove = MoveArray[0];
@@ -191,7 +198,18 @@ namespace TOML
 
                 if (PositionRelativeEval >= upperBound)
                 {
-                    TranspositionTable.StorePosition(boardPosition.ZobristHash, move, depth, PositionRelativeEval, NodeConstants.CUT);
+                    int StoreEval = PositionRelativeEval;
+
+                    // Adjust score before storing if it's checkmate
+                    if (StoreEval > -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                    {
+                        StoreEval += DepthFromRoot;
+                    } else if (StoreEval < EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                    {
+                        StoreEval -= DepthFromRoot;
+                    }
+
+                    TranspositionTable.StorePosition(boardPosition.ZobristHash, move, depth, StoreEval, NodeConstants.CUT);
                     KillerMoves.AddMove(move, DepthFromRoot);
                     return PositionRelativeEval;
                 } else if (PositionRelativeEval > BestRelativeEval)
@@ -206,13 +224,25 @@ namespace TOML
                     lowerBound = PositionRelativeEval;
                 }
             }
+
+            int storeEval = BestRelativeEval;
+
+            // Adjust score before storing if it's checkmate
+            if (storeEval > -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+            {
+                storeEval += DepthFromRoot;
+            } else if (storeEval < EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+            {
+                storeEval -= DepthFromRoot;
+            }
+
             if (BestRelativeEval > OriginalLowerBound)
             {
-                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, depth, BestRelativeEval, NodeConstants.PV);
+                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, depth, storeEval, NodeConstants.PV);
             } else
             {
                 //no move is higher than lower bound. Thus this is an all-node
-                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, depth, BestRelativeEval, NodeConstants.ALL);
+                TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, depth, storeEval, NodeConstants.ALL);
             }
             return BestRelativeEval;
             //the position's evaluation is going the be the result of the best move the opponent can make

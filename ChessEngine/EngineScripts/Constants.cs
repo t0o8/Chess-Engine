@@ -11,6 +11,15 @@ namespace TOML
         public const ushort NoEnPassantMoves = 127;
 
     }
+    static class MoveGenConstants
+    {
+        public static ulong[] CastlingMasks = new ulong[]
+        {
+            0, 14, 96, 0, 0xe00000000000000, 0, 0, 0, 0x6000000000000000
+        };
+        public static ulong WHITE_QUEEN_CASTLE_CHECK_MASK = 12;
+        public static ulong BLACK_QUEEN_CASTLE_CHECK_MASK = 0xc00000000000000;
+    }
     static class EvaluationConstants
     {
         public const int ABSOLUTE_LOWER_BOUND = -999999;
@@ -34,10 +43,11 @@ namespace TOML
     static class BitBoardConstants
     {
         public static ulong A_FILE = 0x101010101010101;
-        public static ulong F_FILE = 0x8080808080808080;
+        public static ulong H_FILE = 0x8080808080808080;
 
         public static ulong FIRST_RANK = 0xff;
         public static ulong SECOND_RANK = 0xff00;
+        public static ulong THIRD_RANK = 0xff0000;
         public static ulong SEVENTH_RANK = 0xff000000000000;
         public static ulong EIGHT_RANK = 0xff00000000000000;
     }
@@ -97,10 +107,10 @@ namespace TOML
             int piece = PieceColors.GetColorlessPiece(BoardPosition.UshortBoard[this.startPos]);
 
             Move move = new Move(this.startPos, this.endPos);
-
+            promotionChar = char.ToLower(promotionChar);
             if (PieceColors.GetColor(BoardPosition.UshortBoard[this.startPos]) != PieceColors.GetColor(BoardPosition.UshortBoard[this.endPos]) && BoardPosition.UshortBoard[this.endPos] != 0)
             {
-                if (promotionChar == 'k')
+                if (promotionChar == 'n')
                 {
                     move = new Move(this.startPos, this.endPos, 12);
                 } else if (promotionChar == 'b')
@@ -115,7 +125,7 @@ namespace TOML
                 }
             } else
             {
-                if (promotionChar == 'k')
+                if (promotionChar == 'n')
                 {
                     move = new Move(this.startPos, this.endPos, 8);
                 } else if (promotionChar == 'b')

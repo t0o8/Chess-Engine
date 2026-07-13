@@ -13,7 +13,7 @@ namespace TOML
         public ushort HalfMoveClock;
         public ushort FullMoveNumber;
         public ushort EnPassantTargetSquare = PositionConstants.NoEnPassantMoves;
-        public ushort CastlingAvailability; // positions from left to right 1,2,3,4 corresponds to kqKQ castling
+        public ushort CastlingAvailability; // positions from left to right 1,2,3,4 corresponds to qkQK castling
         public ushort ActiveColor;
         public ushort CurrentPly;
 
@@ -271,9 +271,9 @@ namespace TOML
                 UnMoveInfo += (ushort)(UshortBoard[CaptureSquare] << 4);
                 RemovePiece(CaptureSquare, UshortBoard[CaptureSquare]);
             }
-            if (PieceWithoutColor == (ushort)PieceType.KING)
+            if (PieceWithoutColor == Piece.KING)
             {
-                if (Color == (ushort)PieceType.WHITE)
+                if (Color == Piece.WHITE)
                 {
                     ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, (CastlingAvailability & 3));
                     CastlingAvailability = (ushort)(CastlingAvailability & 12);
@@ -347,23 +347,23 @@ namespace TOML
             //castling logic
             if (move.moveInfo == (int)MoveEncodingCodes.KINGCASTLE)
             {
-                if (Color == (int)PieceType.WHITE)
+                if (Color == Piece.WHITE)
                 {
-                    MovePiece(5, 7, (int)PieceType.WHITE + (int)PieceType.ROOK);
+                    MovePiece(5, 7, Piece.WHITE + Piece.ROOK);
 
                 } else
                 {
-                    MovePiece(61, 63, (int)PieceType.BLACK + (int)PieceType.ROOK);
+                    MovePiece(61, 63, Piece.BLACK + Piece.ROOK);
 
                 }
             } else if (move.moveInfo == (int)MoveEncodingCodes.QUEENCASTLE)
             {
-                if (Color == (int)PieceType.WHITE)
+                if (Color == Piece.WHITE)
                 {
-                    MovePiece(3, 0, (int)PieceType.WHITE + (int)PieceType.ROOK);
+                    MovePiece(3, 0, Piece.WHITE + Piece.ROOK);
                 } else
                 {
-                    MovePiece(59, 56, (int)PieceType.BLACK + (int)PieceType.ROOK);
+                    MovePiece(59, 56, Piece.BLACK + Piece.ROOK);
                 }
             }
             if (move.moveInfo >> 3 == 1)
@@ -413,13 +413,11 @@ namespace TOML
             CheckCount = 0;
 
             //update other bitboards
-            AllPieceBitBoard = BitBoards[1] | BitBoards[2] | BitBoards[3] | BitBoards[4] | BitBoards[5] | BitBoards[6] | BitBoards[9] | BitBoards[10] | BitBoards[11] | BitBoards[12] | BitBoards[13] | BitBoards[14];
 
-            BitBoards[(ushort)PieceType.WHITE] = BitBoards[1] | BitBoards[2] | BitBoards[3] | BitBoards[4] | BitBoards[5] | BitBoards[6];
-            BitBoards[(ushort)PieceType.BLACK] = BitBoards[1 + (ushort)PieceType.BLACK] | BitBoards[2 + (ushort)PieceType.BLACK] | BitBoards[3 + (ushort)PieceType.BLACK] | BitBoards[4 + (ushort)PieceType.BLACK] | BitBoards[5 + (ushort)PieceType.BLACK] | BitBoards[6 + (ushort)PieceType.BLACK];
+            BitBoards[Piece.WHITE] = BitBoards[Piece.PAWN] | BitBoards[Piece.KNIGHT] | BitBoards[Piece.BISHOP] | BitBoards[Piece.ROOK] | BitBoards[Piece.QUEEN] | BitBoards[Piece.KING];
+            BitBoards[Piece.BLACK] = BitBoards[1 + Piece.BLACK] | BitBoards[2 + Piece.BLACK] | BitBoards[3 + Piece.BLACK] | BitBoards[4 + Piece.BLACK] | BitBoards[5 + Piece.BLACK] | BitBoards[6 + Piece.BLACK];
 
-            ulong SameSideBitboard = BitBoards[ActiveColor];
-            ulong DifSideBitboard = BitBoards[OppositeColor];
+            AllPieceBitBoard = BitBoards[Piece.WHITE] | BitBoards[Piece.BLACK];
 
 
             //clear the old attacking squares
@@ -435,11 +433,11 @@ namespace TOML
             if (ActiveColor == Piece.WHITE)
             {
                 PawnLeftAttackMask = ((PawnBitBoard & ~BitBoardConstants.A_FILE) >> 9);
-                PawnRightAttackMask = ((PawnBitBoard & ~BitBoardConstants.F_FILE) >> 7);
+                PawnRightAttackMask = ((PawnBitBoard & ~BitBoardConstants.H_FILE) >> 7);
             } else
             {
                 PawnLeftAttackMask = ((PawnBitBoard & ~BitBoardConstants.A_FILE) << 7);
-                PawnRightAttackMask = ((PawnBitBoard & ~BitBoardConstants.F_FILE) << 9);
+                PawnRightAttackMask = ((PawnBitBoard & ~BitBoardConstants.H_FILE) << 9);
             }
 
             AttackingSquaresBitBoard[OppositeColor] |= PawnLeftAttackMask;
@@ -450,7 +448,7 @@ namespace TOML
             if (ActiveColor == Piece.WHITE)
             {
                 ulong Left = ((((1ul << KingPos) & ~BitBoardConstants.A_FILE) << 7) & BitBoards[OppositeColor + Piece.PAWN]);
-                ulong Right = ((((1ul << KingPos) & ~BitBoardConstants.F_FILE) << 9) & BitBoards[OppositeColor + Piece.PAWN]);
+                ulong Right = ((((1ul << KingPos) & ~BitBoardConstants.H_FILE) << 9) & BitBoards[OppositeColor + Piece.PAWN]);
 
                 if (Left != 0)
                 {
@@ -465,7 +463,7 @@ namespace TOML
             } else
             {
                 ulong Left = ((((1ul << KingPos) & ~BitBoardConstants.A_FILE) >> 9) & BitBoards[OppositeColor + Piece.PAWN]);
-                ulong Right = ((((1ul << KingPos) & ~BitBoardConstants.F_FILE) >> 7) & BitBoards[OppositeColor + Piece.PAWN]);
+                ulong Right = ((((1ul << KingPos) & ~BitBoardConstants.H_FILE) >> 7) & BitBoards[OppositeColor + Piece.PAWN]);
                 if (Left != 0)
                 {
                     CheckCount++;
@@ -481,7 +479,7 @@ namespace TOML
             while (KnightMask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(KnightMask);
-                KnightMask -= 1ul << pos;
+                KnightMask &= KnightMask - 1;
 
                 AttackingSquaresBitBoard[OppositeColor] |= PrecomputedInfo.KnightMovesBitBoard[pos];
             }
@@ -491,7 +489,7 @@ namespace TOML
             while (BishopMask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(BishopMask);
-                BishopMask -= 1ul << pos;
+                BishopMask &= BishopMask - 1;
 
                 AttackingSquaresBitBoard[OppositeColor] |= GetBishopAttacks(pos, AllPieceBitBoard & PrecomputedInfo.BishopBlockingMasks[pos] & ~BitBoards[ActiveColor + Piece.KING]);
             }
@@ -499,7 +497,7 @@ namespace TOML
             while (RookMask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(RookMask);
-                RookMask -= 1ul << pos;
+                RookMask &= RookMask - 1;
 
                 AttackingSquaresBitBoard[OppositeColor] |= GetRookAttacks(pos, AllPieceBitBoard & PrecomputedInfo.RookBlockingMasks[pos] & ~BitBoards[ActiveColor + Piece.KING]);
             }
@@ -517,7 +515,7 @@ namespace TOML
             while (PossiblePinners != 0)
             {
                 int PossiblePinner = BitOperations.TrailingZeroCount(PossiblePinners);
-                PossiblePinners -= 1ul << PossiblePinner;
+                PossiblePinners &= PossiblePinners - 1;
 
                 ulong PossibleBlockers = PrecomputedInfo.InBetweenBitBoard[KingPos][PossiblePinner] & AllPieceBitBoard;
                 int PossiblePinned = BitOperations.TrailingZeroCount(PossibleBlockers);
@@ -530,13 +528,13 @@ namespace TOML
 
             if (BitOperations.PopCount(Checkers) >0 )
             {
-                CheckCount+= BitOperations.PopCount(Checkers);
+                CheckCount += BitOperations.PopCount(Checkers);
                 InCheckValidSquares &= Checkers + PrecomputedInfo.InBetweenBitBoard[KingPos][BitOperations.TrailingZeroCount(Checkers)];
             }
 
             if ((PrecomputedInfo.KnightMovesBitBoard[KingPos] & BitBoards[OppositeColor + Piece.KNIGHT]) != 0)
             {
-                CheckCount++;
+                CheckCount ++;
                 InCheckValidSquares &= PrecomputedInfo.KnightMovesBitBoard[KingPos] & BitBoards[OppositeColor + Piece.KNIGHT];
             }
         }
@@ -562,10 +560,10 @@ namespace TOML
         {
             if (char.IsLower(piece) == true)
             {
-                return (ushort)PieceType.BLACK;
+                return Piece.BLACK;
             } else
             {
-                return (ushort)PieceType.WHITE;
+                return Piece.WHITE;
             }
         }
         public static string NumberToBoardLetter(ushort num)
@@ -600,7 +598,7 @@ namespace TOML
         {
             BitBoards[piece] -= 1ul << startPos;
             BitBoards[piece] += 1ul << endPos;
-            UshortBoard[startPos] = (ushort)PieceType.EMPTY;
+            UshortBoard[startPos] = Piece.EMPTY;
             UshortBoard[endPos] = piece;
             ZobristHash = ZobristHashing.MovePiece(ZobristHash, startPos, endPos, piece);
         }
