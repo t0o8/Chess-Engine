@@ -24,7 +24,7 @@ namespace TOML{
     public static class TranspositionTable
     {
         const int TABLE_SIZE = 1048576;
-
+        
 
         static TranspositionEntry[] Table = new TranspositionEntry[TABLE_SIZE];
 
@@ -45,9 +45,9 @@ namespace TOML{
             }
             return false;
         }
-        public static TranspositionEntry GetTransposition(ulong zobirstKey)
+        public static ref TranspositionEntry GetTransposition(ulong zobristKey)
         {
-            return Table[GetIndex(zobirstKey)];
+            return ref Table[GetIndex(zobristKey)];
         }
         static int GetIndex(ulong zobristKey)
         {

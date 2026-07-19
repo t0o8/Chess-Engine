@@ -60,7 +60,7 @@
     },
     "config_name": "config.json",
     "output": 0,
-    "seed": 5415467080135073530,
+    "seed": 457835646244317160,
     "variant": 0,
     "type": 0,
     "gauntlet_seeds": 1,
@@ -130,15 +130,15 @@
     ],
     "stats": {
         "ChessEngine vs stash-bot-10": {
-            "wins": 43,
-            "losses": 59,
-            "draws": 16,
-            "penta_WW": 9,
-            "penta_WD": 5,
-            "penta_WL": 20,
-            "penta_DD": 2,
-            "penta_LD": 7,
-            "penta_LL": 16
+            "wins": 720,
+            "losses": 761,
+            "draws": 271,
+            "penta_WW": 142,
+            "penta_WD": 122,
+            "penta_WL": 314,
+            "penta_DD": 20,
+            "penta_LD": 109,
+            "penta_LL": 169
         }
     }
 }

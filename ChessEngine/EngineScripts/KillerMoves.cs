@@ -13,12 +13,12 @@ namespace TOML
 
         public static bool ContainsMove(Move move, int depth)
         {
-            if (MovesTable[depth, 0].Equals(move) || MovesTable[depth, 1].Equals(move)) { return true; }
+            if (MovesTable[depth, 0].IsEqual(move) || MovesTable[depth, 1].IsEqual(move)) { return true; }
             return false;
         }
         public static void AddMove(Move move, int depth)
         {
-            if (MovesTable[depth, 0].Equals(move)) { return; }
+            if (MovesTable[depth, 0].IsEqual(move)) { return; }
 
             MovesTable[depth, 1] = MovesTable[depth, 0];
             MovesTable[depth, 0] = move;

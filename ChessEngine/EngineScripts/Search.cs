@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+
 
 namespace TOML
 {
+    [SkipLocalsInit]
     public class Search
     {
         public static int branches = 0;
@@ -19,8 +23,11 @@ namespace TOML
         public static Stopwatch NPSStopWatch = new Stopwatch();
 
         static byte CurrentSearchDepth = 1;
+        
+
+
         //time limit is in miliseconds
-        public static Move BeginSearch(Position boardPositionReference, int timeLimit)
+        public static Move BeginSearch(Position boardPosition, int timeLimit)
         {
             TimeManager.StartStopWatch();
             TimeManager.SetTimeLimit(timeLimit);
@@ -31,20 +38,20 @@ namespace TOML
             CurrentSearchDepth = 1;
             SearchCancelled = false;
 
-            Position boardPosition = new Position(boardPositionReference);
-
             KillerMoves.ResetTable();
 
-            MoveGeneration MoveGen = new MoveGeneration(boardPosition);
-            Move[] MoveArray = MoveGen.GenerateAllLegalMoves();
+            Span<Move> MoveList = stackalloc Move[MoveGenConstants.MAX_POSSIBLE_LEGAL_MOVES];
+            byte MoveCount = MoveGeneration.GenerateAllPseudoLegalMoves(boardPosition, MoveList);
 
-            if (MoveArray.Length == 0)
+
+            if (MoveCount == 0)
             {
                 return new Move();
             }
 
-            MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
-            Move BestMove = MoveArray[0];
+            Span<int> MoveValueList = stackalloc int[MoveCount];
+            
+            Move BestMove = MoveList[0];
             //iterative deepening
             while (SearchCancelled == false)
             {
@@ -54,25 +61,27 @@ namespace TOML
 
                 int PositionRelativeEval = lowerBound;
 
-                Move BestMoveThisDepth = MoveArray[0];
+                Move BestMoveThisDepth = BestMove;
 
-                MoveOrder.OrderMoves(BestMove, CurrentSearchDepth);
+                MoveOrdering.GenerateMoveValues(boardPosition, MoveValueList, MoveList, MoveCount, BestMove, CurrentSearchDepth);
 
-                EvaluatedPositions++;
-
-                for (int i = 0; i < MoveArray.Length; i++)
+                for (int i = 0; i < MoveCount; i++)
                 {
-                    Move move = MoveOrder.GetNextMove();
-
+                    Move move = MoveOrdering.GetNextMove(MoveList, MoveCount, MoveValueList, i);
+                    if (boardPosition.IsLegal(move) == false)
+                    {
+                        continue;
+                    }
+                    UnMove Unmove = boardPosition.MakeMove(move);
+                    PositionRelativeEval = -GetEval(boardPosition, (byte)(CurrentSearchDepth - 1), -upperBound, -lowerBound);
+                    boardPosition.UnMakeMove(Unmove);
                     //since we return 0 when search is cancelled we must check that the eval is from a search that isn't cancelled
                     if (SearchCancelled == true)
                     {
-                        return BestMove;
+                        //if we fix the previous best move as the first move then any changes would be "better" at the new depth,
+                        //since we've realized the previous move wasn't as good as we thought it to be 
+                        return BestMoveThisDepth;
                     }
-
-                    UnMove Unmove = boardPosition.MakeMove(move);
-                    PositionRelativeEval = -GetEval(boardPosition, CurrentSearchDepth, -upperBound, -lowerBound);
-                    boardPosition.UnMakeMove(Unmove);
 
                     if (PositionRelativeEval > lowerBound)
                     {
@@ -84,23 +93,27 @@ namespace TOML
                 }
                 if (SearchCancelled == true)
                 {
-                    return BestMove;
+                    return BestMoveThisDepth;
                 }
                 BestMove = BestMoveThisDepth;
                 int NPS = (int)((long)EvaluatedPositions / (long)Math.Max(NPSStopWatch.ElapsedMilliseconds, 1) * 1000);
 
                 if (lowerBound >= -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(-lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions + " nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(-lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions + " nps " + NPS);
                 } else if (lowerBound <= EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions +" nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions +" nps " + NPS);
                 } else 
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound.ToString() + " nodes " + EvaluatedPositions +" nps " + NPS + " pv " + Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos));
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound.ToString() + " nodes " + EvaluatedPositions +" nps " + NPS); //+ Position.NumberToBoardLetter(BestMove.startPos) + Position.NumberToBoardLetter(BestMove.endPos)
                 }
                 TranspositionTable.StorePosition(boardPosition.ZobristHash, BestMove, CurrentSearchDepth, lowerBound, NodeConstants.PV);
                 CurrentSearchDepth++;
+                if (CurrentSearchDepth == byte.MaxValue)
+                {
+                    return BestMove;
+                }
             }
             return BestMove;
         }
@@ -124,20 +137,18 @@ namespace TOML
             int OriginalLowerBound = lowerBound;
             Move PredictedBestMove = new Move();
 
-            if (TranspositionTable.ContainsTransposition(boardPosition.ZobristHash))
+            ref TranspositionEntry entry = ref TranspositionTable.GetTransposition(boardPosition.ZobristHash);
+            if (entry.ZobristKey == boardPosition.ZobristHash)
             {
-                TranspositionEntry entry = TranspositionTable.GetTransposition(boardPosition.ZobristHash);
                 TranspositionsUsed++;
-
                 int ttEval = entry.Eval;
                 if (ttEval > -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
-                    ttEval -= DepthFromRoot; 
+                    ttEval -= DepthFromRoot;
                 } else if (ttEval < EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
                 {
                     ttEval += DepthFromRoot;
                 }
-
                 if (entry.Depth >= depth && entry.NodeType == NodeConstants.PV)
                 {
                     return ttEval;
@@ -151,48 +162,55 @@ namespace TOML
                 {
                     PredictedBestMove = entry.BestMove;
                 }
-            } 
-            EvaluatedPositions++;
-            MoveGeneration MoveGen = new MoveGeneration(boardPosition);
-            Move[] MoveArray = MoveGen.GenerateAllLegalMoves();
-
-            if (MoveArray.Length == 0)
-            {
-                if (boardPosition.CheckCount == 0)
-                {
-                    //stalemate
-                    return 0;
-                } else
-                {
-                    //checkmate
-                    return EvaluationConstants.CHECKMATE_BASE_EVAL + DepthFromRoot;
-                }
             }
-
-            Move BestMove = MoveArray[0];
 
             if (depth == 0)
             {
                 return SearchCaptures(boardPosition, lowerBound, upperBound);
             }
+            EvaluatedPositions++;
+            Span<Move> MoveList = stackalloc Move[MoveGenConstants.MAX_POSSIBLE_LEGAL_MOVES];
+            Byte MoveCount = MoveGeneration.GenerateAllPseudoLegalMoves(boardPosition, MoveList);
 
+            bool HasLegalMove = false;
+            //fix at some point
+            Move BestMove = new Move();
 
-            MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
-            MoveOrder.OrderMoves(PredictedBestMove, DepthFromRoot);
+            Span<int> MoveValueList = stackalloc int[MoveCount];
+            MoveOrdering.GenerateMoveValues(boardPosition, MoveValueList, MoveList, MoveCount, PredictedBestMove, DepthFromRoot);
 
             int BestRelativeEval = EvaluationConstants.ABSOLUTE_LOWER_BOUND;
 
-            for (int i = 0; i < MoveArray.Length; i++)
+            //check to see if we can use futility pruning
+            bool FutilityPruningPossible = true;
+
+            if (boardPosition.CheckCount >0 || lowerBound <= EvaluationConstants.CHECKMATE_MINIMAL_EVAL || upperBound >= -EvaluationConstants.CHECKMATE_BASE_EVAL)
             {
-                Move move = MoveOrder.GetNextMove();
+                FutilityPruningPossible = false;
+            }
+            for (int i = 0; i < MoveCount; i++)
+            {
+                Move move = MoveOrdering.GetNextMove(MoveList, MoveCount, MoveValueList, i);
+                if (boardPosition.IsLegal(move) == false)
+                {
+                    continue;
+                }
+                HasLegalMove = true;
                 UnMove Unmove = boardPosition.MakeMove(move);
+
+                //futility pruning
+                if (FutilityPruningPossible && -Evaluation.GetRelativeEvaluation(boardPosition) < (lowerBound - 300) && boardPosition.CheckCount == 0 && (move.moveInfo & 4) != 4)
+                {
+                    boardPosition.UnMakeMove(Unmove);
+                    continue;
+                }
 
                 PositionRelativeEval = -GetEval(boardPosition, (byte)(depth - 1), -upperBound, -lowerBound);
                 boardPosition.UnMakeMove(Unmove);
 
+
                 if (SearchCancelled)
                 {
-                    SearchCancelled = true;
                     return 0;
                 }
 
@@ -224,7 +242,18 @@ namespace TOML
                     lowerBound = PositionRelativeEval;
                 }
             }
-
+            if (HasLegalMove == false)
+            {
+                if (boardPosition.CheckCount == 0)
+                {
+                    //stalemate
+                    return 0;
+                } else
+                {
+                    //checkmate
+                    return EvaluationConstants.CHECKMATE_BASE_EVAL + DepthFromRoot;
+                }
+            }
             int storeEval = BestRelativeEval;
 
             // Adjust score before storing if it's checkmate
@@ -256,29 +285,33 @@ namespace TOML
                 return 0;
             }
 
-            MoveGeneration MoveGen = new MoveGeneration(boardPosition);
-            Move[] MoveArray = MoveGen.GenerateAllLegalMoves(true);
-
             int PositionEvaluation = Evaluation.GetRelativeEvaluation(boardPosition);
             EvaluatedPositions++;
 
             //null move observatrion
-            if (PositionEvaluation >= upperBound) { return PositionEvaluation; } //position is too good. Opponent will avoid
+            if (PositionEvaluation >= upperBound) {
+                return PositionEvaluation; } //position is too good. Opponent will avoid
 
-            if (MoveArray.Length == 0)
+            Span<Move> MoveList = stackalloc Move[MoveGenConstants.MAX_POSSIBLE_LEGAL_MOVES];
+            Byte MoveCount = MoveGeneration.GenerateAllPseudoLegalMoves(boardPosition, MoveList, true);
+
+            if (MoveCount == 0)
             {
-
                 return PositionEvaluation;
             }
 
-            MoveOrdering MoveOrder = new MoveOrdering(MoveArray, boardPosition);
+            Span<int> MoveValueList = stackalloc int[MoveCount];
+            MoveOrdering.GenerateMoveValues(boardPosition, MoveValueList, MoveList, MoveCount, new Move(), 100);
+
+            bool FoundLegalMove = false;
 
             //not all captures are forced, we only want to look at those which lead to a better position. Assume that the base evaluation is the evaluation of a "quiet" move
             //null move observation
             lowerBound = Math.Max(lowerBound, PositionEvaluation);
             
-            foreach (Move move in MoveOrder.GetOrderedMoves())
+            for (int i = 0; i < MoveCount; i++)
             {
+                Move move = MoveOrdering.GetNextMove(MoveList, MoveCount, MoveValueList, i);
                 //delta pruning
                 ushort PositionEvalIncrease = Evaluation.PieceTypeToPieceValue[PieceColors.GetColorlessPiece(boardPosition.UshortBoard[move.endPos])];
                 ushort DeltaPruningSafetyMargin = 300;
@@ -293,6 +326,13 @@ namespace TOML
                     //even after capture this position is still not good enough, ignore this move
                     continue;
                 }
+                if (boardPosition.IsLegal(move) == false)
+                {
+                    continue;
+                } else
+                {
+                    FoundLegalMove = true;
+                }
 
                 UnMove Unmove = boardPosition.MakeMove(move);
                 int Eval = -SearchCaptures(boardPosition, -upperBound, -lowerBound);
@@ -306,6 +346,10 @@ namespace TOML
                 {
                     lowerBound = Eval;
                 }
+            }
+            if (FoundLegalMove == false)
+            {
+                return PositionEvaluation;
             }
             return lowerBound;
         }

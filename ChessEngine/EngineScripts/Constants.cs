@@ -9,6 +9,18 @@ namespace TOML
     static class PositionConstants
     {
         public const ushort NoEnPassantMoves = 127;
+        public static ushort[] CASTLING_MASK = new ushort[]
+        {
+            13, 15, 15, 15, 12, 15, 15, 14,
+            15, 15, 15, 15, 15, 15, 15, 15,
+            15, 15, 15, 15, 15, 15, 15, 15,
+            15, 15, 15, 15, 15, 15, 15, 15,
+            15, 15, 15, 15, 15, 15, 15, 15,
+            15, 15, 15, 15, 15, 15, 15, 15,
+            15, 15, 15, 15, 15, 15, 15, 15,
+             7, 15, 15, 15,  3, 15, 15, 11,
+        };
+
 
     }
     static class MoveGenConstants
@@ -17,8 +29,10 @@ namespace TOML
         {
             0, 14, 96, 0, 0xe00000000000000, 0, 0, 0, 0x6000000000000000
         };
-        public static ulong WHITE_QUEEN_CASTLE_CHECK_MASK = 12;
-        public static ulong BLACK_QUEEN_CASTLE_CHECK_MASK = 0xc00000000000000;
+        public const ulong WHITE_QUEEN_CASTLE_CHECK_MASK = 12;
+        public const ulong BLACK_QUEEN_CASTLE_CHECK_MASK = 0xc00000000000000;
+
+        public const byte MAX_POSSIBLE_LEGAL_MOVES = 218;
     }
     static class EvaluationConstants
     {
@@ -250,13 +264,7 @@ namespace TOML
         }
         public static ushort GetOppositeColor(ushort color)
         {
-            if (color == (ushort)PieceType.WHITE)
-            {
-                return (ushort)PieceType.BLACK;
-            } else
-            {
-                return (ushort)PieceType.WHITE;
-            } 
+            return (ushort)(color ^ 8);
         }
     }
     static class BoardPositionHelper

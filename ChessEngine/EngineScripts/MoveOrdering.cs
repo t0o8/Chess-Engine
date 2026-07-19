@@ -5,25 +5,11 @@ using System.Linq;
 
 namespace TOML
 {
-    class MoveOrdering
+    static class MoveOrdering
     {
-        Position boardPosition;
-        int[] MoveValues;
-        public Move[] Moves;
-        Move PredictedGoodMove;
-        int DepthFromRoot = 100;
-
-        int MoveIndex;
-        public MoveOrdering(Move[] moves, Position boardPosition)
+        public static void GenerateMoveValues(Position boardPosition, Span<int> MoveValues, Span<Move> Moves, byte MoveCount, Move PredictedGoodMove, int depthFromRoot)
         {
-            Moves = moves;
-            MoveValues = new int[moves.Length];
-            this.boardPosition = boardPosition;
-            MoveIndex = 0;
-        }
-        public void GenerateMoveValues()
-        {
-            for(int i = 0; i < Moves.Length; i++) 
+            for(int i = 0; i < MoveCount; i++) 
             {
                 Move move = Moves[i];
                 int MoveValue = 0;
@@ -34,11 +20,11 @@ namespace TOML
                 {
                     MoveValue += 200000; //arbitrary really large number, bumps move to the front
                 }
-                if (KillerMoves.ContainsMove(move, DepthFromRoot))
+                if (KillerMoves.ContainsMove(move, depthFromRoot))
                 {
                     MoveValue += 100000; // arbitrary really large number, should be smaller than the TT bump though
                 }
-                if ((move.moveInfo) == (ushort)MoveEncodingCodes.CAPTURE)
+                if ((move.moveInfo & 4) == (ushort)MoveEncodingCodes.CAPTURE)
                 {
                     ushort CapturedPieceValue = Evaluation.PieceTypeToPieceValue[(ushort)(boardPosition.UshortBoard[move.endPos] & 7)];
                     MoveValue += ((CapturedPieceValue * 10) - PieceValue);
@@ -48,43 +34,16 @@ namespace TOML
                     //promotion is likely to be good
                     MoveValue += Evaluation.PieceTypeToPieceValue[(ushort)((move.moveInfo & 3) + 2)];
                 }
-                if ((((boardPosition.AttackingSquaresBitBoard[(boardPosition.ActiveColor ^ 8) + (ushort)PieceType.PAWN]) >> move.endPos) & 1) == 1)
-                {
-                    //moving onto square attacked by pawn is bad
-                    MoveValue -= PieceValue - 50;
-                } else if (((boardPosition.AttackingSquaresBitBoard[boardPosition.ActiveColor ^ 8] >> move.endPos) & 1) == 1)
-                {
-                    MoveValue -= Math.Max(0, PieceValue - 200) ;
-                }
-                this.MoveValues[i] = MoveValue;
+
+                MoveValues[i] = MoveValue;
             }
         }
-        public Move[] GetOrderedMoves()
-        {
-            GenerateMoveValues();
-            OrderMoves();
-            return Moves;
-        }
-        //rearranges moves but guarentees the "best" move is first. Not working or used right now
-        public Move[] GetOrderedMoves(Move bestMove)
-        {
-            GenerateMoveValues();
-            PredictedGoodMove = bestMove;
-            return Moves;
-        }
-        public void OrderMoves(Move bestMove, int depthFromRoot)
-        {
-            PredictedGoodMove = bestMove;
-            DepthFromRoot = depthFromRoot;
-            GenerateMoveValues();
-            MoveIndex = 0;
-        }
-        public Move GetNextMove()
+        public static Move GetNextMove(Span<Move> Moves, byte MoveCount, Span<int> MoveValues, int MoveIndex)
         {
             Move PickedMove = Moves[MoveIndex];
             int HighestValue = MoveValues[MoveIndex];
             int HighestValueIndex = MoveIndex;
-            for (int i = MoveIndex + 1; i < Moves.Length; i++)
+            for (int i = MoveIndex; i < MoveCount; i++)
             {
                 if (MoveValues[i] > HighestValue)
                 {
@@ -96,26 +55,7 @@ namespace TOML
             }
             (Moves[MoveIndex], Moves[HighestValueIndex]) = (Moves[HighestValueIndex], Moves[MoveIndex]);
             (MoveValues[MoveIndex], MoveValues[HighestValueIndex]) = (MoveValues[HighestValueIndex], MoveValues[MoveIndex]);
-            MoveIndex++;
             return PickedMove;
-        }
-        public void OrderMoves()
-        {
-            for (int i = 0; i < Moves.Length; i++)
-            {
-                float HighestValue = MoveValues[i];
-                int HighestValueIndex = i;
-                for (int v = i; v < Moves.Length; v++)
-                {
-                    if (MoveValues[v] > HighestValue)
-                    {
-                        HighestValue = MoveValues[v];
-                        HighestValueIndex = v;
-                    }
-                }
-                (Moves[i], Moves[HighestValueIndex]) = (Moves[HighestValueIndex], Moves[i]);
-                (MoveValues[i], MoveValues[HighestValueIndex]) = (MoveValues[HighestValueIndex], MoveValues[i]);
-            }
         }
     }
 }

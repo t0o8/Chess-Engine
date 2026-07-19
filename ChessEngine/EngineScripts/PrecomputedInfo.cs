@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net;
 
 namespace TOML
@@ -31,14 +32,21 @@ namespace TOML
         public readonly static int[] BishopBlockingMaskCount = new int[64];
         public readonly static int[] RookBlockingMaskCount = new int[64];
 
+        public readonly static int[] BishopMagicShift = new int[64];
+        public readonly static int[] RookMagicShift = new int[64];
+
         public readonly static ulong[][] BishopMovesBitBoard = new ulong[64][];
         public readonly static ulong[][] RookMovesBitBoard = new ulong[64][];
 
         public readonly static ulong[] KnightMovesBitBoard = new ulong[64];
         public readonly static ulong[] KingMovesBitBoard = new ulong[64];
 
+        public readonly static ulong[][] PawnAttacksBitBoard = new ulong[64][];
+
         public readonly static ulong[][] InBetweenBitBoard = new ulong[64][];
         public readonly static ulong[][] LineBitBoard = new ulong[64][];
+
+        public readonly static ulong[][] PassedPawnMask = new ulong[64][];
 
         public static void PrecomputeInfo()
         {
@@ -64,6 +72,34 @@ namespace TOML
                     (short)Math.Min(Down, Right),
                 };
                 //precompute bitboards
+
+                //pawns
+                PawnAttacksBitBoard[i] = new ulong[9];
+                if (XPos > 0)
+                {
+                    //right
+                    if (YPos < 7)
+                    {
+                        PawnAttacksBitBoard[i][0] |= 1ul << i + 7;
+                    }
+                    if (YPos > 0)
+                    {
+                        PawnAttacksBitBoard[i][8] |= 1ul << i - 9;
+                    }
+                }
+                if (XPos < 7)
+                {
+                    //left
+                    if (YPos < 7)
+                    {
+                        PawnAttacksBitBoard[i][0] |= 1ul << i + 9;
+                    }
+                    if (YPos > 0)
+                    {
+                        PawnAttacksBitBoard[i][8] |= 1ul << i - 7;
+                    }
+                }
+
                 InBetweenBitBoard[i] = new ulong[64];
                 LineBitBoard[i] = new ulong[64];
                 for (int DirectionIndex = 0; DirectionIndex < 8; DirectionIndex++)
@@ -117,6 +153,7 @@ namespace TOML
                         }
                     }
                 }
+                BishopMagicShift[i] = 64 - BishopBlockingMaskCount[i];
                 BishopMovesBitBoard[i] = new ulong[MagicNumberGenerator.GetBlockerMaskSize(BishopBlockingMasks[i])];
                 for (ulong BlockerIndex = 0; BlockerIndex < MagicNumberGenerator.GetBlockerMaskSize(BishopBlockingMasks[i]); BlockerIndex++)
                 {
@@ -159,6 +196,7 @@ namespace TOML
                         }
                     }
                 }
+                RookMagicShift[i] = 64 - RookBlockingMaskCount[i];
                 RookMovesBitBoard[i] = new ulong[MagicNumberGenerator.GetBlockerMaskSize(RookBlockingMasks[i])];
                 for (ulong BlockerIndex = 0; BlockerIndex < MagicNumberGenerator.GetBlockerMaskSize(RookBlockingMasks[i]); BlockerIndex++)
                 {
@@ -220,6 +258,27 @@ namespace TOML
                     KingMovesBitBoard[i] += 1ul << (DirectionOffset[MoveNum] + i);
                 }
                 PossibleKingMoves[i] = KingMoves.ToArray();
+
+                //do pawn stuff now
+
+                ushort File = 0;
+                Position.GetXYPosition((ushort)i, out File, out ushort Y);
+                ulong Mask = 0;
+                if (File != 0)
+                {
+                    Mask |= BitBoardConstants.A_FILE << (File - 1);
+                }
+                if (File != 7)
+                {
+                    Mask |= BitBoardConstants.A_FILE << (File + 1);
+                }
+
+                Mask |= BitBoardConstants.A_FILE << File;
+                ulong WhiteMask = Mask & ulong.MaxValue << ((Y + 1) * 8);
+                ulong BlackMask = Mask & ulong.MaxValue >> (8 - (Y + 1) * 8);
+                PassedPawnMask[i] = new ulong[9];
+                PassedPawnMask[i][Piece.WHITE] = WhiteMask;
+                PassedPawnMask[i][Piece.BLACK] = BlackMask;
 
             }
             Console.WriteLine("precompute info done");

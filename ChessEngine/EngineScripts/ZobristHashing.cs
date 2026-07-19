@@ -19,17 +19,17 @@ public static class ZobristHashing
     // 640 - 703: white king
     // 704 - 767: black king
     // 768: side to move is black
-    // 769 - 772: castling in order KQkq
-    // 773 - 780: en passant file
-    const int RandomNumArraySize = 781;
+    // 769 - 784: castling 
+    // 785 - 792: en passant file
+    const int RandomNumArraySize = 793;
 
     static ulong[] PseudoRandomNumbers = new ulong[RandomNumArraySize];
 
     public static void GeneratePseudoRandomNumbers()
     {
+        System.Random rnd = new System.Random();
         for (int i = 0; i < RandomNumArraySize; i++) {
             byte[] buffer = new byte[8];
-            System.Random rnd = new System.Random();
             rnd.NextBytes(buffer);
             PseudoRandomNumbers[i] =  BitConverter.ToUInt64(buffer, 0);
         }
@@ -58,32 +58,16 @@ public static class ZobristHashing
         key ^= PseudoRandomNumbers[posIndex];
         return key;
     }
-    //castling index is the actual value
     public static ulong ChangeCastling(ulong key, int castlingValue)
     {
-        if ((castlingValue & 1) == 1)
-        {
-            key ^= PseudoRandomNumbers[769];
-        } 
-        if ((castlingValue & 2) == 2)
-        {
-            key ^= PseudoRandomNumbers[770];
-        } 
-        if ((castlingValue & 4) == 4)
-        {
-            key ^= PseudoRandomNumbers[771];
-        } 
-        if ((castlingValue & 8) == 8)
-        {
-            key ^= PseudoRandomNumbers[772];
-        }
+        key ^= PseudoRandomNumbers[769 + castlingValue];
 
         return key;
     }
     public static ulong ChangeEnpassant(ulong key, int enpassantPos)
     {
-        int File = enpassantPos % 8;
-        key ^= PseudoRandomNumbers[773 + File];
+        int File = enpassantPos >> 3;
+        key ^= PseudoRandomNumbers[785 + File];
 
         return key;
     }
@@ -100,7 +84,7 @@ public static class ZobristHashing
         while (PawnMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(PawnMask);
-            PawnMask -= 1ul << pos;
+            PawnMask &= PawnMask - 1;
 
             key ^= PseudoRandomNumbers[pos];
         }
@@ -108,103 +92,88 @@ public static class ZobristHashing
         while (PawnMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(PawnMask);
-            PawnMask -= 1ul << pos;
+            PawnMask &= PawnMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 64];
         }
 
-        ulong KnightMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
+        ulong KnightMask = position.BitBoards[Piece.KNIGHT + Piece.WHITE];
         while (KnightMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(KnightMask);
-            KnightMask -= 1ul << pos;
+            KnightMask &= KnightMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 128];
         }
-        KnightMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
+        KnightMask = position.BitBoards[Piece.KNIGHT + Piece.BLACK];
         while (KnightMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(KnightMask);
-            KnightMask -= 1ul << pos;
+            KnightMask &= KnightMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 192];
         }
 
-        ulong BishopMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
+        ulong BishopMask = position.BitBoards[Piece.BISHOP + Piece.WHITE];
         while (BishopMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(BishopMask);
-            BishopMask -= 1ul << pos;
+            BishopMask &= BishopMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 256];
         }
-        BishopMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
+        BishopMask = position.BitBoards[Piece.BISHOP + Piece.BLACK];
         while (BishopMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(BishopMask);
-            BishopMask -= 1ul << pos;
+            BishopMask &= BishopMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 320];
         }
 
-        ulong RookMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
-        while (BishopMask != 0)
-        {
-            int pos = BitOperations.TrailingZeroCount(RookMask);
-            RookMask -= 1ul << pos;
-
-            key ^= PseudoRandomNumbers[pos + 384];
-        }
-        RookMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
+        ulong RookMask = position.BitBoards[Piece.ROOK + Piece.WHITE];
         while (RookMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(RookMask);
-            RookMask -= 1ul << pos;
+            RookMask &= RookMask - 1;
+
+            key ^= PseudoRandomNumbers[pos + 384];
+        }
+        RookMask = position.BitBoards[Piece.ROOK + Piece.BLACK];
+        while (RookMask != 0)
+        {
+            int pos = BitOperations.TrailingZeroCount(RookMask);
+            RookMask &= RookMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 448];
         }
 
-        ulong QueenMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
-        while (BishopMask != 0)
-        {
-            int pos = BitOperations.TrailingZeroCount(QueenMask);
-            QueenMask -= 1ul << pos;
-
-            key ^= PseudoRandomNumbers[pos + 512];
-        }
-        QueenMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
+        ulong QueenMask = position.BitBoards[Piece.QUEEN + Piece.WHITE];
         while (QueenMask != 0)
         {
             int pos = BitOperations.TrailingZeroCount(QueenMask);
-            QueenMask -= 1ul << pos;
+            QueenMask &= QueenMask - 1;
+
+            key ^= PseudoRandomNumbers[pos + 512];
+        }
+        QueenMask = position.BitBoards[Piece.QUEEN + Piece.BLACK];
+        while (QueenMask != 0)
+        {
+            int pos = BitOperations.TrailingZeroCount(QueenMask);
+            QueenMask &= QueenMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 576];
         }
         key ^= PseudoRandomNumbers[BitOperations.TrailingZeroCount(position.BitBoards[Piece.KING + Piece.WHITE]) + 640];
-        key ^= PseudoRandomNumbers[BitOperations.TrailingZeroCount(position.BitBoards[Piece.KING + Piece.WHITE]) + 704];
+        key ^= PseudoRandomNumbers[BitOperations.TrailingZeroCount(position.BitBoards[Piece.KING + Piece.BLACK]) + 704];
         if (position.ActiveColor == (ushort)PieceType.BLACK)
         {
             key ^= PseudoRandomNumbers[768];
         }
-        if ((position.CastlingAvailability & 1) == 1)
-        {
-            key ^= PseudoRandomNumbers[769];
-        }
-        if ((position.CastlingAvailability & 2) == 2)
-        {
-            key ^= PseudoRandomNumbers[770];
-        }
-        if ((position.CastlingAvailability & 4) == 4)
-        {
-            key ^= PseudoRandomNumbers[771];
-        }
-        if ((position.CastlingAvailability & 8) == 8)
-        {
-            key ^= PseudoRandomNumbers[772];
-        }
+        key ^= PseudoRandomNumbers[769 + position.CastlingAvailability];
         if (position.EnPassantTargetSquare != PositionConstants.NoEnPassantMoves)
         {
-            key ^= PseudoRandomNumbers[773 +  position.EnPassantTargetSquare % 8];
+            key ^= PseudoRandomNumbers[785 + position.EnPassantTargetSquare % 8];
         }
         return key;
     }

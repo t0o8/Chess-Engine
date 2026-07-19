@@ -73,6 +73,7 @@ while (true)
             {
                 break;
             }
+            bool IsPerft = false;
             for (int i = 1; i < SplitString.Length; i++)
             {
                 if (SplitString[i] == "wtime")
@@ -87,9 +88,19 @@ while (true)
                 {
                     Main.SearchTime = int.Parse(SplitString[i + 1]);
                     i++;
+                } else if (SplitString[i] == "perft")
+                {
+                    IsPerft = true;
+                    await Task.Run(() =>
+                    {
+                        Console.WriteLine(MoveGeneration.GetTotalMoveCombinationCountTest(Main.position, int.Parse(SplitString[i + 1])));
+                    });
                 }
             }
-
+            if (IsPerft == true)
+            {
+                break;
+            }
             await Task.Run(() =>
             {
                 Move FoundMove = Main.BeginSearch();
@@ -119,6 +130,12 @@ while (true)
             break;
         case "perfttest":
             Benchmark.PerftTest();
+            break;
+        case "zobrist":
+            Console.WriteLine(Main.position.ZobristHash);
+            break;
+        case "test":
+            Console.WriteLine(MoveGeneration.GenerateAllPseudoLegalMoves(new Position("rnbqkbnr/1ppppppp/p7/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 2"), stackalloc Move[218], true));
             break;
     }
 }

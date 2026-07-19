@@ -1,0 +1,2067 @@
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "7"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:53 -0400"]
+[PlyCount "22"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation"]
+
+1. e4 {book} c5 {book} 2. c3 {book} e6 {book} 3. d3 {book} d5 {book}
+4. Nd2 {book} Nf6 {book} 5. Ngf3 {book} Nc6 {book} 6. Be2 {book} Be7 {book}
+7. O-O {book} O-O {book} 8. Re1 {book} b6 {book} 9. e5 {+0.50/5 0.315s}
+Nd7 {-0.42/5 0.303s} 10. d4 {+0.47/4 0.246s} Qc7 {-0.40/4 0.305s}
+11. Bb5 {+0.57/4 0.233s, Black makes an illegal move: f8f5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "6"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:53 -0400"]
+[PlyCount "23"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Three Knights Variation"]
+
+1. c4 {book} Nf6 {book} 2. Nc3 {book} e6 {book} 3. Nf3 {book} d5 {book}
+4. d4 {book} Be7 {book} 5. Bg5 {book} h6 {book} 6. Bh4 {book} O-O {book}
+7. cxd5 {book} exd5 {book} 8. e3 {book} c6 {book} 9. Bxf6 {+0.71/4 0.321s}
+Bxf6 {-0.70/4 0.347s} 10. Bd3 {+0.68/5 0.241s} Qd6 {-0.65/3 0.241s}
+11. Qb3 {+0.63/5 0.234s} Re8 {-0.62/4 0.260s, White makes an illegal move: b3g3}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "1"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:54 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A20"]
+[Opening "English Opening: King's English Variation, Nimzowitsch Variation"]
+
+1. c4 {book} e5 {book} 2. Nf3 {book} Nc6 {book} 3. d3 {book} Nf6 {book}
+4. a3 {book} a5 {book} 5. Nc3 {book} d5 {book} 6. cxd5 {book} Nxd5 {book}
+7. e4 {book} Nf6 {book} 8. Be2 {book} Bg4 {book} 9. Be3 {+0.41/4 0.309s}
+Bxf3 {-0.43/4 0.308s} 10. Bxf3 {+0.43/4 0.244s} Rb8 {-0.49/4 0.242s}
+11. Bg5 {+0.50/4 0.263s} h6 {-0.50/5 0.235s} 12. Bxf6 {+0.52/5 0.235s}
+Qxf6 {-0.55/6 0.249s} 13. Nd5 {+0.54/5 0.217s} Qd6 {-0.48/6 0.221s}
+14. Qc2 {+0.54/5 0.211s, Black makes an illegal move: h8d8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "4"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:54 -0400"]
+[PlyCount "30"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E12"]
+[Opening "Queen's Indian Defense: Petrosian Variation"]
+
+1. Nf3 {book} Nf6 {book} 2. c4 {book} b6 {book} 3. d4 {book} e6 {book}
+4. a3 {book} d5 {book} 5. Nc3 {book} Be7 {book} 6. cxd5 {book} exd5 {book}
+7. Bg5 {book} O-O {book} 8. e3 {book} c5 {book} 9. dxc5 {+0.92/3 0.312s}
+bxc5 {-0.89/4 0.310s} 10. Bxf6 {+0.89/3 0.245s} Bxf6 {-0.76/5 0.249s}
+11. Rc1 {+0.84/5 0.255s} Be6 {-0.73/5 0.234s} 12. Bb5 {+0.74/5 0.250s}
+d4 {-0.56/5 0.227s} 13. Ne4 {+0.89/4 0.220s} Qa5+ {+1.85/6 0.219s}
+14. b4 {-1.27/6 0.209s} Qxb5 {+1.97/6 0.212s}
+15. Rxc5 {-1.27/5 0.204s, Black makes an illegal move: b5b2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "5"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:55 -0400"]
+[PlyCount "31"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A45"]
+[Opening "Trompowsky Attack: Classical Defense, Big Center Variation"]
+
+1. d4 {book} Nf6 {book} 2. Bg5 {book} e6 {book} 3. e4 {book} h6 {book}
+4. Bxf6 {book} Qxf6 {book} 5. Nf3 {book} d6 {book} 6. e5 {book} Qe7 {book}
+7. c3 {book} g6 {book} 8. Nbd2 {book} Bg7 {book} 9. Bb5+ {+0.73/5 0.346s}
+c6 {-0.70/5 0.293s} 10. exd6 {+0.73/5 0.242s} Qxd6 {-0.73/4 0.305s}
+11. Bc4 {+0.71/5 0.232s} f5 {-0.70/5 0.232s} 12. Nh4 {+0.68/5 0.225s}
+g5 {-0.66/5 0.224s} 13. Qh5+ {+0.66/6 0.217s} Kd8 {-0.65/6 0.217s}
+14. Ng6 {+0.65/5 0.210s} Rg8 {-0.64/5 0.210s} 15. f4 {+0.74/5 0.204s}
+b5 {-0.66/5 0.203s, White makes an illegal move: h5h7} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "3"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:55 -0400"]
+[PlyCount "33"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Three Knights, Vienna Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nf3 {book} d5 {book}
+4. Nc3 {book} dxc4 {book} 5. Qa4+ {book} Nbd7 {book} 6. e4 {book} c5 {book}
+7. Bf4 {book} Be7 {book} 8. dxc5 {book} Bxc5 {book} 9. Bxc4 {+0.64/3 0.332s}
+Ng4 {-0.57/3 0.348s} 10. Bg3 {+0.58/5 0.241s} Qb6 {-0.56/3 0.311s}
+11. Qc2 {+0.53/5 0.233s} Qb4 {-0.55/4 0.230s} 12. b3 {+0.60/5 0.225s}
+Nb6 {-0.60/4 0.221s} 13. h3 {+0.57/5 0.219s} Nf6 {-0.54/5 0.214s}
+14. Bd3 {+0.57/5 0.212s} Nbd7 {-0.53/5 0.234s} 15. Bf4 {+0.57/5 0.205s}
+Bd4 {-0.47/5 0.200s} 16. Nxd4 {+0.59/6 0.199s}
+Qxd4 {-0.51/5 0.195s, White makes an illegal move: c2c4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "5"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:55 -0400"]
+[PlyCount "36"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A45"]
+[Opening "Trompowsky Attack: Classical Defense, Big Center Variation"]
+
+1. d4 {book} Nf6 {book} 2. Bg5 {book} e6 {book} 3. e4 {book} h6 {book}
+4. Bxf6 {book} Qxf6 {book} 5. Nf3 {book} d6 {book} 6. e5 {book} Qe7 {book}
+7. c3 {book} g6 {book} 8. Nbd2 {book} Bg7 {book} 9. Bb5+ {+0.73/5 0.306s}
+Bd7 {-0.65/5 0.292s} 10. Qb3 {+0.71/4 0.253s} b6 {-0.67/5 0.298s}
+11. exd6 {+0.72/4 0.234s} Qxd6 {-0.62/5 0.232s} 12. Ne4 {+0.66/4 0.226s}
+Qd5 {-0.68/6 0.224s} 13. Bd3 {+0.72/5 0.224s} Qxb3 {-0.60/5 0.223s}
+14. axb3 {+0.65/6 0.212s} f5 {-0.59/5 0.218s} 15. Ned2 {+0.64/5 0.205s}
+Nc6 {-0.56/5 0.203s} 16. b4 {+0.65/5 0.199s} Bf6 {-0.58/5 0.198s}
+17. h4 {+0.65/5 0.194s} Ne7 {-0.62/5 0.191s}
+18. b5 {+0.62/5 0.187s, Black makes an illegal move: h8h5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "9"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:53 -0400"]
+[GameEndTime "2026-07-17T12:48:56 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E44"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation, American Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} Bb4 {book}
+4. e3 {book} b6 {book} 5. Ne2 {book} Ne4 {book} 6. Bd2 {book} Nxd2 {book}
+7. Qxd2 {book} O-O {book} 8. a3 {book} Bxc3 {book} 9. Nxc3 {+0.61/5 0.273s}
+Nc6 {-0.56/5 0.255s} 10. d5 {+0.61/5 0.253s} Ne5 {-0.64/6 0.245s}
+11. Qd4 {+0.61/5 0.235s} Qf6 {-0.64/5 0.237s} 12. f4 {+0.64/5 0.245s}
+Ng4 {-0.59/6 0.229s} 13. Qe4 {+0.63/5 0.220s} Qf5 {-0.50/5 0.222s}
+14. Qf3 {+0.55/5 0.213s, Black makes an illegal move: f8f2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "6"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:56 -0400"]
+[PlyCount "38"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Three Knights Variation"]
+
+1. c4 {book} Nf6 {book} 2. Nc3 {book} e6 {book} 3. Nf3 {book} d5 {book}
+4. d4 {book} Be7 {book} 5. Bg5 {book} h6 {book} 6. Bh4 {book} O-O {book}
+7. cxd5 {book} exd5 {book} 8. e3 {book} c6 {book} 9. Bxf6 {+0.71/4 0.285s}
+Bxf6 {-0.69/5 0.311s} 10. Qb3 {+0.65/4 0.250s} Qe7 {-0.57/4 0.252s}
+11. Bd3 {+0.63/4 0.236s} Bg4 {-0.60/5 0.284s} 12. Ne5 {+0.60/5 0.227s}
+Bxe5 {-0.60/5 0.223s} 13. dxe5 {+0.53/5 0.220s} Be6 {-0.47/5 0.216s}
+14. Qc2 {+0.47/5 0.213s} Nd7 {-0.47/5 0.211s} 15. f4 {+0.47/5 0.206s}
+g6 {-0.50/5 0.204s} 16. Qa4 {+0.55/4 0.200s} Nc5 {-0.35/5 0.196s}
+17. Qd4 {+0.54/5 0.194s} Nxd3+ {-0.32/5 0.191s} 18. Qxd3 {+0.52/6 0.188s}
+Qb4 {-0.32/5 0.185s}
+19. O-O-O {+0.52/5 0.183s, Black makes an illegal move: f8f2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "9"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:53 -0400"]
+[GameEndTime "2026-07-17T12:48:56 -0400"]
+[PlyCount "27"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E44"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation, American Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} Bb4 {book}
+4. e3 {book} b6 {book} 5. Ne2 {book} Ne4 {book} 6. Bd2 {book} Nxd2 {book}
+7. Qxd2 {book} O-O {book} 8. a3 {book} Bxc3 {book} 9. Nxc3 {+0.56/6 0.254s}
+Nc6 {-0.57/5 0.255s} 10. Bd3 {+0.61/5 0.245s} f5 {-0.57/5 0.245s}
+11. d5 {+0.66/5 0.237s} exd5 {-0.57/5 0.237s} 12. cxd5 {+0.66/5 0.229s}
+Na5 {-0.63/5 0.229s} 13. d6 {+0.78/6 0.221s}
+cxd6 {-0.25/5 0.221s, White makes an illegal move: d2d5} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "8"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:56 -0400"]
+[PlyCount "37"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B15"]
+[Opening "Caro-Kann Defense: Tartakower Variation"]
+
+1. e4 {book} c6 {book} 2. d4 {book} d5 {book} 3. Nd2 {book} dxe4 {book}
+4. Nxe4 {book} Nf6 {book} 5. Nxf6+ {book} exf6 {book} 6. c3 {book} Bd6 {book}
+7. Bd3 {book} O-O {book} 8. Qc2 {book} Re8+ {book} 9. Be3 {+0.64/5 0.330s}
+g6 {-0.61/3 0.345s} 10. Ne2 {+0.56/4 0.304s} Bg4 {-0.50/4 0.241s}
+11. Ng3 {+0.57/5 0.230s} Bxg3 {-0.38/5 0.233s} 12. hxg3 {+0.50/6 0.223s}
+Nd7 {-0.38/4 0.225s} 13. Qb3 {+0.52/5 0.215s} Nb6 {-0.43/5 0.217s}
+14. Kd2 {+0.48/5 0.209s} Re6 {-0.42/4 0.210s} 15. f3 {+0.58/5 0.202s}
+Qe7 {-1.13/5 0.212s} 16. Bg1 {+1.23/5 0.197s} Bf5 {-0.97/5 0.197s}
+17. Bxf5 {+1.73/6 0.191s} Re2+ {-0.86/5 0.193s} 18. Kc1 {+0.88/6 0.205s}
+Re1+ {+4.43/5 0.188s, White makes an illegal move: a1d1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "3"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:56 -0400"]
+[PlyCount "40"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D37"]
+[Opening "Queen's Gambit Declined: Three Knights, Vienna Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nf3 {book} d5 {book}
+4. Nc3 {book} dxc4 {book} 5. Qa4+ {book} Nbd7 {book} 6. e4 {book} c5 {book}
+7. Bf4 {book} Be7 {book} 8. dxc5 {book} Bxc5 {book} 9. Bxc4 {+0.63/3 0.325s}
+Qb6 {-0.59/4 0.337s} 10. Qc2 {+0.57/4 0.242s} Qb4 {-0.50/4 0.269s}
+11. Qe2 {+0.55/5 0.267s} Ng4 {-0.55/4 0.237s} 12. Bg3 {+0.57/5 0.225s}
+Nb6 {-0.56/5 0.235s} 13. Bd3 {+0.56/5 0.218s} Na4 {-0.56/5 0.216s}
+14. Bb5+ {+3.80/6 0.210s} Bd7 {-3.80/6 0.218s} 15. Bxd7+ {+3.80/6 0.203s}
+Kxd7 {-0.50/6 0.202s} 16. a3 {+0.50/5 0.197s} Qxb2 {-2.61/6 0.196s}
+17. Rd1+ {+2.85/6 0.191s} Kc8 {-2.94/7 0.190s} 18. Nxa4 {+3.00/6 0.192s}
+Qxa3 {-2.94/6 0.185s} 19. Qc2 {+3.17/5 0.181s} Qb4+ {-2.70/5 0.180s}
+20. Nd2 {+4.05/5 0.198s, Black makes an illegal move: a8a5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "13"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameStartTime "2026-07-17T12:48:56 -0400"]
+[GameEndTime "2026-07-17T12:48:57 -0400"]
+[PlyCount "19"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A11"]
+[Opening "English Opening: Caro-Kann Defensive System"]
+
+1. c4 {book} c6 {book} 2. Nf3 {book} d5 {book} 3. e3 {book} Nf6 {book}
+4. Nc3 {book} a6 {book} 5. b3 {book} Bg4 {book} 6. Bb2 {book} e6 {book}
+7. Be2 {book} Nbd7 {book} 8. h3 {book} Bxf3 {book} 9. gxf3 {+0.16/6 0.254s}
+Bb4 {-0.19/5 0.254s, White makes an illegal move: a1g1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "7"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:57 -0400"]
+[PlyCount "41"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B22"]
+[Opening "Sicilian Defense: Alapin Variation"]
+
+1. e4 {book} c5 {book} 2. c3 {book} e6 {book} 3. d3 {book} d5 {book}
+4. Nd2 {book} Nf6 {book} 5. Ngf3 {book} Nc6 {book} 6. Be2 {book} Be7 {book}
+7. O-O {book} O-O {book} 8. Re1 {book} b6 {book} 9. e5 {+0.47/4 0.295s}
+Nd7 {-0.47/5 0.363s} 10. d4 {+0.40/5 0.243s} Bg5 {-0.51/3 0.243s}
+11. Bb5 {+0.57/5 0.236s} Bb7 {-0.57/5 0.231s} 12. Nb3 {+0.57/5 0.228s}
+Bxc1 {-0.59/5 0.225s} 13. Nxc1 {+0.59/5 0.220s} c4 {-0.60/5 0.216s}
+14. Ne2 {+0.63/5 0.213s} Rc8 {-0.60/5 0.210s} 15. Bxc6 {+0.63/5 0.207s}
+Rxc6 {-0.58/5 0.203s} 16. b4 {+0.57/5 0.204s} a6 {-0.55/5 0.197s}
+17. a4 {+0.53/5 0.193s} f6 {-0.59/5 0.191s} 18. b5 {+0.62/5 0.188s}
+axb5 {-0.56/6 0.186s} 19. axb5 {+0.62/5 0.182s} Rc7 {-0.56/6 0.180s}
+20. Kf1 {+0.59/5 0.178s} Qe7 {-0.34/5 0.175s, White makes an illegal move: d1d6}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "13"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:48:56 -0400"]
+[GameEndTime "2026-07-17T12:48:57 -0400"]
+[PlyCount "22"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A11"]
+[Opening "English Opening: Caro-Kann Defensive System"]
+
+1. c4 {book} c6 {book} 2. Nf3 {book} d5 {book} 3. e3 {book} Nf6 {book}
+4. Nc3 {book} a6 {book} 5. b3 {book} Bg4 {book} 6. Bb2 {book} e6 {book}
+7. Be2 {book} Nbd7 {book} 8. h3 {book} Bxf3 {book} 9. gxf3 {+0.19/6 0.254s}
+Bb4 {-0.16/5 0.254s} 10. a3 {+0.22/5 0.245s} Bxc3 {-0.13/6 0.246s}
+11. Bxc3 {+0.22/5 0.237s, Black makes an illegal move: h8h5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "10"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:54 -0400"]
+[GameEndTime "2026-07-17T12:48:57 -0400"]
+[PlyCount "29"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B04"]
+[Opening "Alekhine Defense: Modern Variation, Larsen-Haakert Variation"]
+
+1. e4 {book} Nf6 {book} 2. e5 {book} Nd5 {book} 3. d4 {book} d6 {book}
+4. Nf3 {book} Nc6 {book} 5. c4 {book} Nb6 {book} 6. e6 {book} fxe6 {book}
+7. Be3 {book} g6 {book} 8. h4 {book} Bg7 {book} 9. h5 {-0.29/5 0.254s}
+gxh5 {+0.33/5 0.254s} 10. Nc3 {-0.31/5 0.246s} O-O {+0.33/4 0.245s}
+11. Rxh5 {-0.30/5 0.238s} e5 {+0.39/4 0.238s} 12. Qc2 {-0.18/5 0.231s}
+h6 {+0.27/5 0.229s} 13. Qe4 {-0.38/5 0.221s} Qe8 {+0.30/5 0.226s}
+14. Rh4 {-0.82/5 0.215s} Bf5 {+7.14/5 0.214s, White makes an illegal move: e4e2}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "11"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:55 -0400"]
+[GameEndTime "2026-07-17T12:48:58 -0400"]
+[PlyCount "25"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B40"]
+[Opening "Sicilian Defense: Delayed Alapin Variation, with e6"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} e6 {book} 3. c3 {book} Nf6 {book}
+4. e5 {book} Nd5 {book} 5. g3 {book} Nc6 {book} 6. Bg2 {book} d6 {book}
+7. exd6 {book} Bxd6 {book} 8. d4 {book} O-O {book} 9. c4 {+0.41/5 0.295s}
+Qa5+ {-0.37/5 0.255s} 10. Bd2 {+0.37/5 0.243s} Ndb4 {-0.42/5 0.245s}
+11. O-O {+0.31/5 0.235s} cxd4 {-0.34/5 0.237s} 12. a3 {+0.49/5 0.227s}
+Rd8 {+0.68/4 0.229s, White makes an illegal move: a1c1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "2"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:58 -0400"]
+[PlyCount "47"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E14"]
+[Opening "Queen's Indian Defense: Spassky System"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nf3 {book} b6 {book}
+4. e3 {book} Bb7 {book} 5. Bd3 {book} d5 {book} 6. O-O {book} c5 {book}
+7. cxd5 {book} exd5 {book} 8. Nc3 {book} Bd6 {book} 9. dxc5 {+0.84/3 0.327s}
+Bxc5 {-0.70/4 0.291s} 10. Ne5 {+0.77/4 0.321s} Qd6 {-0.64/3 0.247s}
+11. f4 {+0.64/5 0.230s} a6 {-0.67/3 0.238s} 12. Qf3 {+0.67/4 0.222s}
+g6 {-0.64/4 0.227s} 13. Bd2 {+0.66/5 0.215s} Nbd7 {-0.66/4 0.219s}
+14. Nxd7 {+0.66/5 0.209s} Kxd7 {-0.64/5 0.221s} 15. a3 {+0.62/4 0.202s}
+Ne4 {-0.58/5 0.205s} 16. Be1 {+0.56/5 0.195s} Rae8 {-0.46/4 0.199s}
+17. Na4 {+0.53/5 0.189s} Re7 {-0.55/4 0.193s} 18. b4 {+2.03/5 0.184s}
+Qf6 {-1.72/5 0.189s} 19. Rb1 {+1.70/5 0.179s} Qc6 {-0.85/5 0.213s}
+20. bxc5 {+0.85/5 0.175s} Qxa4 {-1.37/5 0.175s} 21. Rxb6 {+1.34/5 0.169s}
+Kc7 {-1.36/5 0.171s} 22. Bb4 {+1.30/5 0.165s} Rhe8 {-1.33/4 0.166s}
+23. Qe2 {+1.46/5 0.161s} Re6 {-1.29/5 0.162s, White makes an illegal move: b6b2}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "4"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:07"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:58 -0400"]
+[PlyCount "51"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E12"]
+[Opening "Queen's Indian Defense: Petrosian Variation"]
+
+1. Nf3 {book} Nf6 {book} 2. c4 {book} b6 {book} 3. d4 {book} e6 {book}
+4. a3 {book} d5 {book} 5. Nc3 {book} Be7 {book} 6. cxd5 {book} exd5 {book}
+7. Bg5 {book} O-O {book} 8. e3 {book} c5 {book} 9. dxc5 {+0.91/4 0.315s}
+bxc5 {-0.89/4 0.354s} 10. Bxf6 {+0.89/3 0.247s} Bxf6 {-0.79/5 0.242s}
+11. Nxd5 {+0.84/5 0.233s} Bxb2 {-0.72/6 0.232s} 12. Ra2 {+0.65/6 0.227s}
+Be6 {-0.72/5 0.225s} 13. Bc4 {+0.66/6 0.220s} Bd4 {-0.72/5 0.217s}
+14. Qb3 {+0.72/5 0.216s} Re8 {-0.85/5 0.211s} 15. Kf1 {+0.91/5 0.205s}
+Nc6 {-0.73/5 0.204s} 16. Nxd4 {+0.67/5 0.198s} cxd4 {-0.63/5 0.197s}
+17. e4 {+0.34/5 0.192s} Na5 {-0.20/5 0.191s} 18. Qd3 {+0.11/6 0.187s}
+Rc8 {-0.05/5 0.187s} 19. Bb3 {-0.44/6 0.182s} Nxb3 {+5.30/5 0.181s}
+20. Qxb3 {-0.85/6 0.177s} Rc1+ {+8.00/5 0.176s} 21. Ke2 {-9.30/7 0.172s}
+Bxd5 {+9.35/6 0.171s} 22. Rxc1 {-9.45/7 0.167s} Bxb3 {+9.45/6 0.166s}
+23. Raa1 {-9.40/7 0.163s} d3+ {+9.40/5 0.162s} 24. Kd2 {-9.50/6 0.158s}
+Rxe4 {+9.50/5 0.158s} 25. Rf1 {-9.95/6 0.156s}
+Bc4 {+9.95/5 0.154s, White makes an illegal move: f1f5} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "1"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:07"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:48:59 -0400"]
+[PlyCount "55"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A20"]
+[Opening "English Opening: King's English Variation, Nimzowitsch Variation"]
+
+1. c4 {book} e5 {book} 2. Nf3 {book} Nc6 {book} 3. d3 {book} Nf6 {book}
+4. a3 {book} a5 {book} 5. Nc3 {book} d5 {book} 6. cxd5 {book} Nxd5 {book}
+7. e4 {book} Nf6 {book} 8. Be2 {book} Bg4 {book} 9. Be3 {+0.41/4 0.326s}
+Bxf3 {-0.41/3 0.273s} 10. Bxf3 {+0.49/5 0.241s} Rb8 {-0.43/4 0.247s}
+11. Bg5 {+0.52/5 0.234s} Be7 {-0.48/5 0.236s} 12. Bxf6 {+0.52/5 0.225s}
+Bxf6 {-0.50/6 0.228s} 13. Nd5 {+0.54/5 0.218s} Bg5 {-0.49/5 0.220s}
+14. Qc2 {+0.55/5 0.213s} Kf8 {-0.51/4 0.214s} 15. Qc4 {+0.54/5 0.206s}
+Qd6 {-0.50/5 0.208s} 16. Bg4 {+0.49/5 0.198s} h5 {-0.46/5 0.200s}
+17. Bf5 {+0.43/5 0.193s} g6 {-0.41/5 0.194s} 18. Bh3 {+0.41/5 0.188s}
+b5 {-0.41/5 0.189s} 19. Qc3 {+0.41/5 0.181s} Rh7 {-0.39/5 0.183s}
+20. g3 {+0.39/4 0.176s} f5 {-0.38/4 0.178s} 21. Bg2 {+0.43/5 0.172s}
+h4 {-0.39/4 0.174s} 22. h3 {+0.44/4 0.168s} hxg3 {-0.35/3 0.169s}
+23. fxg3 {+0.43/5 0.163s} Rd7 {-0.42/4 0.164s} 24. O-O {+0.30/5 0.159s}
+b4 {-0.40/5 0.160s} 25. Qe1 {+0.29/5 0.154s} Qc5+ {-0.26/4 0.156s}
+26. Kh2 {+0.34/5 0.151s} bxa3 {-0.25/4 0.152s} 27. bxa3 {+0.54/5 0.150s}
+Rb2 {-0.28/4 0.148s, White makes an illegal move: f1d1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "12"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:55 -0400"]
+[GameEndTime "2026-07-17T12:48:59 -0400"]
+[PlyCount "32"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A13"]
+[Opening "English Opening: Agincourt Defense"]
+
+1. Nf3 {book} d5 {book} 2. c4 {book} e6 {book} 3. g3 {book} dxc4 {book}
+4. Qa4+ {book} Bd7 {book} 5. Qxc4 {book} Bc6 {book} 6. Bg2 {book} Nf6 {book}
+7. O-O {book} Be7 {book} 8. b3 {book} Bd5 {book} 9. Qb5+ {+0.36/5 0.254s}
+Qd7 {-0.35/6 0.255s} 10. Nc3 {+0.39/6 0.246s} Qxb5 {-0.39/6 0.245s}
+11. Nxb5 {+0.42/6 0.237s} Bd6 {-0.46/6 0.237s} 12. Bb2 {+0.46/5 0.229s}
+Nbd7 {-0.46/6 0.230s} 13. Nxd6+ {+0.46/5 0.221s} cxd6 {-0.50/7 0.221s}
+14. Bxf6 {+0.50/6 0.214s} Nxf6 {-0.46/7 0.214s} 15. Nd4 {+0.46/6 0.207s}
+Bxg2 {-0.46/7 0.220s}
+16. Kxg2 {+0.29/6 0.201s, Black makes an illegal move: h8d8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "14"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:56 -0400"]
+[GameEndTime "2026-07-17T12:48:59 -0400"]
+[PlyCount "30"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C77"]
+[Opening "Ruy Lopez: Morphy Defense, Anderssen Variation"]
+
+1. e4 {book} e5 {book} 2. Nf3 {book} Nc6 {book} 3. Bb5 {book} a6 {book}
+4. Ba4 {book} Nf6 {book} 5. d3 {book} Bc5 {book} 6. c3 {book} b5 {book}
+7. Bb3 {book} d6 {book} 8. Nbd2 {book} O-O {book} 9. Bd5 {+0.44/5 0.254s}
+Qe8 {-0.54/6 0.254s} 10. b4 {+0.54/5 0.245s} Bb6 {-0.51/5 0.245s}
+11. Bb2 {+0.51/4 0.238s} Be6 {-0.45/6 0.237s} 12. Bxc6 {+0.45/5 0.229s}
+Qxc6 {-0.37/6 0.230s} 13. Qe2 {+0.45/4 0.222s} a5 {-0.22/5 0.221s}
+14. a3 {+0.39/4 0.214s} axb4 {-0.29/5 0.215s}
+15. cxb4 {+0.47/4 0.207s, Black makes an illegal move: a8a2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "15"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:57 -0400"]
+[GameEndTime "2026-07-17T12:48:59 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B90"]
+[Opening "Sicilian Defense: Najdorf Variation"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} d6 {book} 3. d4 {book} cxd4 {book}
+4. Nxd4 {book} Nf6 {book} 5. Nc3 {book} a6 {book} 6. a4 {book} Nc6 {book}
+7. g3 {book} e6 {book} 8. Bg2 {book} Qc7 {book} 9. Bg5 {+0.64/5 0.254s}
+Nxd4 {-0.63/5 0.254s} 10. Qxd4 {+0.64/6 0.245s} Be7 {-0.64/5 0.246s}
+11. Bf1 {+0.62/5 0.238s} h6 {-0.55/5 0.238s} 12. Be3 {+0.67/5 0.229s}
+e5 {-0.49/5 0.230s} 13. Qc4 {+0.56/5 0.221s} Qxc4 {-0.42/6 0.222s}
+14. Bxc4 {+0.56/6 0.214s, Black makes an illegal move: h8h5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "17"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:48:58 -0400"]
+[GameEndTime "2026-07-17T12:48:59 -0400"]
+[PlyCount "23"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E11"]
+[Opening "Bogo-Indian Defense: Grünfeld Variation"]
+
+1. d4 {book} e6 {book} 2. Nf3 {book} Nf6 {book} 3. c4 {book} Bb4+ {book}
+4. Nbd2 {book} b6 {book} 5. a3 {book} Bxd2+ {book} 6. Qxd2 {book} Bb7 {book}
+7. e3 {book} d6 {book} 8. Be2 {book} Ne4 {book} 9. Qd1 {+0.44/5 0.255s}
+Nd7 {-0.41/5 0.257s} 10. Bd2 {+0.41/5 0.245s} Qf6 {-0.40/4 0.245s}
+11. Rg1 {+0.41/5 0.238s} c5 {-0.35/3 0.236s, White makes an illegal move: d1d3}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "18"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:48:58 -0400"]
+[GameEndTime "2026-07-17T12:49:00 -0400"]
+[PlyCount "22"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A21"]
+[Opening "English Opening: King's English Variation, Reversed Sicilian"]
+
+1. c4 {book} e5 {book} 2. Nc3 {book} f5 {book} 3. g3 {book} Nf6 {book}
+4. Bg2 {book} Be7 {book} 5. d3 {book} O-O {book} 6. Nf3 {book} d6 {book}
+7. O-O {book} a5 {book} 8. a3 {book} c6 {book} 9. Be3 {+0.57/4 0.254s}
+g6 {-0.57/5 0.254s} 10. Bh6 {+0.60/4 0.245s} Rf7 {-0.57/6 0.245s}
+11. Ng5 {+3.84/5 0.237s, Black makes an illegal move: f7d7} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "8"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:09"]
+[GameStartTime "2026-07-17T12:48:49 -0400"]
+[GameEndTime "2026-07-17T12:49:00 -0400"]
+[PlyCount "66"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B15"]
+[Opening "Caro-Kann Defense: Tartakower Variation"]
+
+1. e4 {book} c6 {book} 2. d4 {book} d5 {book} 3. Nd2 {book} dxe4 {book}
+4. Nxe4 {book} Nf6 {book} 5. Nxf6+ {book} exf6 {book} 6. c3 {book} Bd6 {book}
+7. Bd3 {book} O-O {book} 8. Qc2 {book} Re8+ {book} 9. Be3 {+0.61/4 0.282s}
+g6 {-0.56/5 0.314s} 10. Ne2 {+0.56/3 0.249s} Be6 {-0.57/4 0.245s}
+11. c4 {+0.50/3 0.236s} Qc7 {-0.50/5 0.237s} 12. g3 {+0.52/4 0.227s}
+Nd7 {-0.51/5 0.227s} 13. c5 {+0.65/5 0.220s} Be7 {-0.63/5 0.218s}
+14. Kd2 {+0.65/4 0.213s} Bd5 {-0.44/5 0.212s} 15. Rhb1 {+0.54/5 0.206s}
+a6 {-0.46/4 0.207s} 16. Nc3 {+0.68/5 0.200s} Be6 {-0.66/5 0.199s}
+17. Qa4 {+0.66/4 0.194s} f5 {-0.67/4 0.194s} 18. Bf4 {+0.65/4 0.188s}
+Qc8 {-0.60/5 0.215s} 19. a3 {+0.62/4 0.183s} Nf6 {-0.57/5 0.190s}
+20. Bc4 {+0.60/4 0.178s} Ng4 {+0.27/5 0.176s} 21. Bxe6 {-0.24/5 0.173s}
+fxe6 {+0.29/5 0.171s} 22. Ke2 {-0.24/5 0.169s} g5 {+0.29/6 0.166s}
+23. Be3 {-0.29/5 0.164s} Nxh2 {+0.32/6 0.161s} 24. Qc4 {-0.30/5 0.159s}
+Bf6 {+0.34/5 0.159s} 25. f3 {-0.31/5 0.155s} g4 {+0.36/5 0.153s}
+26. fxg4 {-0.32/6 0.152s} Nxg4 {+0.38/5 0.149s} 27. Bf4 {-0.33/5 0.148s}
+Kh8 {+0.36/5 0.146s} 28. Bd6 {-0.32/4 0.145s} Qd7 {+0.39/5 0.143s}
+29. Rd1 {-0.34/4 0.141s} e5 {+0.45/5 0.140s} 30. dxe5 {-0.42/5 0.138s}
+Bxe5 {+0.45/5 0.136s} 31. Bxe5+ {-0.52/6 0.136s} Rxe5+ {+1.48/7 0.134s}
+32. Kf3 {-0.68/6 0.133s} Qe7 {+1.43/5 0.133s}
+33. Rd6 {-1.18/5 0.130s, Black makes an illegal move: e7e3} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "16"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:48:57 -0400"]
+[GameEndTime "2026-07-17T12:49:00 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A35"]
+[Opening "English Opening: Symmetrical Variation, Four Knights Variation"]
+
+1. c4 {book} c5 {book} 2. Nf3 {book} Nc6 {book} 3. Nc3 {book} Nf6 {book}
+4. e3 {book} e5 {book} 5. d4 {book} e4 {book} 6. d5 {book} exf3 {book}
+7. dxc6 {book} bxc6 {book} 8. Qxf3 {book} Bd6 {book} 9. Bd3 {+0.72/5 0.254s}
+Qe7 {-0.73/6 0.255s} 10. Ne4 {+0.70/5 0.246s} Nxe4 {-0.70/6 0.246s}
+11. Qxe4 {+0.65/5 0.237s} Qxe4 {-0.70/6 0.236s} 12. Bxe4 {+0.50/6 0.229s}
+Ke7 {-0.60/6 0.230s} 13. b3 {+0.70/5 0.222s} Be5 {-0.55/5 0.221s}
+14. Rb1 {+0.77/6 0.214s, Black makes an illegal move: a8a6} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "20"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameStartTime "2026-07-17T12:48:59 -0400"]
+[GameEndTime "2026-07-17T12:49:00 -0400"]
+[PlyCount "19"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E86"]
+[Opening "King's Indian Defense: Sämisch Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} g6 {book} 3. Nc3 {book} Bg7 {book}
+4. e4 {book} d6 {book} 5. f3 {book} O-O {book} 6. Be3 {book} e5 {book}
+7. Nge2 {book} c6 {book} 8. Qb3 {book} Nbd7 {book} 9. d5 {+0.65/5 0.254s}
+Qc7 {-0.59/5 0.254s, White makes an illegal move: b3d3} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "10"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:48:54 -0400"]
+[GameEndTime "2026-07-17T12:49:00 -0400"]
+[PlyCount "48"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B04"]
+[Opening "Alekhine Defense: Modern Variation, Larsen-Haakert Variation"]
+
+1. e4 {book} Nf6 {book} 2. e5 {book} Nd5 {book} 3. d4 {book} d6 {book}
+4. Nf3 {book} Nc6 {book} 5. c4 {book} Nb6 {book} 6. e6 {book} fxe6 {book}
+7. Be3 {book} g6 {book} 8. h4 {book} Bg7 {book} 9. h5 {-0.33/4 0.254s}
+gxh5 {+0.31/5 0.265s} 10. Rxh5 {-0.33/4 0.245s} e5 {+0.42/5 0.245s}
+11. Qd3 {-0.35/5 0.237s} exd4 {+0.37/5 0.237s} 12. Nxd4 {-0.38/5 0.229s}
+Ne5 {+0.39/5 0.229s} 13. Qb3 {-0.34/4 0.225s} c5 {+0.47/5 0.221s}
+14. Nf5 {-0.45/5 0.214s} Bxf5 {+0.51/5 0.215s} 15. Rxf5 {-0.55/5 0.207s}
+Ng4 {+0.56/5 0.207s} 16. Qb5+ {-0.43/5 0.201s} Qd7 {+0.66/7 0.201s}
+17. Qxd7+ {-0.66/6 0.195s} Nxd7 {+0.66/7 0.196s} 18. Bc1 {-0.68/6 0.189s}
+Bd4 {+0.66/6 0.189s} 19. Bd3 {-0.84/6 0.184s} Bxf2+ {+0.84/5 0.184s}
+20. Rxf2 {-0.84/6 0.179s} Nxf2 {+0.77/6 0.178s} 21. Kxf2 {-0.78/6 0.174s}
+Ne5 {+0.74/6 0.173s} 22. Be4 {-0.78/6 0.169s} Rb8 {+0.73/6 0.170s}
+23. b3 {-0.75/6 0.187s} h6 {+0.70/6 0.164s}
+24. Bf4 {-0.55/5 0.164s, Black makes an illegal move: h8h4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "16"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:48:57 -0400"]
+[GameEndTime "2026-07-17T12:49:01 -0400"]
+[PlyCount "31"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A35"]
+[Opening "English Opening: Symmetrical Variation, Four Knights Variation"]
+
+1. c4 {book} c5 {book} 2. Nf3 {book} Nc6 {book} 3. Nc3 {book} Nf6 {book}
+4. e3 {book} e5 {book} 5. d4 {book} e4 {book} 6. d5 {book} exf3 {book}
+7. dxc6 {book} bxc6 {book} 8. Qxf3 {book} Bd6 {book} 9. Ne4 {+0.73/5 0.254s}
+Nxe4 {-0.70/7 0.254s} 10. Qxe4+ {+0.70/6 0.246s} Qe7 {-0.65/7 0.245s}
+11. Bd3 {+0.70/6 0.237s} Qxe4 {-0.50/7 0.237s} 12. Bxe4 {+0.65/6 0.240s}
+O-O {-0.51/6 0.229s} 13. Ke2 {+0.62/6 0.221s} Rb8 {-0.58/5 0.221s}
+14. g4 {+0.63/5 0.214s} Re8 {-0.55/5 0.214s} 15. Kd3 {+0.60/6 0.207s}
+Ba6 {-0.55/5 0.209s, White makes an illegal move: a1a4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "11"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:48:55 -0400"]
+[GameEndTime "2026-07-17T12:49:01 -0400"]
+[PlyCount "48"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B40"]
+[Opening "Sicilian Defense: Delayed Alapin Variation, with e6"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} e6 {book} 3. c3 {book} Nf6 {book}
+4. e5 {book} Nd5 {book} 5. g3 {book} Nc6 {book} 6. Bg2 {book} d6 {book}
+7. exd6 {book} Bxd6 {book} 8. d4 {book} O-O {book} 9. c4 {+0.39/4 0.292s}
+Qa5+ {-0.37/5 0.254s} 10. Bd2 {+0.39/5 0.244s} Ndb4 {-0.35/5 0.246s}
+11. dxc5 {+0.45/5 0.235s} Bxc5 {-0.35/5 0.238s} 12. Qb3 {+0.45/4 0.227s}
+Qb6 {-0.25/5 0.229s} 13. O-O {+0.32/5 0.220s} Na5 {-0.34/5 0.221s}
+14. Qc3 {+0.31/5 0.213s} Nbc6 {-0.36/5 0.214s} 15. Bf4 {+0.44/4 0.206s}
+Nd4 {+0.41/5 0.208s} 16. Kh1 {-0.78/6 0.200s} Nxf3 {+0.78/5 0.202s}
+17. Bxf3 {-0.83/5 0.194s} Bd4 {+0.83/5 0.197s} 18. Qd3 {-1.72/5 0.191s}
+Bxb2 {+1.04/5 0.190s} 19. c5 {-1.85/5 0.182s} Qxc5 {+1.77/6 0.185s}
+20. Bd6 {-2.07/5 0.177s} Qb6 {+1.93/6 0.179s} 21. Bxf8 {-2.79/5 0.172s}
+Bxa1 {+1.83/5 0.174s} 22. Bc5 {-1.88/5 0.168s} Qxc5 {+6.32/6 0.171s}
+23. Qd8+ {-1.93/5 0.163s} Qf8 {+1.92/6 0.165s}
+24. Qxa5 {-1.94/5 0.160s, Black makes an illegal move: f8f6} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "12"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:48:56 -0400"]
+[GameEndTime "2026-07-17T12:49:02 -0400"]
+[PlyCount "45"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A13"]
+[Opening "English Opening: Agincourt Defense"]
+
+1. Nf3 {book} d5 {book} 2. c4 {book} e6 {book} 3. g3 {book} dxc4 {book}
+4. Qa4+ {book} Bd7 {book} 5. Qxc4 {book} Bc6 {book} 6. Bg2 {book} Nf6 {book}
+7. O-O {book} Be7 {book} 8. b3 {book} Bd5 {book} 9. Qf4 {+0.36/5 0.254s}
+Nc6 {-0.33/4 0.254s} 10. Bb2 {+0.42/5 0.246s} h6 {-0.37/5 0.245s}
+11. Nd4 {+0.46/5 0.237s} Bxg2 {-0.35/5 0.238s} 12. Kxg2 {+0.48/6 0.229s}
+Qd5+ {-0.35/5 0.229s} 13. Qf3 {+0.36/6 0.222s} Qe5 {-0.40/5 0.222s}
+14. Nxc6 {+0.29/5 0.215s} Qxb2 {-0.48/6 0.217s} 15. Nc3 {+0.52/5 0.208s}
+Qxd2 {-0.59/5 0.207s} 16. Na5 {+0.52/5 0.201s} Rb8 {-0.48/5 0.201s}
+17. Nxb7 {+0.52/5 0.196s} Rxb7 {-0.54/5 0.196s} 18. Qxb7 {+0.54/5 0.190s}
+Qxc3 {-0.50/5 0.190s} 19. Qa8+ {+0.50/5 0.184s} Bd8 {-0.51/6 0.184s}
+20. Rfd1 {+0.54/5 0.178s} Ke7 {-0.49/6 0.179s} 21. Qxa7 {+0.54/5 0.174s}
+Qe5 {-0.49/5 0.173s} 22. Kf1 {+0.57/5 0.169s}
+Ng4 {-0.58/5 0.169s, White makes an illegal move: a7d7} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "22"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:00 -0400"]
+[GameEndTime "2026-07-17T12:49:02 -0400"]
+[PlyCount "24"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D03"]
+[Opening "Queen's Pawn Game: Torre Attack, Gossip Variation"]
+
+1. Nf3 {book} d5 {book} 2. d4 {book} Nf6 {book} 3. Bg5 {book} Ne4 {book}
+4. Bf4 {book} c5 {book} 5. e3 {book} Nc6 {book} 6. Nbd2 {book} Bg4 {book}
+7. h3 {book} Nxd2 {book} 8. hxg4 {book} Nxf3+ {book} 9. gxf3 {-0.47/6 0.254s}
+cxd4 {+0.53/6 0.255s} 10. Qe2 {-0.52/5 0.246s} Qa5+ {+0.49/6 0.245s}
+11. Kd1 {-0.52/6 0.239s} a6 {+0.50/5 0.237s}
+12. exd4 {-0.49/5 0.230s, Black makes an illegal move: a8a4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "14"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:48:56 -0400"]
+[GameEndTime "2026-07-17T12:49:02 -0400"]
+[PlyCount "45"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C77"]
+[Opening "Ruy Lopez: Morphy Defense, Anderssen Variation"]
+
+1. e4 {book} e5 {book} 2. Nf3 {book} Nc6 {book} 3. Bb5 {book} a6 {book}
+4. Ba4 {book} Nf6 {book} 5. d3 {book} Bc5 {book} 6. c3 {book} b5 {book}
+7. Bb3 {book} d6 {book} 8. Nbd2 {book} O-O {book} 9. Bd5 {+0.45/5 0.254s}
+Qe8 {-0.54/6 0.254s} 10. b4 {+0.54/5 0.246s} Bb6 {-0.51/5 0.246s}
+11. Bb2 {+0.47/5 0.237s} Be6 {-0.45/6 0.237s} 12. Bxc6 {+0.45/5 0.229s}
+Qxc6 {-0.45/5 0.229s} 13. g3 {+0.37/5 0.222s} a5 {-0.37/5 0.221s}
+14. Ng5 {+0.36/5 0.215s} d5 {-0.36/5 0.214s} 15. Nxe6 {+0.36/5 0.208s}
+Qxe6 {-0.30/5 0.208s} 16. Qb1 {+0.32/4 0.201s} Rfd8 {-0.21/4 0.202s}
+17. Ke2 {+0.15/5 0.196s} axb4 {+0.05/5 0.195s} 18. cxb4 {-0.02/5 0.190s}
+Ra4 {+0.05/4 0.189s} 19. a3 {-0.02/5 0.184s} dxe4 {+0.02/4 0.184s}
+20. Nxe4 {+0.09/6 0.180s} Bd4 {+0.03/4 0.179s} 21. Nxf6+ {+0.12/5 0.173s}
+Qxf6 {+0.05/6 0.174s} 22. Bxd4 {+0.18/7 0.169s}
+exd4 {+0.04/5 0.169s, White makes an illegal move: b1b7} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "21"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:00 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B42"]
+[Opening "Sicilian Defense: Kan Variation, Modern Variation"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} e6 {book} 3. d4 {book} cxd4 {book}
+4. Nxd4 {book} a6 {book} 5. Bd3 {book} Nf6 {book} 6. O-O {book} d6 {book}
+7. Be3 {book} Be7 {book} 8. c4 {book} O-O {book} 9. b3 {+0.65/5 0.254s}
+e5 {-0.55/6 0.254s} 10. Nf3 {+0.55/5 0.246s} Bg4 {-0.55/5 0.245s}
+11. Nc3 {+0.55/5 0.237s} Bxf3 {-0.55/5 0.237s} 12. Qxf3 {+0.53/5 0.229s}
+Nc6 {-0.54/5 0.229s} 13. Nd5 {+0.61/5 0.221s} Kh8 {-0.55/5 0.221s}
+14. Kh1 {+0.62/4 0.214s, Black makes an illegal move: a8e8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "17"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:48:58 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "40"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E11"]
+[Opening "Bogo-Indian Defense: Grünfeld Variation"]
+
+1. d4 {book} e6 {book} 2. Nf3 {book} Nf6 {book} 3. c4 {book} Bb4+ {book}
+4. Nbd2 {book} b6 {book} 5. a3 {book} Bxd2+ {book} 6. Qxd2 {book} Bb7 {book}
+7. e3 {book} d6 {book} 8. Be2 {book} Ne4 {book} 9. Qd1 {+0.44/5 0.254s}
+Qf6 {-0.37/5 0.254s} 10. d5 {+0.46/4 0.245s} exd5 {-0.36/5 0.245s}
+11. cxd5 {+0.46/5 0.238s} Qf5 {-0.31/5 0.238s} 12. Bc4 {+0.44/5 0.229s}
+Nd7 {-0.36/5 0.229s} 13. Qc2 {+0.44/4 0.221s} Ne5 {-0.37/5 0.224s}
+14. Nxe5 {+0.42/5 0.214s} Qxe5 {-0.42/5 0.223s} 15. f4 {+0.49/5 0.207s}
+Qe7 {-0.44/6 0.218s} 16. O-O {+0.49/4 0.201s} O-O {-0.34/5 0.200s}
+17. g3 {+0.46/4 0.195s} Nf6 {-0.25/4 0.194s} 18. Rd1 {+0.48/4 0.189s}
+Bc8 {-0.29/4 0.188s} 19. Rd4 {+0.48/5 0.184s} Bg4 {-0.31/4 0.184s}
+20. Kf2 {+0.48/4 0.179s, Black makes an illegal move: f8f5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "23"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:01 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "26"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A13"]
+[Opening "English Opening: Agincourt Defense"]
+
+1. Nf3 {book} d5 {book} 2. c4 {book} e6 {book} 3. g3 {book} g6 {book}
+4. Bg2 {book} Bg7 {book} 5. d3 {book} Ne7 {book} 6. Nbd2 {book} O-O {book}
+7. Rb1 {book} a5 {book} 8. O-O {book} c5 {book} 9. Nb3 {+0.59/5 0.254s}
+dxc4 {-0.51/5 0.254s} 10. dxc4 {+0.64/5 0.245s} Qxd1 {-0.54/5 0.245s}
+11. Rxd1 {+0.63/6 0.237s} b6 {-0.63/5 0.237s} 12. Bf4 {+0.57/5 0.230s}
+Bb7 {-0.61/5 0.230s} 13. Bd6 {+0.64/5 0.221s, Black makes an illegal move: a8e8}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "24"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:01 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "24"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C16"]
+[Opening "French Defense: Winawer Variation, Advance Variation"]
+
+1. e4 {book} e6 {book} 2. d4 {book} d5 {book} 3. Nc3 {book} Bb4 {book}
+4. e5 {book} Ne7 {book} 5. Nf3 {book} c5 {book} 6. a3 {book} Ba5 {book}
+7. dxc5 {book} Bxc3+ {book} 8. bxc3 {book} Nd7 {book} 9. Bb5 {+0.82/5 0.254s}
+Qa5 {+0.03/7 0.254s} 10. Qd3 {+0.84/6 0.245s} a6 {-0.84/6 0.245s}
+11. Bxd7+ {+0.86/6 0.238s} Bxd7 {-0.69/6 0.240s}
+12. Be3 {+0.81/5 0.229s, Black makes an illegal move: a8a4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "27"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:00"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "18"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D11"]
+[Opening "Slav Defense: Quiet Variation"]
+
+1. d4 {book} d5 {book} 2. c4 {book} c6 {book} 3. Nf3 {book} Nf6 {book}
+4. e3 {book} e6 {book} 5. Bd3 {book} Nbd7 {book} 6. Nbd2 {book} Be7 {book}
+7. O-O {book} O-O {book} 8. b3 {book} a5 {book}
+9. c5 {+0.58/5 0.255s, Black makes an illegal move: d8b8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "19"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:48:59 -0400"]
+[GameEndTime "2026-07-17T12:49:03 -0400"]
+[PlyCount "35"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D31"]
+[Opening "Semi-Slav Defense: Accelerated Move Order"]
+
+1. d4 {book} d5 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} c6 {book}
+4. e3 {book} Bd6 {book} 5. Qc2 {book} f5 {book} 6. Bd3 {book} Nf6 {book}
+7. f4 {book} O-O {book} 8. Nf3 {book} Ne4 {book} 9. c5 {+0.70/5 0.254s}
+Be7 {-0.67/5 0.254s} 10. Bxe4 {+0.63/5 0.246s} fxe4 {-0.53/5 0.245s}
+11. Ne5 {+0.58/6 0.237s} Na6 {-0.52/5 0.238s} 12. Qd2 {+0.67/5 0.229s}
+Bf6 {-0.41/5 0.230s} 13. a3 {+0.59/5 0.221s} Bxe5 {-0.32/5 0.221s}
+14. fxe5 {+0.37/6 0.214s} Qh4+ {-0.31/5 0.215s} 15. g3 {+0.32/6 0.208s}
+Qg5 {-0.29/5 0.207s} 16. Rg1 {+0.35/5 0.202s} Rf3 {-0.26/5 0.202s}
+17. a4 {+0.30/5 0.208s} Bd7 {-0.24/5 0.196s, White makes an illegal move: d2d6}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "20"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:48:59 -0400"]
+[GameEndTime "2026-07-17T12:49:04 -0400"]
+[PlyCount "36"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E86"]
+[Opening "King's Indian Defense: Sämisch Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} g6 {book} 3. Nc3 {book} Bg7 {book}
+4. e4 {book} d6 {book} 5. f3 {book} O-O {book} 6. Be3 {book} e5 {book}
+7. Nge2 {book} c6 {book} 8. Qb3 {book} Nbd7 {book} 9. O-O-O {+0.59/4 0.254s}
+Re8 {-0.62/5 0.254s} 10. Qa4 {+0.59/3 0.246s} Nb6 {-0.52/5 0.246s}
+11. Qb4 {+0.52/5 0.237s} exd4 {-0.59/5 0.238s} 12. Bxd4 {+0.63/4 0.230s}
+c5 {+0.18/6 0.230s} 13. Bxf6 {-0.18/6 0.221s} cxb4 {+0.18/6 0.221s}
+14. Bxd8 {-0.18/6 0.214s} bxc3 {+0.18/6 0.214s} 15. Bxb6 {-0.16/6 0.207s}
+cxb2+ {+0.07/6 0.207s} 16. Kb1 {+0.25/6 0.201s} axb6 {+0.11/6 0.201s}
+17. Nd4 {+0.07/6 0.195s} Rf8 {+0.40/6 0.195s}
+18. Kxb2 {+0.50/6 0.189s, Black makes an illegal move: f8f2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "26"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:04 -0400"]
+[PlyCount "21"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B06"]
+[Opening "Modern Defense: Standard Defense"]
+
+1. e4 {book} d6 {book} 2. d4 {book} g6 {book} 3. Nc3 {book} Bg7 {book}
+4. Bc4 {book} Nc6 {book} 5. Nf3 {book} Nf6 {book} 6. h3 {book} O-O {book}
+7. Qe2 {book} Nd7 {book} 8. Be3 {book} Nb6 {book} 9. Bb5 {+0.83/5 0.254s}
+Nb8 {-0.78/5 0.254s} 10. Qf1 {+0.81/5 0.245s}
+Be6 {-0.71/5 0.245s, White makes an illegal move: f1f4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "22"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:49:00 -0400"]
+[GameEndTime "2026-07-17T12:49:04 -0400"]
+[PlyCount "35"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D03"]
+[Opening "Queen's Pawn Game: Torre Attack, Gossip Variation"]
+
+1. Nf3 {book} d5 {book} 2. d4 {book} Nf6 {book} 3. Bg5 {book} Ne4 {book}
+4. Bf4 {book} c5 {book} 5. e3 {book} Nc6 {book} 6. Nbd2 {book} Bg4 {book}
+7. h3 {book} Nxd2 {book} 8. hxg4 {book} Nxf3+ {book} 9. Qxf3 {-0.50/6 0.255s}
+cxd4 {+0.48/5 0.254s} 10. e4 {-0.48/6 0.245s} Qa5+ {+0.45/5 0.245s}
+11. Kd1 {-0.48/6 0.238s} Rd8 {+0.50/5 0.237s} 12. exd5 {-0.48/5 0.229s}
+Qxd5 {+0.43/5 0.229s} 13. Bd3 {-0.47/6 0.221s} Qxf3+ {+0.48/5 0.221s}
+14. gxf3 {-0.38/7 0.214s} h5 {+0.38/5 0.214s} 15. Bb5 {-0.29/5 0.207s}
+Rd5 {+0.49/6 0.208s} 16. Bxc6+ {-0.49/6 0.201s} bxc6 {+0.59/6 0.201s}
+17. Kd2 {-0.59/6 0.196s} h4 {+0.74/5 0.195s, White makes an illegal move: a1a8}
+0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "26"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:04 -0400"]
+[PlyCount "24"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B06"]
+[Opening "Modern Defense: Standard Defense"]
+
+1. e4 {book} d6 {book} 2. d4 {book} g6 {book} 3. Nc3 {book} Bg7 {book}
+4. Bc4 {book} Nc6 {book} 5. Nf3 {book} Nf6 {book} 6. h3 {book} O-O {book}
+7. Qe2 {book} Nd7 {book} 8. Be3 {book} Nb6 {book} 9. Bd5 {+0.79/5 0.254s}
+Nb4 {-0.74/5 0.254s} 10. Bf4 {+0.76/4 0.245s} N6xd5 {-0.65/5 0.245s}
+11. Nxd5 {+0.74/6 0.237s} Nxd5 {-0.66/5 0.237s}
+12. exd5 {+0.69/5 0.229s, Black makes an illegal move: d8h8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "15"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:07"]
+[GameStartTime "2026-07-17T12:48:57 -0400"]
+[GameEndTime "2026-07-17T12:49:05 -0400"]
+[PlyCount "57"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B90"]
+[Opening "Sicilian Defense: Najdorf Variation"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} d6 {book} 3. d4 {book} cxd4 {book}
+4. Nxd4 {book} Nf6 {book} 5. Nc3 {book} a6 {book} 6. a4 {book} Nc6 {book}
+7. g3 {book} e6 {book} 8. Bg2 {book} Qc7 {book} 9. Bg5 {+0.65/5 0.254s}
+Be7 {-0.64/5 0.255s} 10. Nxc6 {+0.61/5 0.245s} Qxc6 {-0.57/5 0.245s}
+11. Be3 {+0.56/5 0.237s} e5 {-0.52/5 0.237s} 12. Qd3 {+0.55/5 0.230s}
+Be6 {-0.49/5 0.229s} 13. O-O-O {+0.53/5 0.221s} Bc4 {-0.44/5 0.221s}
+14. Qd2 {+0.44/6 0.215s} Rd8 {-0.48/5 0.214s} 15. b3 {+0.48/5 0.207s}
+Be6 {-0.48/5 0.207s} 16. Qd3 {+0.48/5 0.202s} Rd7 {-0.48/4 0.201s}
+17. Bf3 {+0.48/4 0.195s} O-O {-0.44/4 0.195s} 18. Nd5 {+0.47/5 0.189s}
+Bd8 {-0.47/5 0.191s} 19. c3 {+0.49/5 0.184s} Re8 {-0.47/5 0.185s}
+20. Kd2 {+0.47/5 0.180s} Qc8 {-0.43/5 0.179s} 21. Nxf6+ {+0.45/5 0.175s}
+Bxf6 {-0.41/6 0.174s} 22. c4 {+0.44/5 0.169s} Ree7 {-0.42/5 0.170s}
+23. h3 {+0.43/5 0.164s} Qc6 {-0.42/5 0.165s} 24. Ke2 {+0.39/5 0.161s}
+h6 {-0.40/5 0.160s} 25. Bg4 {+0.39/5 0.156s} Bg5 {-0.41/6 0.156s}
+26. f4 {+0.44/6 0.153s} exf4 {-0.40/6 0.152s} 27. gxf4 {+0.64/6 0.149s}
+Bxg4+ {-0.62/6 0.152s} 28. hxg4 {+0.64/6 0.145s}
+Bf6 {-0.64/5 0.154s, White makes an illegal move: d1d5} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "28"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:05 -0400"]
+[PlyCount "21"]
+[Termination "normal"]
+[TimeControl "5+0.08"]
+[ECO "D32"]
+[Opening "Tarrasch Defense"]
+
+1. d4 {book} d5 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} c5 {book}
+4. dxc5 {book} Nf6 {book} 5. Bg5 {book} Bxc5 {book} 6. e3 {book} d4 {book}
+7. exd4 {book} Bxd4 {book} 8. Nf3 {book} Bxc3+ {book} 9. bxc3 {+0.02/7 0.254s}
+Qxd1+ {+0.16/7 0.255s} 10. Rxd1 {0.00/7 0.245s} Ne4 {+0.10/6 0.245s}
+11. Rd8# {+M1/6 0.237s, White mates} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "29"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:04 -0400"]
+[GameEndTime "2026-07-17T12:49:05 -0400"]
+[PlyCount "20"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B30"]
+[Opening "Sicilian Defense: Nyezhmetdinov-Rossolimo Attack"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} Nc6 {book} 3. Bb5 {book} e6 {book}
+4. Bxc6 {book} bxc6 {book} 5. O-O {book} Ne7 {book} 6. d3 {book} Ng6 {book}
+7. Ng5 {book} Be7 {book} 8. Qh5 {book} e5 {book} 9. Nxh7 {+1.63/6 0.259s}
+Qb6 {-1.63/5 0.254s} 10. Nd2 {+1.69/4 0.245s, Black makes an illegal move: b6h6}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "19"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:48:59 -0400"]
+[GameEndTime "2026-07-17T12:49:06 -0400"]
+[PlyCount "48"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D31"]
+[Opening "Semi-Slav Defense: Accelerated Move Order"]
+
+1. d4 {book} d5 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} c6 {book}
+4. e3 {book} Bd6 {book} 5. Qc2 {book} f5 {book} 6. Bd3 {book} Nf6 {book}
+7. f4 {book} O-O {book} 8. Nf3 {book} Ne4 {book} 9. c5 {+0.67/5 0.255s}
+Bc7 {-0.66/5 0.254s} 10. Bd2 {+0.62/5 0.245s} Nd7 {-0.64/5 0.245s}
+11. Qb3 {+0.62/4 0.238s} Ndf6 {-0.60/5 0.237s} 12. a3 {+0.60/4 0.229s}
+Rf7 {-0.56/5 0.229s} 13. g3 {+0.57/4 0.222s} Re7 {-0.53/5 0.221s}
+14. Qd1 {+0.54/4 0.215s} Nxc3 {-0.53/5 0.214s} 15. Bxc3 {+0.53/5 0.208s}
+a5 {-0.53/5 0.208s} 16. Kf1 {+0.53/5 0.201s} Qe8 {-0.51/5 0.201s}
+17. Kf2 {+0.53/5 0.199s} Ne4+ {-0.50/5 0.195s} 18. Bxe4 {+0.46/6 0.190s}
+fxe4 {-0.46/5 0.189s} 19. Ne1 {+0.51/4 0.183s} Qf7 {-0.46/5 0.184s}
+20. Kg2 {+0.45/4 0.178s} Qg6 {-0.47/5 0.179s} 21. Kf1 {+0.46/4 0.173s}
+Bd7 {-0.44/5 0.174s} 22. Kf2 {+0.45/4 0.169s} Kf7 {-0.43/5 0.169s}
+23. h3 {+0.46/4 0.164s} Rb8 {-0.43/5 0.165s}
+24. Qa4 {+0.58/5 0.160s, Black makes an illegal move: b8b5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "27"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:06 -0400"]
+[PlyCount "27"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D11"]
+[Opening "Slav Defense: Quiet Variation"]
+
+1. d4 {book} d5 {book} 2. c4 {book} c6 {book} 3. Nf3 {book} Nf6 {book}
+4. e3 {book} e6 {book} 5. Bd3 {book} Nbd7 {book} 6. Nbd2 {book} Be7 {book}
+7. O-O {book} O-O {book} 8. b3 {book} a5 {book} 9. c5 {+0.60/5 0.254s}
+Ne8 {-0.60/5 0.254s} 10. Bb2 {+0.62/5 0.245s} f5 {-0.59/5 0.245s}
+11. Qc2 {+0.61/5 0.238s} a4 {-0.56/5 0.238s} 12. bxa4 {+0.95/5 0.230s}
+Qa5 {-0.49/5 0.229s} 13. Nb3 {+1.13/5 0.222s}
+Qxa4 {-0.36/4 0.221s, White makes an illegal move: a1a3} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "25"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:49:02 -0400"]
+[GameEndTime "2026-07-17T12:49:06 -0400"]
+[PlyCount "34"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C55"]
+[Opening "Italian Game: Two Knights Defense, Modern Bishop's Opening"]
+
+1. e4 {book} e5 {book} 2. Bc4 {book} Nf6 {book} 3. d3 {book} Nc6 {book}
+4. Nf3 {book} Be7 {book} 5. O-O {book} O-O {book} 6. Re1 {book} d6 {book}
+7. a4 {book} Kh8 {book} 8. a5 {book} a6 {book} 9. Bg5 {+0.59/5 0.254s}
+Bg4 {-0.52/5 0.254s} 10. Nbd2 {+0.56/5 0.245s} Bxf3 {-0.54/5 0.246s}
+11. Nxf3 {+0.56/5 0.237s} Nd7 {-0.56/6 0.238s} 12. Bxe7 {+0.59/5 0.229s}
+Qxe7 {-0.57/6 0.229s} 13. Bd5 {+0.61/5 0.221s} Nd8 {-0.59/6 0.221s}
+14. Qe2 {+0.59/5 0.214s} c6 {-0.49/5 0.214s} 15. Bc4 {+0.54/5 0.223s}
+Ne6 {-0.47/5 0.207s} 16. Bxe6 {+0.54/4 0.200s} Qxe6 {-0.47/6 0.202s}
+17. Qe3 {+0.50/4 0.194s, Black makes an illegal move: f8f4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "25"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:02 -0400"]
+[GameEndTime "2026-07-17T12:49:06 -0400"]
+[PlyCount "33"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C55"]
+[Opening "Italian Game: Two Knights Defense, Modern Bishop's Opening"]
+
+1. e4 {book} e5 {book} 2. Bc4 {book} Nf6 {book} 3. d3 {book} Nc6 {book}
+4. Nf3 {book} Be7 {book} 5. O-O {book} O-O {book} 6. Re1 {book} d6 {book}
+7. a4 {book} Kh8 {book} 8. a5 {book} a6 {book} 9. Bg5 {+0.59/5 0.254s}
+Nd4 {-0.58/5 0.255s} 10. Bxf6 {+0.61/6 0.245s} Bxf6 {-0.59/6 0.246s}
+11. Nxd4 {+0.54/6 0.238s} exd4 {-0.54/5 0.236s} 12. Qd2 {+0.57/5 0.230s}
+Qe7 {-0.53/5 0.229s} 13. Na3 {+0.55/5 0.222s} Be6 {-0.52/5 0.221s}
+14. Bxe6 {+0.56/5 0.215s} fxe6 {-0.50/5 0.215s} 15. f4 {+0.53/5 0.207s}
+Rad8 {-0.50/5 0.207s} 16. Qb4 {+0.54/5 0.202s}
+c5 {-0.47/5 0.201s, White makes an illegal move: b4g4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "34"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:06 -0400"]
+[GameEndTime "2026-07-17T12:49:07 -0400"]
+[PlyCount "20"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C00"]
+[Opening "French Defense: King's Indian Attack"]
+
+1. e4 {book} e6 {book} 2. d3 {book} d5 {book} 3. Nd2 {book} Nf6 {book}
+4. Ngf3 {book} b6 {book} 5. c3 {book} Bb7 {book} 6. Qa4+ {book} Nfd7 {book}
+7. Be2 {book} Be7 {book} 8. e5 {book} O-O {book} 9. d4 {+0.56/5 0.254s}
+Qc8 {-0.44/5 0.254s} 10. Bb5 {+0.61/4 0.245s, Black makes an illegal move: f8f4}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "30"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:05 -0400"]
+[GameEndTime "2026-07-17T12:49:07 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D80"]
+[Opening "Grünfeld Defense"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} g6 {book} 3. Nc3 {book} d5 {book}
+4. e3 {book} Bg7 {book} 5. cxd5 {book} Nxd5 {book} 6. Bc4 {book} Nxc3 {book}
+7. bxc3 {book} O-O {book} 8. Ba3 {book} Nd7 {book} 9. Ne2 {+0.45/4 0.254s}
+Nb6 {-0.33/5 0.255s} 10. Bd3 {+0.41/5 0.245s} Be6 {-0.36/5 0.245s}
+11. Nf4 {+0.37/4 0.237s} Qd7 {-0.38/5 0.237s} 12. Qf3 {+0.38/4 0.229s}
+Nd5 {-0.35/5 0.229s} 13. Nxe6 {+0.42/5 0.222s} Qxe6 {-0.37/5 0.222s}
+14. Qe4 {+0.45/5 0.214s, Black makes an illegal move: a8a6} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "29"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:04 -0400"]
+[GameEndTime "2026-07-17T12:49:08 -0400"]
+[PlyCount "33"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B30"]
+[Opening "Sicilian Defense: Nyezhmetdinov-Rossolimo Attack"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} Nc6 {book} 3. Bb5 {book} e6 {book}
+4. Bxc6 {book} bxc6 {book} 5. O-O {book} Ne7 {book} 6. d3 {book} Ng6 {book}
+7. Ng5 {book} Be7 {book} 8. Qh5 {book} e5 {book} 9. Nxh7 {+1.69/5 0.255s}
+Rb8 {-1.63/5 0.254s} 10. b3 {+1.69/5 0.249s} Bd6 {-1.61/5 0.245s}
+11. Be3 {+1.68/5 0.236s} Qh4 {-1.58/5 0.237s} 12. Qxh4 {+1.59/6 0.229s}
+Nxh4 {-1.47/6 0.229s} 13. Ng5 {+1.50/6 0.221s} f6 {-1.47/5 0.221s}
+14. Nh3 {+1.56/6 0.214s} Nf3+ {-1.47/5 0.215s} 15. gxf3 {+1.84/7 0.207s}
+Rxh3 {-1.39/6 0.207s} 16. Kg2 {+1.71/6 0.201s}
+Rh5 {-1.38/6 0.201s, White makes an illegal move: a1a5} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "34"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:00"]
+[GameStartTime "2026-07-17T12:49:07 -0400"]
+[GameEndTime "2026-07-17T12:49:08 -0400"]
+[PlyCount "19"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C00"]
+[Opening "French Defense: King's Indian Attack"]
+
+1. e4 {book} e6 {book} 2. d3 {book} d5 {book} 3. Nd2 {book} Nf6 {book}
+4. Ngf3 {book} b6 {book} 5. c3 {book} Bb7 {book} 6. Qa4+ {book} Nfd7 {book}
+7. Be2 {book} Be7 {book} 8. e5 {book} O-O {book} 9. Qb3 {+0.52/5 0.255s}
+f6 {-0.46/5 0.254s, White makes an illegal move: b3h3} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "31"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:05 -0400"]
+[GameEndTime "2026-07-17T12:49:08 -0400"]
+[PlyCount "31"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E44"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation, Romanishin–Psakhis Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} Bb4 {book}
+4. e3 {book} c5 {book} 5. Ne2 {book} b6 {book} 6. a3 {book} Ba5 {book}
+7. g3 {book} Bb7 {book} 8. d5 {book} Ne4 {book} 9. Qd3 {+0.47/6 0.254s}
+exd5 {-0.47/5 0.254s} 10. cxd5 {+0.45/6 0.246s} f5 {-0.45/5 0.245s}
+11. f3 {+0.47/6 0.237s} Ba6 {-0.49/5 0.237s} 12. Qc2 {+0.23/6 0.229s}
+Bxe2 {-0.27/6 0.230s} 13. Kxe2 {+0.19/6 0.221s} Nxc3+ {-0.24/6 0.221s}
+14. bxc3 {+0.26/6 0.214s} Qf6 {-0.24/5 0.215s} 15. Bd2 {+0.25/6 0.207s}
+O-O {-0.20/5 0.207s, White makes an illegal move: c2c4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "24"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:49:02 -0400"]
+[GameEndTime "2026-07-17T12:49:08 -0400"]
+[PlyCount "49"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C16"]
+[Opening "French Defense: Winawer Variation, Advance Variation"]
+
+1. e4 {book} e6 {book} 2. d4 {book} d5 {book} 3. Nc3 {book} Bb4 {book}
+4. e5 {book} Ne7 {book} 5. Nf3 {book} c5 {book} 6. a3 {book} Ba5 {book}
+7. dxc5 {book} Bxc3+ {book} 8. bxc3 {book} Nd7 {book} 9. Be3 {0.00/5 0.255s}
+Qa5 {0.00/5 0.254s} 10. Bd4 {+0.01/6 0.245s} Nxc5 {-0.05/5 0.245s}
+11. Bd3 {+0.04/5 0.238s} a6 {+0.09/4 0.238s} 12. Qd2 {+0.06/5 0.230s}
+h6 {-0.06/4 0.229s} 13. c4 {+0.18/5 0.221s} Qxd2+ {-0.27/6 0.221s}
+14. Kxd2 {+0.16/7 0.215s} Ne4+ {-0.18/6 0.214s} 15. Ke1 {+0.18/6 0.207s}
+Ng5 {-0.20/6 0.207s} 16. Nxg5 {+0.18/7 0.201s} hxg5 {-0.09/6 0.201s}
+17. cxd5 {+0.10/6 0.195s} Rh4 {-0.05/6 0.195s} 18. f4 {+0.12/6 0.189s}
+gxf4 {+0.22/6 0.189s} 19. d6 {+0.22/6 0.184s} Nc6 {-0.11/6 0.184s}
+20. Bb2 {+0.11/6 0.179s} Rh5 {-0.07/6 0.179s} 21. h4 {-0.30/6 0.174s}
+Nxe5 {+0.73/6 0.175s} 22. Be2 {+0.17/6 0.169s} Rf5 {+0.74/6 0.169s}
+23. Bxe5 {-0.82/6 0.164s} Rxe5 {+0.77/6 0.165s} 24. Rh3 {-0.97/6 0.161s}
+Bd7 {+0.85/5 0.160s, White makes an illegal move: h3h8} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "21"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:08"]
+[GameStartTime "2026-07-17T12:49:00 -0400"]
+[GameEndTime "2026-07-17T12:49:08 -0400"]
+[PlyCount "61"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B42"]
+[Opening "Sicilian Defense: Kan Variation, Modern Variation"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} e6 {book} 3. d4 {book} cxd4 {book}
+4. Nxd4 {book} a6 {book} 5. Bd3 {book} Nf6 {book} 6. O-O {book} d6 {book}
+7. Be3 {book} Be7 {book} 8. c4 {book} O-O {book} 9. Nf3 {+0.67/5 0.254s}
+Nc6 {-0.63/5 0.254s} 10. Nc3 {+0.63/5 0.245s} e5 {-0.61/5 0.245s}
+11. Bg5 {+0.61/5 0.237s} Be6 {-0.61/5 0.237s} 12. Bxf6 {+0.59/5 0.229s}
+Bxf6 {-0.57/5 0.229s} 13. Qe2 {+0.56/5 0.221s} Qb6 {-0.53/5 0.221s}
+14. Rab1 {+0.49/5 0.214s} Nd4 {-0.47/5 0.214s} 15. Nxd4 {+0.42/6 0.209s}
+Qxd4 {-0.42/5 0.209s} 16. g3 {+0.44/5 0.202s} Rac8 {-0.23/5 0.201s}
+17. Nd5 {+0.34/6 0.196s} Bxd5 {-0.34/5 0.195s} 18. exd5 {+0.37/5 0.189s}
+e4 {-0.37/5 0.189s} 19. Qxe4 {+0.25/6 0.184s} Qxe4 {-0.25/7 0.184s}
+20. Bxe4 {+0.20/7 0.179s} Rxc4 {-0.07/6 0.179s} 21. Rfe1 {+0.20/6 0.175s}
+Rd4 {-0.07/5 0.174s} 22. b3 {+0.20/5 0.169s} Rd2 {-0.12/5 0.169s}
+23. a3 {-0.62/6 0.164s} Bd4 {+0.05/5 0.165s} 24. Red1 {-0.70/7 0.160s}
+Bxf2+ {+0.77/7 0.160s} 25. Kf1 {-0.95/7 0.156s} Rxd1+ {+0.85/7 0.156s}
+26. Rxd1 {-0.93/7 0.152s} Bb6 {+0.85/6 0.152s} 27. Rd2 {-0.92/7 0.149s}
+Re8 {+1.05/5 0.149s} 28. Re2 {-0.85/6 0.145s} Re5 {+1.12/6 0.145s}
+29. g4 {-1.05/6 0.142s} h5 {+1.15/6 0.142s} 30. gxh5 {-0.67/7 0.139s}
+Rxh5 {+1.22/6 0.139s, White makes an illegal move: e2e8} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "33"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:06 -0400"]
+[GameEndTime "2026-07-17T12:49:09 -0400"]
+[PlyCount "30"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C00"]
+[Opening "French Defense: Steiner Variation"]
+
+1. c4 {book} e6 {book} 2. e4 {book} d5 {book} 3. exd5 {book} exd5 {book}
+4. cxd5 {book} Nf6 {book} 5. Bb5+ {book} Nbd7 {book} 6. Nc3 {book} Be7 {book}
+7. d4 {book} O-O {book} 8. Nf3 {book} Nb6 {book} 9. Bf4 {+0.39/5 0.255s}
+Nbxd5 {-0.34/5 0.254s} 10. Be5 {+0.34/5 0.245s} Bb4 {-0.30/6 0.246s}
+11. Qd3 {+0.32/5 0.237s} Qe7 {-0.27/5 0.237s} 12. O-O {+0.31/6 0.229s}
+Bxc3 {-0.20/5 0.229s} 13. bxc3 {+0.30/5 0.221s} Qa3 {-0.25/5 0.221s}
+14. Bxf6 {+0.45/5 0.214s} Nxf6 {-0.29/5 0.214s}
+15. Bc4 {+0.37/5 0.207s, Black makes an illegal move: f8f4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "31"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:49:05 -0400"]
+[GameEndTime "2026-07-17T12:49:09 -0400"]
+[PlyCount "38"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E44"]
+[Opening "Nimzo-Indian Defense: St. Petersburg Variation, Romanishin–Psakhis Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} Bb4 {book}
+4. e3 {book} c5 {book} 5. Ne2 {book} b6 {book} 6. a3 {book} Ba5 {book}
+7. g3 {book} Bb7 {book} 8. d5 {book} Ne4 {book} 9. Qd3 {+0.47/6 0.254s}
+exd5 {-0.47/5 0.254s} 10. cxd5 {+0.45/6 0.245s} f5 {-0.45/5 0.247s}
+11. Bg2 {+0.50/6 0.240s} Ba6 {-0.47/5 0.240s} 12. Qc2 {+0.43/6 0.229s}
+Nd6 {-0.45/6 0.228s} 13. Bd2 {+0.42/6 0.221s} Bxc3 {-0.41/5 0.221s}
+14. Bxc3 {+0.46/5 0.215s} Qe7 {-0.47/5 0.214s} 15. Nf4 {+0.47/5 0.211s}
+O-O {-0.47/5 0.207s} 16. O-O-O {+0.45/4 0.201s} g5 {-0.42/5 0.201s}
+17. Nd3 {+0.42/5 0.196s} Bxd3 {-0.42/5 0.195s} 18. Qxd3 {+0.46/5 0.189s}
+Re8 {-0.46/5 0.189s} 19. Kb1 {+0.46/5 0.183s, Black makes an illegal move: a8c8}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "23"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:08"]
+[GameStartTime "2026-07-17T12:49:01 -0400"]
+[GameEndTime "2026-07-17T12:49:09 -0400"]
+[PlyCount "63"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A13"]
+[Opening "English Opening: Agincourt Defense"]
+
+1. Nf3 {book} d5 {book} 2. c4 {book} e6 {book} 3. g3 {book} g6 {book}
+4. Bg2 {book} Bg7 {book} 5. d3 {book} Ne7 {book} 6. Nbd2 {book} O-O {book}
+7. Rb1 {book} a5 {book} 8. O-O {book} c5 {book} 9. Nb3 {+0.61/5 0.254s}
+dxc4 {-0.53/5 0.254s} 10. dxc4 {+0.54/6 0.246s} Qxd1 {-0.62/5 0.246s}
+11. Rxd1 {+0.63/6 0.238s} b6 {-0.63/5 0.237s} 12. Nfd2 {+0.60/5 0.229s}
+Ra7 {-0.49/5 0.229s} 13. Be4 {+0.52/5 0.222s} Rd7 {-0.40/5 0.221s}
+14. Kg2 {+0.45/5 0.214s} f5 {-0.28/5 0.216s} 15. Bd3 {+0.36/5 0.207s}
+a4 {-0.27/5 0.207s} 16. Na1 {+0.35/5 0.201s} Nbc6 {-0.28/5 0.201s}
+17. Bc2 {+0.61/5 0.196s} Ra7 {-0.28/5 0.195s} 18. Bd3 {+0.37/5 0.190s}
+Rd7 {0.00/5 0.189s} 19. Nc2 {+0.28/4 0.184s} Ne5 {-0.16/5 0.185s}
+20. Ne1 {+0.20/5 0.178s} Ba6 {-0.16/5 0.179s} 21. b3 {+0.25/5 0.174s}
+axb3 {-0.21/5 0.174s} 22. axb3 {+0.28/5 0.169s} Bb7+ {-0.29/5 0.174s}
+23. Kg1 {+0.31/6 0.165s} Ra8 {-0.26/5 0.165s} 24. Bb2 {+0.43/5 0.161s}
+Ra2 {-0.15/5 0.160s} 25. Bxe5 {+0.15/5 0.157s} Bxe5 {-0.16/5 0.156s}
+26. h3 {+0.13/5 0.152s} Bc3 {0.00/5 0.152s} 27. Nef3 {+0.14/5 0.149s}
+Bc6 {0.00/4 0.149s} 28. Kh2 {+0.15/4 0.145s} Bxd2 {0.00/4 0.145s}
+29. Rxd2 {+0.01/6 0.142s} Rxd2 {0.00/5 0.142s} 30. Nxd2 {+0.09/6 0.139s}
+e5 {0.00/5 0.139s} 31. f3 {+0.09/6 0.136s}
+Rd4 {+0.05/5 0.136s, White makes an illegal move: b1b8} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "28"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:49:03 -0400"]
+[GameEndTime "2026-07-17T12:49:10 -0400"]
+[PlyCount "49"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D32"]
+[Opening "Tarrasch Defense"]
+
+1. d4 {book} d5 {book} 2. c4 {book} e6 {book} 3. Nc3 {book} c5 {book}
+4. dxc5 {book} Nf6 {book} 5. Bg5 {book} Bxc5 {book} 6. e3 {book} d4 {book}
+7. exd4 {book} Bxd4 {book} 8. Nf3 {book} Bxc3+ {book} 9. bxc3 {-0.16/8 0.254s}
+Qxd1+ {-0.02/6 0.254s} 10. Rxd1 {-0.10/7 0.246s} Nfd7 {0.00/6 0.246s}
+11. Be3 {0.00/5 0.237s} Nc6 {+0.03/5 0.237s} 12. Bd3 {-0.02/5 0.229s}
+Kf8 {-0.02/5 0.229s} 13. O-O {+0.03/5 0.221s} Kg8 {-0.02/5 0.221s}
+14. h3 {+0.02/5 0.214s} a6 {-0.02/5 0.214s} 15. Nd4 {+0.02/5 0.209s}
+Na5 {-0.01/6 0.207s} 16. Nb3 {0.00/6 0.201s} Nc6 {-0.07/6 0.201s}
+17. Nd4 {0.00/5 0.195s} Nce5 {0.00/6 0.195s} 18. Nc2 {-0.22/5 0.189s}
+Nxd3 {+0.01/6 0.189s} 19. Rxd3 {-1.06/6 0.184s} h5 {+0.01/6 0.184s}
+20. a3 {-0.08/6 0.180s} h4 {+0.05/5 0.179s} 21. f4 {-0.12/6 0.174s}
+Rh5 {+0.21/6 0.174s} 22. Rd2 {-0.21/6 0.170s} e5 {+0.21/5 0.169s}
+23. Rd5 {-0.16/5 0.164s} f6 {+0.11/5 0.172s} 24. Re1 {-0.12/5 0.160s}
+Rf5 {+0.16/4 0.160s, White makes an illegal move: e1e8} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "35"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:07 -0400"]
+[GameEndTime "2026-07-17T12:49:10 -0400"]
+[PlyCount "28"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B20"]
+[Opening "Sicilian Defense"]
+
+1. e4 {book} c5 {book} 2. d3 {book} Nc6 {book} 3. g3 {book} g6 {book}
+4. Bg2 {book} Bg7 {book} 5. f4 {book} d6 {book} 6. Nh3 {book} e5 {book}
+7. O-O {book} Nge7 {book} 8. f5 {book} gxf5 {book} 9. exf5 {-0.20/5 0.254s}
+Bxf5 {+0.10/6 0.254s} 10. Bxc6+ {-0.12/5 0.245s} bxc6 {+0.13/6 0.245s}
+11. g4 {-0.16/5 0.238s} Be6 {+0.16/5 0.237s} 12. Ng5 {-0.17/5 0.230s}
+Qd7 {+0.21/6 0.230s} 13. Nxe6 {-0.21/5 0.221s} fxe6 {+0.25/5 0.222s}
+14. Nc3 {-0.14/5 0.214s, Black makes an illegal move: d7d4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "36"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:08 -0400"]
+[GameEndTime "2026-07-17T12:49:10 -0400"]
+[PlyCount "25"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C41"]
+[Opening "Philidor Defense: Lion Variation, Shirov Gambit"]
+
+1. e4 {book} d6 {book} 2. d4 {book} Nf6 {book} 3. Nc3 {book} e5 {book}
+4. Nf3 {book} Nbd7 {book} 5. g4 {book} Nxg4 {book} 6. Rg1 {book} Ngf6 {book}
+7. Bc4 {book} h6 {book} 8. Be3 {book} c6 {book} 9. dxe5 {-0.39/5 0.255s}
+dxe5 {+0.44/5 0.254s} 10. a3 {-0.49/5 0.245s} b5 {+0.49/4 0.245s}
+11. Bd3 {-0.53/5 0.238s} Qe7 {+0.53/4 0.237s} 12. Qe2 {-0.53/5 0.229s}
+Qd6 {+0.53/4 0.229s, White makes an illegal move: g1d1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "36"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:08 -0400"]
+[GameEndTime "2026-07-17T12:49:10 -0400"]
+[PlyCount "26"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C41"]
+[Opening "Philidor Defense: Lion Variation, Shirov Gambit"]
+
+1. e4 {book} d6 {book} 2. d4 {book} Nf6 {book} 3. Nc3 {book} e5 {book}
+4. Nf3 {book} Nbd7 {book} 5. g4 {book} Nxg4 {book} 6. Rg1 {book} Ngf6 {book}
+7. Bc4 {book} h6 {book} 8. Be3 {book} c6 {book} 9. dxe5 {-0.39/4 0.254s}
+dxe5 {+0.49/5 0.255s} 10. a3 {-0.44/4 0.245s} Rh7 {+0.60/5 0.245s}
+11. Qd2 {-0.48/4 0.237s} a6 {+0.65/4 0.237s} 12. b4 {-0.48/4 0.229s}
+a5 {+0.65/5 0.230s} 13. Rb1 {-0.48/4 0.221s, Black makes an illegal move: h7h3}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "32"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:49:05 -0400"]
+[GameEndTime "2026-07-17T12:49:11 -0400"]
+[PlyCount "46"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D90"]
+[Opening "Grünfeld Defense: Three Knights Variation"]
+
+1. Nf3 {book} Nf6 {book} 2. c4 {book} g6 {book} 3. Nc3 {book} Bg7 {book}
+4. d4 {book} d5 {book} 5. cxd5 {book} Nxd5 {book} 6. g3 {book} Nxc3 {book}
+7. bxc3 {book} b6 {book} 8. Bg2 {book} Bb7 {book} 9. Qd3 {+0.38/5 0.254s}
+f5 {-0.35/5 0.255s} 10. Bf4 {+0.35/4 0.246s} Be4 {-0.40/5 0.245s}
+11. Qc4 {+0.38/5 0.238s} c6 {-0.40/5 0.237s} 12. Nh4 {+0.44/5 0.230s}
+b5 {-0.44/6 0.230s} 13. Qb3 {+0.41/6 0.222s} Bxg2 {-0.46/6 0.221s}
+14. Nxg2 {+0.46/5 0.214s} Bf6 {-0.50/5 0.214s} 15. a4 {+0.50/5 0.207s}
+g5 {-0.61/6 0.208s} 16. Bxb8 {+0.61/5 0.201s} Qxb8 {-0.70/6 0.202s}
+17. axb5 {+0.70/5 0.195s} cxb5 {-0.70/6 0.196s} 18. Qd5 {+0.70/5 0.189s}
+b4 {-1.60/5 0.189s} 19. Rb1 {+1.60/5 0.186s} Qc8 {-0.51/6 0.185s}
+20. Qb5+ {+1.47/5 0.178s} Kf7 {-1.37/6 0.179s} 21. cxb4 {+1.49/5 0.174s}
+Kg6 {-1.33/5 0.173s} 22. Qc5 {+1.51/4 0.169s} Qe6 {-1.29/5 0.169s}
+23. f3 {+1.45/4 0.164s, Black makes an illegal move: a8a2} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "30"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:06"]
+[GameStartTime "2026-07-17T12:49:05 -0400"]
+[GameEndTime "2026-07-17T12:49:11 -0400"]
+[PlyCount "51"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "D80"]
+[Opening "Grünfeld Defense"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} g6 {book} 3. Nc3 {book} d5 {book}
+4. e3 {book} Bg7 {book} 5. cxd5 {book} Nxd5 {book} 6. Bc4 {book} Nxc3 {book}
+7. bxc3 {book} O-O {book} 8. Ba3 {book} Nd7 {book} 9. Qe2 {+0.45/5 0.254s}
+Nb6 {-0.36/5 0.257s} 10. Bb4 {+0.33/5 0.246s} Nxc4 {-0.23/5 0.246s}
+11. Qxc4 {+0.31/5 0.237s} Be6 {-0.26/5 0.236s} 12. Qd3 {+0.28/5 0.230s}
+a5 {-0.24/5 0.229s} 13. Bc5 {+0.23/5 0.221s} b6 {-0.24/5 0.221s}
+14. Ba3 {+0.22/5 0.214s} Qd5 {-0.21/5 0.214s} 15. e4 {+0.31/5 0.208s}
+Qc4 {-0.31/5 0.207s} 16. Qxc4 {+0.24/6 0.201s} Bxc4 {-0.29/6 0.201s}
+17. Kd2 {+0.06/6 0.195s} Rfd8 {-0.20/5 0.195s} 18. Ke3 {+0.20/5 0.189s}
+e5 {-0.09/5 0.189s} 19. Bb2 {+0.08/6 0.185s} Rd6 {-0.06/5 0.184s}
+20. dxe5 {-0.02/6 0.179s} Bxe5 {+1.10/5 0.179s} 21. f4 {-0.09/6 0.178s}
+Rd3+ {+1.45/6 0.174s} 22. Kf2 {-2.23/7 0.169s} Bxf4 {+1.49/5 0.169s}
+23. Nf3 {-2.23/6 0.165s} Re8 {+1.59/5 0.165s} 24. Bc1 {-2.44/6 0.160s}
+Bxc1 {+2.44/5 0.161s} 25. Rhxc1 {-2.44/6 0.156s}
+Rxe4 {+2.44/5 0.156s, White makes an illegal move: c1c6} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "38"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:09 -0400"]
+[GameEndTime "2026-07-17T12:49:11 -0400"]
+[PlyCount "25"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A31"]
+[Opening "English Opening: Symmetrical Variation, Anti-Benoni Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} c5 {book} 3. Nf3 {book} cxd4 {book}
+4. Nxd4 {book} a6 {book} 5. Nc3 {book} e6 {book} 6. g3 {book} Qc7 {book}
+7. e3 {book} Nc6 {book} 8. Be2 {book} b6 {book} 9. Bf3 {+0.53/5 0.254s}
+Bb4 {-0.56/5 0.254s} 10. Bd2 {+0.45/6 0.245s} Bb7 {-0.45/5 0.245s}
+11. Bxc6 {+0.47/6 0.237s} Bxc6 {-0.42/5 0.238s} 12. f3 {+0.46/6 0.229s}
+Bc5 {-0.41/4 0.229s, White makes an illegal move: d1d3} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "37"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:08 -0400"]
+[GameEndTime "2026-07-17T12:49:12 -0400"]
+[PlyCount "30"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C50"]
+[Opening "Italian Game: Giuoco Pianissimo, Normal"]
+
+1. e4 {book} e5 {book} 2. Bc4 {book} Nf6 {book} 3. d3 {book} Nc6 {book}
+4. Nf3 {book} Bc5 {book} 5. Bb3 {book} d6 {book} 6. c3 {book} Bb6 {book}
+7. a4 {book} a6 {book} 8. Nbd2 {book} Ba7 {book} 9. Bd5 {+0.56/5 0.254s}
+Ne7 {-0.52/5 0.255s} 10. Qb3 {+0.55/5 0.246s} O-O {-0.47/5 0.245s}
+11. Nf1 {+0.50/5 0.237s} Nexd5 {-0.43/5 0.237s} 12. exd5 {+0.52/5 0.229s}
+e4 {-0.50/5 0.229s} 13. dxe4 {+0.46/5 0.227s} Nxe4 {-0.43/5 0.221s}
+14. Ne3 {+0.56/4 0.214s} Qe7 {-0.32/5 0.214s}
+15. Qc4 {+0.56/4 0.208s, Black makes an illegal move: f8f4} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "18"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:12"]
+[GameStartTime "2026-07-17T12:48:59 -0400"]
+[GameEndTime "2026-07-17T12:49:12 -0400"]
+[PlyCount "99"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A21"]
+[Opening "English Opening: King's English Variation, Reversed Sicilian"]
+
+1. c4 {book} e5 {book} 2. Nc3 {book} f5 {book} 3. g3 {book} Nf6 {book}
+4. Bg2 {book} Be7 {book} 5. d3 {book} O-O {book} 6. Nf3 {book} d6 {book}
+7. O-O {book} a5 {book} 8. a3 {book} c6 {book} 9. Be3 {+0.57/5 0.254s}
+Be6 {-0.55/4 0.254s} 10. Qb3 {+0.65/5 0.245s} Qc7 {-0.58/5 0.246s}
+11. Ng5 {+0.63/5 0.237s} Bd7 {-0.59/5 0.237s} 12. d4 {+0.60/5 0.229s}
+Na6 {-0.57/5 0.229s} 13. dxe5 {+0.65/5 0.222s} a4 {-1.56/5 0.222s}
+14. Nxa4 {+1.57/5 0.214s} dxe5 {-2.57/5 0.214s} 15. c5+ {+2.57/5 0.207s}
+Kh8 {-2.69/6 0.207s} 16. Nf7+ {+2.69/5 0.201s} Kg8 {-2.73/6 0.201s}
+17. Nxe5+ {+2.67/5 0.195s} Kh8 {-3.69/5 0.195s} 18. Nf7+ {+3.69/5 0.190s}
+Kg8 {-3.71/6 0.190s} 19. Bf4 {+3.71/5 0.199s} Qa5 {-3.81/6 0.184s}
+20. Nd6+ {+3.73/5 0.179s} Kh8 {-3.86/6 0.180s} 21. Nxb7 {+3.75/5 0.174s}
+Qb5 {-3.93/6 0.174s} 22. Qxb5 {+3.87/6 0.168s} cxb5 {-4.03/6 0.169s}
+23. Nb6 {+3.99/6 0.164s} Ra7 {-4.05/6 0.177s} 24. c6 {+4.07/5 0.161s}
+Be6 {-4.24/5 0.160s} 25. b4 {+4.24/4 0.156s} Nh5 {-3.81/5 0.156s}
+26. Be5 {+3.88/5 0.152s} Bf6 {-3.84/5 0.152s} 27. Bxf6 {+3.88/6 0.155s}
+Nxf6 {-3.88/5 0.148s} 28. Nd6 {+3.78/6 0.145s} Rb8 {-2.68/5 0.145s}
+29. Nxb5 {+4.45/6 0.141s} Re7 {-0.78/6 0.142s} 30. Nd7 {+0.61/6 0.139s}
+Rxb5 {-0.64/6 0.139s} 31. Nxf6 {+0.58/6 0.135s} gxf6 {-0.61/5 0.135s}
+32. Rfe1 {+0.48/6 0.132s} Nc7 {-0.65/5 0.133s} 33. Rab1 {+0.59/5 0.130s}
+Bc4 {-0.56/5 0.130s} 34. Kf1 {+0.57/5 0.127s} Rbe5 {-0.54/5 0.128s}
+35. Rb2 {+0.55/6 0.125s} Nd5 {-0.55/5 0.125s} 36. Bxd5 {+0.50/6 0.123s}
+Rxd5 {-0.50/5 0.123s} 37. Rc1 {+0.72/6 0.121s} Ba6 {-0.72/5 0.121s}
+38. c7 {+1.02/6 0.119s} Bc8 {-1.16/6 0.119s} 39. b5 {+1.16/6 0.121s}
+Re8 {-1.16/6 0.117s} 40. b6 {+1.37/6 0.115s} Bb7 {-1.16/5 0.115s}
+41. Rbc2 {+1.46/6 0.113s} Rc8 {-1.41/6 0.116s} 42. a4 {+1.20/6 0.111s}
+Rd6 {-1.35/5 0.112s} 43. a5 {+1.26/6 0.110s} Rd5 {-1.45/5 0.110s}
+44. Ra1 {+1.25/6 0.111s} Ba6 {-1.40/5 0.108s} 45. Rb2 {+1.35/6 0.107s}
+Bb7 {-2.02/6 0.107s} 46. a6 {+4.50/7 0.105s} Bxa6 {-4.55/6 0.107s}
+47. Rxa6 {+4.45/6 0.104s} f4 {-4.55/5 0.104s} 48. gxf4 {+4.85/6 0.103s}
+Rd1+ {-5.10/5 0.103s} 49. Kg2 {+5.25/7 0.102s}
+Rc1 {-5.15/6 0.102s, White makes an illegal move: a6d6} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "40"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:02"]
+[GameStartTime "2026-07-17T12:49:10 -0400"]
+[GameEndTime "2026-07-17T12:49:13 -0400"]
+[PlyCount "26"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C34"]
+[Opening "King's Gambit Accepted: Becker Defense"]
+
+1. e4 {book} e5 {book} 2. f4 {book} exf4 {book} 3. Nf3 {book} h6 {book}
+4. b3 {book} d5 {book} 5. exd5 {book} Nf6 {book} 6. Bb2 {book} Be7 {book}
+7. Nc3 {book} O-O {book} 8. Qe2 {book} Nbd7 {book} 9. Qc4 {+0.58/4 0.254s}
+Nb6 {-0.51/5 0.254s} 10. Qxf4 {+0.58/5 0.245s} Bd6 {-0.48/5 0.245s}
+11. Qd4 {+1.39/5 0.237s} Qe7+ {-1.21/5 0.238s} 12. Be2 {+0.53/5 0.229s}
+Bf5 {-0.13/5 0.229s} 13. d3 {+1.39/4 0.221s, Black makes an illegal move: f8f4}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "35"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:49:08 -0400"]
+[GameEndTime "2026-07-17T12:49:13 -0400"]
+[PlyCount "39"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B20"]
+[Opening "Sicilian Defense"]
+
+1. e4 {book} c5 {book} 2. d3 {book} Nc6 {book} 3. g3 {book} g6 {book}
+4. Bg2 {book} Bg7 {book} 5. f4 {book} d6 {book} 6. Nh3 {book} e5 {book}
+7. O-O {book} Nge7 {book} 8. f5 {book} gxf5 {book} 9. exf5 {-0.20/5 0.254s}
+Bxf5 {+0.12/6 0.254s} 10. Bxc6+ {-0.10/5 0.246s} bxc6 {+0.16/6 0.245s}
+11. Nf2 {-0.15/6 0.237s} Rb8 {+0.18/5 0.237s} 12. Nc3 {-0.08/5 0.230s}
+d5 {+0.14/5 0.231s} 13. Qf3 {-0.04/5 0.221s} d4 {+0.16/4 0.221s}
+14. Nce4 {+0.90/5 0.214s} Qd5 {+0.03/5 0.214s} 15. Bh6 {-0.13/5 0.208s}
+O-O {+0.16/5 0.207s} 16. Bxg7 {-0.13/5 0.204s} Kxg7 {+0.16/5 0.202s}
+17. Qh5 {-0.33/5 0.196s} Bxe4 {+0.33/5 0.195s} 18. dxe4 {-0.28/5 0.189s}
+Qd6 {+0.31/5 0.189s} 19. Nd3 {-0.28/5 0.185s}
+Ng6 {+0.33/5 0.193s, White makes an illegal move: a1a4} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "42"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:11 -0400"]
+[GameEndTime "2026-07-17T12:49:13 -0400"]
+[PlyCount "22"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "B31"]
+[Opening "Sicilian Defense: Nyezhmetdinov-Rossolimo Attack, Fianchetto Variation"]
+
+1. e4 {book} c5 {book} 2. Nf3 {book} Nc6 {book} 3. Bb5 {book} g6 {book}
+4. O-O {book} Bg7 {book} 5. Re1 {book} e6 {book} 6. Bxc6 {book} bxc6 {book}
+7. e5 {book} f6 {book} 8. d3 {book} fxe5 {book} 9. Nxe5 {+0.75/5 0.254s}
+Bxe5 {-0.73/5 0.255s} 10. Rxe5 {+0.69/6 0.245s} d6 {-0.71/6 0.246s}
+11. Re1 {+0.70/6 0.237s, Black makes an illegal move: h8f8} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "39"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:03"]
+[GameStartTime "2026-07-17T12:49:10 -0400"]
+[GameEndTime "2026-07-17T12:49:13 -0400"]
+[PlyCount "32"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A00"]
+[Opening "Polish Opening: King's Indian Variation"]
+
+1. b4 {book} Nf6 {book} 2. Bb2 {book} g6 {book} 3. Nf3 {book} Bg7 {book}
+4. c4 {book} O-O {book} 5. e3 {book} c6 {book} 6. Be2 {book} d5 {book}
+7. O-O {book} Bg4 {book} 8. Na3 {book} Nbd7 {book} 9. h3 {+0.46/5 0.254s}
+Bxf3 {-0.25/6 0.255s} 10. Bxf3 {+0.37/6 0.245s} a5 {-0.37/5 0.246s}
+11. b5 {+0.41/5 0.237s} cxb5 {-0.43/6 0.238s} 12. cxb5 {+0.37/5 0.229s}
+Qc7 {-0.38/5 0.230s} 13. Bxf6 {+0.43/5 0.222s} Nxf6 {-0.30/6 0.221s}
+14. d4 {+0.43/4 0.215s} Qd6 {-0.21/5 0.214s} 15. Qd3 {+0.43/5 0.207s}
+Rfe8 {-0.35/5 0.207s} 16. g4 {+0.46/4 0.201s, Black makes an illegal move: a8a4}
+1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "33"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:07"]
+[GameStartTime "2026-07-17T12:49:06 -0400"]
+[GameEndTime "2026-07-17T12:49:14 -0400"]
+[PlyCount "57"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C00"]
+[Opening "French Defense: Steiner Variation"]
+
+1. c4 {book} e6 {book} 2. e4 {book} d5 {book} 3. exd5 {book} exd5 {book}
+4. cxd5 {book} Nf6 {book} 5. Bb5+ {book} Nbd7 {book} 6. Nc3 {book} Be7 {book}
+7. d4 {book} O-O {book} 8. Nf3 {book} Nb6 {book} 9. Bf4 {+0.39/5 0.254s}
+Nbxd5 {-0.38/5 0.254s} 10. Be5 {+0.34/5 0.245s} Bb4 {-0.34/5 0.246s}
+11. Qd3 {+0.27/6 0.237s} Bg4 {-0.30/5 0.238s} 12. Nd2 {+0.34/6 0.229s}
+g6 {-0.34/5 0.229s} 13. Nxd5 {+0.37/5 0.222s} Nxd5 {-0.32/6 0.221s}
+14. Bc4 {+0.30/5 0.214s} Bf5 {-0.29/5 0.215s} 15. Qb3 {+0.30/6 0.207s}
+Be4 {-0.30/6 0.207s} 16. Bxd5 {+0.28/6 0.201s} Bxd2+ {-0.30/6 0.201s}
+17. Kxd2 {+0.05/7 0.196s} Bxd5 {-0.28/5 0.196s} 18. Qg3 {+0.15/5 0.190s}
+c5 {-0.13/5 0.189s} 19. Kd3 {+0.09/5 0.184s} f6 {-0.09/5 0.184s}
+20. Bd6 {+0.09/6 0.180s} Bxg2 {-0.09/5 0.180s} 21. Rhg1 {+1.27/6 0.174s}
+Bc6 {-1.35/5 0.175s} 22. Bxf8 {+1.15/6 0.171s} Qxd4+ {-1.23/5 0.169s}
+23. Kc2 {+1.02/6 0.164s} Be4+ {-1.23/5 0.165s} 24. Kc1 {+1.04/6 0.172s}
+Kxf8 {-1.15/5 0.165s} 25. Qc7 {+0.47/6 0.157s} Qxf2 {-0.47/5 0.156s}
+26. Qd6+ {+0.37/6 0.152s} Kg7 {+4.71/7 0.152s} 27. Qe7+ {-4.14/7 0.148s}
+Kh6 {+7.21/7 0.149s} 28. Qxe4 {-4.14/7 0.146s}
+Qxg1+ {+7.54/7 0.146s, White makes an illegal move: a1e1} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "44"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:01"]
+[GameStartTime "2026-07-17T12:49:13 -0400"]
+[GameEndTime "2026-07-17T12:49:14 -0400"]
+[PlyCount "22"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "A05"]
+[Opening "King's Indian Attack: Symmetrical Defense"]
+
+1. Nf3 {book} Nf6 {book} 2. g3 {book} g6 {book} 3. b3 {book} Bg7 {book}
+4. Bb2 {book} O-O {book} 5. Bg2 {book} d6 {book} 6. d4 {book} Bf5 {book}
+7. O-O {book} Qc8 {book} 8. c4 {book} Bh3 {book} 9. Bxh3 {+0.58/6 0.254s}
+Qxh3 {-0.50/6 0.254s} 10. Nc3 {+0.59/5 0.245s} Qg4 {-0.35/5 0.245s}
+11. Bc1 {+0.56/5 0.237s, Black makes an illegal move: f8f5} 1-0
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "37"]
+[White "ChessEngine_V2.1FullLegalMoveGen"]
+[Black "ChessEngine"]
+[Result "0-1"]
+[GameDuration "00:00:05"]
+[GameStartTime "2026-07-17T12:49:08 -0400"]
+[GameEndTime "2026-07-17T12:49:14 -0400"]
+[PlyCount "43"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "C50"]
+[Opening "Italian Game: Giuoco Pianissimo, Normal"]
+
+1. e4 {book} e5 {book} 2. Bc4 {book} Nf6 {book} 3. d3 {book} Nc6 {book}
+4. Nf3 {book} Bc5 {book} 5. Bb3 {book} d6 {book} 6. c3 {book} Bb6 {book}
+7. a4 {book} a6 {book} 8. Nbd2 {book} Ba7 {book} 9. Bd5 {+0.58/5 0.255s}
+Ne7 {-0.52/5 0.254s} 10. Qb3 {+0.57/5 0.245s} O-O {-0.47/5 0.245s}
+11. Nf1 {+0.50/5 0.237s} Nexd5 {-0.50/5 0.238s} 12. exd5 {+0.50/5 0.229s}
+e4 {-0.50/5 0.229s} 13. dxe4 {+0.43/6 0.230s} Re8 {-0.38/5 0.221s}
+14. Ng3 {+0.47/6 0.215s} Nxe4 {-0.33/5 0.214s} 15. O-O {+0.39/6 0.207s}
+Nxg3 {-0.37/5 0.207s} 16. hxg3 {+0.60/6 0.201s} Re4 {-0.33/5 0.205s}
+17. Bf4 {+0.43/5 0.195s} Bc5 {-0.37/5 0.195s} 18. Nd2 {+0.40/5 0.191s}
+Re8 {-0.31/5 0.189s} 19. Nf3 {+0.57/5 0.183s} Re4 {0.00/5 0.184s}
+20. Ra2 {+0.40/5 0.178s} Qf6 {-0.40/4 0.178s} 21. Ng5 {+0.55/5 0.174s}
+Re2 {-0.37/5 0.174s, White makes an illegal move: b3d3} 0-1
+
+[Event "Fastchess Tournament"]
+[Site "?"]
+[Date "2026.07.17"]
+[Round "41"]
+[White "ChessEngine"]
+[Black "ChessEngine_V2.1FullLegalMoveGen"]
+[Result "1-0"]
+[GameDuration "00:00:04"]
+[GameStartTime "2026-07-17T12:49:10 -0400"]
+[GameEndTime "2026-07-17T12:49:15 -0400"]
+[PlyCount "36"]
+[Termination "illegal move"]
+[TimeControl "5+0.08"]
+[ECO "E15"]
+[Opening "Queen's Indian Defense: Fianchetto Variation"]
+
+1. d4 {book} Nf6 {book} 2. c4 {book} e6 {book} 3. Nf3 {book} b6 {book}
+4. g3 {book} Bb4+ {book} 5. Bd2 {book} a5 {book} 6. Bg2 {book} O-O {book}
+7. O-O {book} Ba6 {book} 8. Bxb4 {book} axb4 {book} 9. Ne5 {+0.56/5 0.255s}
+Ra7 {-0.52/6 0.261s} 10. c5 {+0.52/5 0.246s} bxc5 {-0.27/6 0.245s}
+11. dxc5 {+0.46/5 0.236s} Qe7 {-0.21/5 0.237s} 12. Qd4 {+0.56/5 0.238s}
+Bxe2 {-0.56/5 0.229s} 13. Re1 {+0.53/5 0.222s} Bh5 {-0.56/5 0.221s}
+14. Qxb4 {+0.49/5 0.214s} Na6 {-0.53/5 0.215s} 15. Qa4 {+0.41/5 0.207s}
+Qxc5 {-0.38/5 0.214s} 16. Nxd7 {+0.51/5 0.202s} Nxd7 {+0.63/5 0.201s}
+17. Qxd7 {+0.49/5 0.195s} Nb8 {+5.88/5 0.195s}
+18. Qd3 {+0.74/4 0.190s, Black makes an illegal move: f8f5} 1-0
+
