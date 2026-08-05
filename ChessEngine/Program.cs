@@ -46,8 +46,8 @@ while (true)
             {
                 for (int i = movesIndex + 1; i < SplitString.Length; i++)
                 {
-                    int StartPos = BoardPositionHelper.NumLetterToBoardPos(SplitString[i][0].ToString() + SplitString[i][1].ToString());
-                    int EndPos = BoardPositionHelper.NumLetterToBoardPos(SplitString[i][2].ToString() + SplitString[i][3].ToString());
+                    int StartPos = BoardHelper.NumLetterToBoardPos(SplitString[i][0].ToString() + SplitString[i][1].ToString());
+                    int EndPos = BoardHelper.NumLetterToBoardPos(SplitString[i][2].ToString() + SplitString[i][3].ToString());
 
                     Move move;
 
@@ -104,27 +104,27 @@ while (true)
             await Task.Run(() =>
             {
                 Move FoundMove = Main.BeginSearch();
-                if (FoundMove.moveInfo > 7)
+                if (FoundMove.MoveInfo > 7)
                 {
                     char PromotionAddOn;
                     
-                    if ((FoundMove.moveInfo & 3) == 0)
+                    if ((FoundMove.MoveInfo & 3) == 0)
                     {
                         PromotionAddOn = 'n';
-                    } else if ((FoundMove.moveInfo & 3) == 1)
+                    } else if ((FoundMove.MoveInfo & 3) == 1)
                     {
                         PromotionAddOn = 'b';
-                    } else if ((FoundMove.moveInfo & 3) == 2)
+                    } else if ((FoundMove.MoveInfo & 3) == 2)
                     {
                         PromotionAddOn = 'r';
                     } else
                     {
                         PromotionAddOn = 'q';
                     }
-                    Console.WriteLine("bestmove " + Position.NumberToBoardLetter(FoundMove.startPos) + Position.NumberToBoardLetter(FoundMove.endPos) + PromotionAddOn);
+                    Console.WriteLine("bestmove " + BoardHelper.NumberToBoardLetter(FoundMove.StartPos) + BoardHelper.NumberToBoardLetter(FoundMove.EndPos) + PromotionAddOn);
                 } else
                 {
-                    Console.WriteLine("bestmove " + Position.NumberToBoardLetter(FoundMove.startPos) + Position.NumberToBoardLetter(FoundMove.endPos));
+                    Console.WriteLine("bestmove " + BoardHelper.NumberToBoardLetter(FoundMove.StartPos) + BoardHelper.NumberToBoardLetter(FoundMove.EndPos));
                 }
             });
             break;

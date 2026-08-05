@@ -23,12 +23,6 @@ namespace TOML
             Console.WriteLine("engine ready");
 
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
         public static void SetupPosition(string fenString)
         {
             position = new Position(fenString);

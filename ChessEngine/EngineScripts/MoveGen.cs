@@ -31,94 +31,33 @@ namespace TOML
             SameColorBitBoard = BoardPosition.BitBoards[ActiveColor];
             DifColorBitBoard = BoardPosition.BitBoards[OppositeColor];
 
-            KingPos = (ushort)BitOperations.TrailingZeroCount(BoardPosition.BitBoards[ActiveColor + Piece.KING]);
-
+            KingPos = BoardPosition.GetKingPos(ActiveColor);
             MoveCount = 0;
         }
-        public static bool IsPinned(ushort position)
-        {
-            return ((BoardPosition.PinnedPiecesBitBoard[BoardPosition.ActiveColor] >> position) & 1) == 1;
-        }
-        public static void GenerateLegalKingMoves(ushort piecePosition, Span<Move> moveList, bool GenerateOnlyCaptures = false)
-        {
-            ushort color = ActiveColor;
-            ulong MoveMask = PrecomputedInfo.KingMovesBitBoard[piecePosition];
-
-            MoveMask &= ~SameColorBitBoard;
-            MoveMask &= ~AttackingSquares;
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-
-                if (UshortBoard[pos] == Piece.EMPTY)
-                {
-                    if (GenerateOnlyCaptures == true) { continue; }
-                    moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                    MoveCount++;
-                } else
-                {
-                    moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
-                    MoveCount++;
-                }
-            }
-            if (GenerateOnlyCaptures == true || BoardPosition.CheckCount != 0) { return; }
-
-            ulong Blockers = BoardPosition.AllPieceBitBoard | (BoardPosition.AttackingSquaresBitBoard[OppositeColor] & 0xfdfffffffffffffd);
-            
-            if (color == (int)PieceType.WHITE)
-            {
-                if ((MoveGenConstants.CastlingMasks[2] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 1) == 1)
-                {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), (int)MoveEncodingCodes.KINGCASTLE);
-                    MoveCount++;
-                }
-                if ((MoveGenConstants.CastlingMasks[1] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 2) == 2)
-                {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition - 2), (int)MoveEncodingCodes.QUEENCASTLE);
-                    MoveCount++;
-                }
-
-            } else
-            {
-                if ((MoveGenConstants.CastlingMasks[8] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 4) == 4)
-                {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), (int)MoveEncodingCodes.KINGCASTLE);
-                    MoveCount++;
-                }
-                if ((MoveGenConstants.CastlingMasks[4] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 8) == 8)
-                {
-                    moveList[MoveCount] =new Move(piecePosition, (ushort)(piecePosition - 2), (int)MoveEncodingCodes.QUEENCASTLE);
-                    MoveCount++;
-                }
-            } 
-        }
-
         public static void GeneratePsuedoQuietKingMoves(ushort piecePosition, Span<Move> moveList)
         {
-            ulong MoveMask = PrecomputedInfo.KingMovesBitBoard[piecePosition];
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
+            ulong moveMask = PrecomputedInfo.KingMovesBitBoard[piecePosition];
+            moveMask &= ~BoardPosition.AllPieceBitBoard;
 
-            while (MoveMask != 0)
+            while (moveMask != 0)
             {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
+                ushort pos = (ushort)BitOperations.TrailingZeroCount(moveMask);
+                moveMask &= moveMask - 1;
 
                 moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
                 MoveCount++;
             }
             ulong Blockers = BoardPosition.AllPieceBitBoard;
-            if (ActiveColor == (int)PieceType.WHITE)
+            if (ActiveColor == Piece.WHITE)
             {
                 if ((MoveGenConstants.CastlingMasks[2] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 1) == 1)
                 {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), (int)MoveEncodingCodes.KINGCASTLE);
+                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), MoveEncodingCodes.KING_CASTLE);
                     MoveCount++;
                 }
                 if ((MoveGenConstants.CastlingMasks[1] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 2) == 2)
                 {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition - 2), (int)MoveEncodingCodes.QUEENCASTLE);
+                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition - 2), MoveEncodingCodes.QUEEN_CASTLE);
                     MoveCount++;
                 }
 
@@ -126,26 +65,26 @@ namespace TOML
             {
                 if ((MoveGenConstants.CastlingMasks[8] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 4) == 4)
                 {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), (int)MoveEncodingCodes.KINGCASTLE);
+                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition + 2), MoveEncodingCodes.KING_CASTLE);
                     MoveCount++;
                 }
                 if ((MoveGenConstants.CastlingMasks[4] & Blockers) == 0 && (BoardPosition.CastlingAvailability & 8) == 8)
                 {
-                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition - 2), (int)MoveEncodingCodes.QUEENCASTLE);
+                    moveList[MoveCount] = new Move(piecePosition, (ushort)(piecePosition - 2), MoveEncodingCodes.QUEEN_CASTLE);
                     MoveCount++;
                 }
             }
         }
         public static void GeneratePsuedoCaptureKingMoves(ushort piecePosition, Span<Move> moveList)
         {
-            ulong MoveMask = PrecomputedInfo.KingMovesBitBoard[piecePosition];
+            ulong moveMask = PrecomputedInfo.KingMovesBitBoard[piecePosition];
 
-            MoveMask &= BoardPosition.BitBoards[BoardPosition.OppositeColor];
+            moveMask &= BoardPosition.BitBoards[BoardPosition.OppositeColor];
 
-            while (MoveMask != 0)
+            while (moveMask != 0)
             {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
+                ushort pos = (ushort)BitOperations.TrailingZeroCount(moveMask);
+                moveMask &= moveMask - 1;
 
                 moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
                 MoveCount++;
@@ -153,11 +92,11 @@ namespace TOML
         }
         public static void GeneratePsuedoQuietKnightMoves(ushort piecePosition, Span<Move> moveList, ulong target)
         {
-            ulong MoveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition] & ~BoardPosition.AllPieceBitBoard & target;
-            while (MoveMask != 0)
+            ulong moveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition] & ~BoardPosition.AllPieceBitBoard & target;
+            while (moveMask != 0)
             {
-                int pos = BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
+                int pos = BitOperations.TrailingZeroCount(moveMask);
+                moveMask &= moveMask - 1;
 
                 moveList[MoveCount] = new Move(piecePosition, (ushort)pos, (ushort)MoveEncodingCodes.QUIET);
                 MoveCount++;
@@ -165,112 +104,80 @@ namespace TOML
         }
         public static void GeneratePsuedoCaptureKnightMoves(ushort piecePosition, Span<Move> moveList, ulong target)
         {
-            ulong MoveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition] & BoardPosition.BitBoards[OppositeColor] & target;
-            while (MoveMask != 0)
+            ulong moveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition] & BoardPosition.BitBoards[OppositeColor] & target;
+            while (moveMask != 0)
             {
-                int pos = BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
+                int pos = BitOperations.TrailingZeroCount(moveMask);
+                moveMask &= moveMask - 1;
 
                 moveList[MoveCount] = new Move(piecePosition, (ushort)pos, (ushort)MoveEncodingCodes.CAPTURE);
                 MoveCount++;
             }
         }
-        public static void GenerateLegalQuietKnightMoves(ushort piecePosition, Span<Move> moveList)
-        {
-
-            ulong MoveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition];
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
-            MoveMask &= BoardPosition.InCheckValidSquares;
-
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GenerateLegalCaptureKnightMoves(ushort piecePosition, Span<Move> moveList)
-        {
-            ulong MoveMask = PrecomputedInfo.KnightMovesBitBoard[piecePosition];
-            MoveMask &= BoardPosition.InCheckValidSquares;
-            MoveMask &= DifColorBitBoard;
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
-                MoveCount++;
-            }
-        }
         public static void GeneratePsuedoQuitePawnMoves(Span<Move> moveList, ulong target)
         {
-            ulong PawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
+            ulong pawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
 
             if (ActiveColor == Piece.WHITE)
             {
-                ulong QuitePawnMask = (~BoardPosition.AllPieceBitBoard) & (PawnBitBoard << 8) & target;
-                ulong QuitePawnPromotionMask = QuitePawnMask & BitBoardConstants.EIGHT_RANK;
-                QuitePawnMask &= ~BitBoardConstants.EIGHT_RANK;
+                ulong quitePawnMask = (~BoardPosition.AllPieceBitBoard) & (pawnBitBoard << 8) & target;
+                ulong quitePawnPromotionMask = quitePawnMask & BitBoardConstants.EIGHT_RANK;
+                quitePawnMask &= ~BitBoardConstants.EIGHT_RANK;
 
                 //cannot simplify as incheckvalid squares removes positions from quitepawnmask that might work for doublepawnpushmask
-                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard << 8)) & ((PawnBitBoard & BitBoardConstants.SECOND_RANK) << 16) & target;
+                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard << 8)) & ((pawnBitBoard & BitBoardConstants.SECOND_RANK) << 16) & target;
 
-                while (QuitePawnPromotionMask != 0)
+                while (quitePawnPromotionMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnPromotionMask);
-                    QuitePawnPromotionMask &= QuitePawnPromotionMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(quitePawnPromotionMask);
+                    quitePawnPromotionMask &= quitePawnPromotionMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 8), pos, 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 8), pos, 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 8), pos, 11);
+                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, MoveEncodingCodes.PROMOTION_KNIGHT_QUIET);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos - 8), pos, MoveEncodingCodes.PROMOTION_BISHOP_QUIET);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos - 8), pos, MoveEncodingCodes.PROMOTION_ROOK_QUIET);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos - 8), pos, MoveEncodingCodes.PROMOTION_QUEEN_QUIET);
 
                     MoveCount += 4;
                 }
-                while (QuitePawnMask != 0)
+                while (quitePawnMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnMask);
-                    QuitePawnMask &= QuitePawnMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(quitePawnMask);
+                    quitePawnMask &= quitePawnMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, (ushort)MoveEncodingCodes.QUIET);
+                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, MoveEncodingCodes.QUIET);
                     MoveCount++;
                 }
                 while (DoublePawnPushMask != 0)
                 {
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(DoublePawnPushMask);
                     DoublePawnPushMask &= DoublePawnPushMask - 1;
-                    moveList[MoveCount] = new Move((ushort)(pos - 16), pos, (ushort)MoveEncodingCodes.DOUBLEPAWNPUSH);
+                    moveList[MoveCount] = new Move((ushort)(pos - 16), pos, MoveEncodingCodes.DOUBLE_PAWN_PUSH);
                     MoveCount++;
                 }
             } else
             {
-                ulong QuitePawnMask = (~BoardPosition.AllPieceBitBoard) & (PawnBitBoard >> 8) & target;
-                ulong QuitePromotionPawnMask = QuitePawnMask & BitBoardConstants.FIRST_RANK;
-                QuitePawnMask &= ~BitBoardConstants.FIRST_RANK;
+                ulong quitePawnMask = (~BoardPosition.AllPieceBitBoard) & (pawnBitBoard >> 8) & target;
+                ulong quitePromotionPawnMask = quitePawnMask & BitBoardConstants.FIRST_RANK;
+                quitePawnMask &= ~BitBoardConstants.FIRST_RANK;
 
-                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard >> 8)) & ((PawnBitBoard & BitBoardConstants.SEVENTH_RANK) >> 16) & target;
+                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard >> 8)) & ((pawnBitBoard & BitBoardConstants.SEVENTH_RANK) >> 16) & target;
 
-                while (QuitePawnMask != 0)
+                while (quitePawnMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnMask);
-                    QuitePawnMask &= QuitePawnMask - 1;
-                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, (ushort)MoveEncodingCodes.QUIET);
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(quitePawnMask);
+                    quitePawnMask &= quitePawnMask - 1;
+                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, MoveEncodingCodes.QUIET);
                     MoveCount++;
                 }
-                while (QuitePromotionPawnMask != 0)
+                while (quitePromotionPawnMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePromotionPawnMask);
-                    QuitePromotionPawnMask &= QuitePromotionPawnMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(quitePromotionPawnMask);
+                    quitePromotionPawnMask &= quitePromotionPawnMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 8), pos, 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 8), pos, 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 8), pos, 11);
+                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, MoveEncodingCodes.PROMOTION_KNIGHT_QUIET);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos + 8), pos, MoveEncodingCodes.PROMOTION_BISHOP_QUIET);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos + 8), pos, MoveEncodingCodes.PROMOTION_ROOK_QUIET);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos + 8), pos, MoveEncodingCodes.PROMOTION_QUEEN_QUIET);
 
                     MoveCount += 4;
                 }
@@ -279,20 +186,20 @@ namespace TOML
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(DoublePawnPushMask);
                     DoublePawnPushMask &= DoublePawnPushMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 16), pos, (ushort)MoveEncodingCodes.DOUBLEPAWNPUSH);
+                    moveList[MoveCount] = new Move((ushort)(pos + 16), pos, MoveEncodingCodes.DOUBLE_PAWN_PUSH);
                     MoveCount++;
                 }
             }
         }
         public static void GeneratePsuedoCapturePawnMoves(Span<Move> moveList, ulong target)
         {
-            ulong PawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
-            ulong PawnLeftAttackMask = BoardPosition.BitBoards[BoardPosition.OppositeColor] & target;
-            ulong PawnRightAttackMask = BoardPosition.BitBoards[BoardPosition.OppositeColor] & target;
+            ulong pawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
+            ulong pawnLeftAttackMask = BoardPosition.BitBoards[BoardPosition.OppositeColor] & target;
+            ulong pawnRightAttackMask = BoardPosition.BitBoards[BoardPosition.OppositeColor] & target;
 
-            if (BoardPosition.EnPassantTargetSquare != PositionConstants.NoEnPassantMoves)
+            if (BoardPosition.EnPassantTargetSquare != PositionConstants.NO_EN_PASSANT_MOVES)
             {
-                ulong EnPassantMask = PawnBitBoard;
+                ulong EnPassantMask = pawnBitBoard;
                 int TargetSquare;
                 if (ActiveColor == Piece.WHITE)
                 {
@@ -310,31 +217,31 @@ namespace TOML
 
                     if (((target >> BoardPosition.EnPassantTargetSquare) & 1) == 1 || ((target >> TargetSquare) & 1) == 1)
                     {
-                        moveList[MoveCount] = new Move(pos, BoardPosition.EnPassantTargetSquare, (ushort)MoveEncodingCodes.EPCAPTURE);
+                        moveList[MoveCount] = new Move(pos, BoardPosition.EnPassantTargetSquare, MoveEncodingCodes.EP_CAPTURE);
                         MoveCount++;
                     }
                 }
             }
             if (ActiveColor == Piece.WHITE)
             {
-                PawnLeftAttackMask &= ((PawnBitBoard & ~BitBoardConstants.A_FILE) << 7) & ~BoardPosition.BitBoards[ActiveColor];
-                PawnRightAttackMask &= ((PawnBitBoard & ~BitBoardConstants.H_FILE) << 9) & ~BoardPosition.BitBoards[ActiveColor];
+                pawnLeftAttackMask &= ((pawnBitBoard & ~BitBoardConstants.A_FILE) << 7) & ~BoardPosition.BitBoards[ActiveColor];
+                pawnRightAttackMask &= ((pawnBitBoard & ~BitBoardConstants.H_FILE) << 9) & ~BoardPosition.BitBoards[ActiveColor];
 
-                ulong LeftPromotingPawns = BitBoardConstants.EIGHT_RANK & PawnLeftAttackMask;
-                ulong RightPromotingPawns = BitBoardConstants.EIGHT_RANK & PawnRightAttackMask;
+                ulong LeftPromotingPawns = BitBoardConstants.EIGHT_RANK & pawnLeftAttackMask;
+                ulong RightPromotingPawns = BitBoardConstants.EIGHT_RANK & pawnRightAttackMask;
                 //prevents the promotion pawns from being looped through again
-                PawnLeftAttackMask &= ~BitBoardConstants.EIGHT_RANK;
-                PawnRightAttackMask &= ~BitBoardConstants.EIGHT_RANK;
+                pawnLeftAttackMask &= ~BitBoardConstants.EIGHT_RANK;
+                pawnRightAttackMask &= ~BitBoardConstants.EIGHT_RANK;
 
                 while (LeftPromotingPawns != 0)
                 {
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(LeftPromotingPawns);
                     LeftPromotingPawns &= LeftPromotingPawns - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
+                    moveList[MoveCount] = new Move((ushort)(pos - 7), pos, MoveEncodingCodes.PROMOTION_KNIGHT_CAPTURE);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos - 7), pos, MoveEncodingCodes.PROMOTION_BISHOP_CAPTURE);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos - 7), pos, MoveEncodingCodes.PROMOTION_ROOK_CAPTURE);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos - 7), pos, MoveEncodingCodes.PROMOTION_QUEEN_CAPTURE);
 
                     MoveCount += 4;
                 }
@@ -344,49 +251,49 @@ namespace TOML
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(RightPromotingPawns);
                     RightPromotingPawns &= RightPromotingPawns - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
+                    moveList[MoveCount] = new Move((ushort)(pos - 9), pos, MoveEncodingCodes.PROMOTION_KNIGHT_CAPTURE);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos - 9), pos, MoveEncodingCodes.PROMOTION_BISHOP_CAPTURE);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos - 9), pos, MoveEncodingCodes.PROMOTION_ROOK_CAPTURE);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos - 9), pos, MoveEncodingCodes.PROMOTION_QUEEN_CAPTURE);
 
                     MoveCount += 4;
                 }
 
-                while (PawnLeftAttackMask != 0)
+                while (pawnLeftAttackMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnLeftAttackMask);
-                    PawnLeftAttackMask &= PawnLeftAttackMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(pawnLeftAttackMask);
+                    pawnLeftAttackMask &= pawnLeftAttackMask - 1;
 
                     moveList[MoveCount] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE);
                     MoveCount++;
                 }
-                while (PawnRightAttackMask != 0)
+                while (pawnRightAttackMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnRightAttackMask);
-                    PawnRightAttackMask &= PawnRightAttackMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(pawnRightAttackMask);
+                    pawnRightAttackMask &= pawnRightAttackMask - 1;
 
                     moveList[MoveCount] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE);
                     MoveCount++;
                 }
             } else
             {
-                PawnLeftAttackMask &= ((PawnBitBoard & ~BitBoardConstants.A_FILE) >> 9) & ~SameColorBitBoard;
-                PawnRightAttackMask &= ((PawnBitBoard & ~BitBoardConstants.H_FILE) >> 7) & ~SameColorBitBoard;
+                pawnLeftAttackMask &= ((pawnBitBoard & ~BitBoardConstants.A_FILE) >> 9) & ~SameColorBitBoard;
+                pawnRightAttackMask &= ((pawnBitBoard & ~BitBoardConstants.H_FILE) >> 7) & ~SameColorBitBoard;
 
-                ulong LeftPromotingPawns = BitBoardConstants.FIRST_RANK & PawnLeftAttackMask;
-                ulong RightPromotingPawns = BitBoardConstants.FIRST_RANK & PawnRightAttackMask;
-                PawnLeftAttackMask &= ~BitBoardConstants.FIRST_RANK;
-                PawnRightAttackMask &= ~BitBoardConstants.FIRST_RANK;
+                ulong LeftPromotingPawns = BitBoardConstants.FIRST_RANK & pawnLeftAttackMask;
+                ulong RightPromotingPawns = BitBoardConstants.FIRST_RANK & pawnRightAttackMask;
+                pawnLeftAttackMask &= ~BitBoardConstants.FIRST_RANK;
+                pawnRightAttackMask &= ~BitBoardConstants.FIRST_RANK;
 
                 while (LeftPromotingPawns != 0)
                 {
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(LeftPromotingPawns);
                     LeftPromotingPawns &= LeftPromotingPawns - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
+                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, MoveEncodingCodes.PROMOTION_KNIGHT_CAPTURE);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos + 9), pos, MoveEncodingCodes.PROMOTION_BISHOP_CAPTURE);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos + 9), pos, MoveEncodingCodes.PROMOTION_ROOK_CAPTURE);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos + 9), pos, MoveEncodingCodes.PROMOTION_QUEEN_CAPTURE);
 
                     MoveCount += 4;
                 }
@@ -396,359 +303,32 @@ namespace TOML
                     ushort pos = (ushort)BitOperations.TrailingZeroCount(RightPromotingPawns);
                     RightPromotingPawns &= RightPromotingPawns - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
+                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, MoveEncodingCodes.PROMOTION_KNIGHT_CAPTURE);
+                    moveList[MoveCount + 1] = new Move((ushort)(pos + 7), pos, MoveEncodingCodes.PROMOTION_BISHOP_CAPTURE);
+                    moveList[MoveCount + 2] = new Move((ushort)(pos + 7), pos, MoveEncodingCodes.PROMOTION_ROOK_CAPTURE);
+                    moveList[MoveCount + 3] = new Move((ushort)(pos + 7), pos, MoveEncodingCodes.PROMOTION_QUEEN_CAPTURE);
 
                     MoveCount += 4;
                 }
 
-                while (PawnLeftAttackMask != 0)
+                while (pawnLeftAttackMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnLeftAttackMask);
-                    PawnLeftAttackMask &= PawnLeftAttackMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(pawnLeftAttackMask);
+                    pawnLeftAttackMask &= pawnLeftAttackMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE);
+                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, MoveEncodingCodes.CAPTURE);
                     MoveCount++;
                 }
-                while (PawnRightAttackMask != 0)
+                while (pawnRightAttackMask != 0)
                 {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnRightAttackMask);
-                    PawnRightAttackMask &= PawnRightAttackMask - 1;
+                    ushort pos = (ushort)BitOperations.TrailingZeroCount(pawnRightAttackMask);
+                    pawnRightAttackMask &= pawnRightAttackMask - 1;
 
-                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE);
+                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, MoveEncodingCodes.CAPTURE);
                     MoveCount++;
                 }
             }
         }
-        public static void GenerateAllLegalQuietPawnMoves(Span<Move> moveList)
-        {
-            ulong PawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
-
-            if (ActiveColor == Piece.WHITE)
-            {
-                ulong QuitePawnMask = (~BoardPosition.AllPieceBitBoard) & (PawnBitBoard << 8) & BoardPosition.InCheckValidSquares;
-                ulong QuitePawnPromotionMask = QuitePawnMask & BitBoardConstants.EIGHT_RANK;
-                QuitePawnMask &= ~BitBoardConstants.EIGHT_RANK;
-
-                //cannot simplify as incheckvalid squares removes positions from quitepawnmask that might work for doublepawnpushmask
-                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard << 8)) & ((PawnBitBoard & BitBoardConstants.SECOND_RANK) << 16) & BoardPosition.InCheckValidSquares;
-
-                while (QuitePawnPromotionMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnPromotionMask);
-                    QuitePawnPromotionMask &= QuitePawnPromotionMask - 1;
-                    if (IsPinned((ushort)(pos - 8)) == true && (PrecomputedInfo.LineBitBoard[pos - 8][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-
-                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 8), pos, 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 8), pos, 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 8), pos, 11);
-
-                    MoveCount += 4;
-                }
-                while (QuitePawnMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnMask);
-                    QuitePawnMask &= QuitePawnMask - 1;
-                    if (IsPinned((ushort)(pos - 8)) == true && (PrecomputedInfo.LineBitBoard[pos - 8][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-
-                    moveList[MoveCount] = new Move((ushort)(pos - 8), pos, (ushort)MoveEncodingCodes.QUIET);
-                    MoveCount++;
-                }
-                while (DoublePawnPushMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(DoublePawnPushMask);
-                    DoublePawnPushMask &= DoublePawnPushMask - 1;
-                    if (IsPinned((ushort)(pos - 16)) == true && (PrecomputedInfo.LineBitBoard[pos - 16][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos - 16), pos, (ushort)MoveEncodingCodes.DOUBLEPAWNPUSH);
-                    MoveCount++;
-                }
-            } else
-            {
-                ulong QuitePawnMask = (~BoardPosition.AllPieceBitBoard) & (PawnBitBoard >> 8) & BoardPosition.InCheckValidSquares;
-                ulong QuitePromotionPawnMask = QuitePawnMask & BitBoardConstants.FIRST_RANK;
-                QuitePawnMask &= ~BitBoardConstants.FIRST_RANK;
-
-                ulong DoublePawnPushMask = (~BoardPosition.AllPieceBitBoard & ~(BoardPosition.AllPieceBitBoard >> 8)) & ((PawnBitBoard & BitBoardConstants.SEVENTH_RANK) >> 16) & BoardPosition.InCheckValidSquares;
-
-                while (QuitePawnMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePawnMask);
-                    QuitePawnMask &= QuitePawnMask - 1;
-                    if (IsPinned((ushort)(pos + 8)) == true && (PrecomputedInfo.LineBitBoard[pos + 8][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, (ushort)MoveEncodingCodes.QUIET);
-                    MoveCount++;
-                }
-                while (QuitePromotionPawnMask !=0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(QuitePromotionPawnMask);
-                    QuitePromotionPawnMask &= QuitePromotionPawnMask - 1;
-                    if (IsPinned((ushort)(pos + 8)) == true && (PrecomputedInfo.LineBitBoard[pos + 8][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    
-                    moveList[MoveCount] = new Move((ushort)(pos + 8), pos, 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 8), pos, 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 8), pos, 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 8), pos, 11);
-
-                    MoveCount += 4;
-                }
-                while (DoublePawnPushMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(DoublePawnPushMask);
-                    DoublePawnPushMask &= DoublePawnPushMask - 1;
-                    if (IsPinned((ushort)(pos + 16)) == true && (PrecomputedInfo.LineBitBoard[pos + 16][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 16), pos, (ushort)MoveEncodingCodes.DOUBLEPAWNPUSH);
-                    MoveCount++;
-                }
-            }
-        }
-        public static void GenerateAllLegalCapturePawnMoves(Span<Move> moveList)
-        {
-            ulong PawnBitBoard = BoardPosition.BitBoards[ActiveColor + Piece.PAWN];
-            ulong PawnLeftAttackMask = DifColorBitBoard;
-            ulong PawnRightAttackMask = DifColorBitBoard;
-
-            if (BoardPosition.EnPassantTargetSquare != PositionConstants.NoEnPassantMoves)
-            {
-                int TargetSquare;
-                ulong EnPassantMask = PawnBitBoard;
-                if (ActiveColor == Piece.WHITE)
-                {
-                    TargetSquare = BoardPosition.EnPassantTargetSquare - 8;
-                    EnPassantMask &= (~BitBoardConstants.A_FILE & (1ul << (BoardPosition.EnPassantTargetSquare)) >> 7) + (~BitBoardConstants.H_FILE & (1ul << (BoardPosition.EnPassantTargetSquare)) >> 9);
-                } else
-                {
-                    TargetSquare = BoardPosition.EnPassantTargetSquare + 8;
-                    EnPassantMask &= (~BitBoardConstants.A_FILE & (1ul << (BoardPosition.EnPassantTargetSquare)) << 9) + (~BitBoardConstants.H_FILE & (1ul << (BoardPosition.EnPassantTargetSquare)) << 7);
-                }
-
-                if (BoardPosition.InCheckValidSquares == ulong.MaxValue || BitOperations.TrailingZeroCount(BoardPosition.InCheckValidSquares) == TargetSquare)
-                {
-                    while (EnPassantMask != 0)
-                    {
-                        ushort pos = (ushort)BitOperations.TrailingZeroCount(EnPassantMask);
-                        EnPassantMask &= EnPassantMask - 1;
-                        if (CanPlayEPMove(pos) == false)
-                        {
-                            continue;
-                        }
-                        if (IsPinned(pos) == true && (PrecomputedInfo.LineBitBoard[pos][KingPos] & (1ul << BoardPosition.EnPassantTargetSquare)) == 0)
-                        {
-                            continue;
-                        }
-                        moveList[MoveCount] = new Move(pos, BoardPosition.EnPassantTargetSquare, (ushort)MoveEncodingCodes.EPCAPTURE);
-                        MoveCount++;
-                    }
-                }
-            }
-            if (ActiveColor == Piece.WHITE)
-            {
-                PawnLeftAttackMask &= ((PawnBitBoard & ~BitBoardConstants.A_FILE) << 7) & BoardPosition.InCheckValidSquares & ~SameColorBitBoard;
-                PawnRightAttackMask &= ((PawnBitBoard & ~BitBoardConstants.H_FILE) << 9) & BoardPosition.InCheckValidSquares & ~SameColorBitBoard;
-
-                ulong LeftPromotingPawns = BitBoardConstants.EIGHT_RANK & PawnLeftAttackMask;
-                ulong RightPromotingPawns = BitBoardConstants.EIGHT_RANK & PawnRightAttackMask;
-                //prevents the promotion pawns from being looped through again
-                PawnLeftAttackMask &= ~BitBoardConstants.EIGHT_RANK;
-                PawnRightAttackMask &= ~BitBoardConstants.EIGHT_RANK;
-
-                while (LeftPromotingPawns != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(LeftPromotingPawns);
-                    LeftPromotingPawns &= LeftPromotingPawns - 1;
-                    if (IsPinned((ushort)(pos - 7)) == true && (PrecomputedInfo.LineBitBoard[pos - 7][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
-
-                    MoveCount += 4;
-                }
-
-                while (RightPromotingPawns != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(RightPromotingPawns);
-                    RightPromotingPawns &= RightPromotingPawns - 1;
-                    if (IsPinned((ushort)(pos - 9)) == true && (PrecomputedInfo.LineBitBoard[pos - 9][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
-
-                    MoveCount += 4;
-                }
-
-                while (PawnLeftAttackMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnLeftAttackMask);
-                    PawnLeftAttackMask &= PawnLeftAttackMask - 1;
-                    if (IsPinned((ushort)(pos - 7)) == true && (PrecomputedInfo.LineBitBoard[pos - 7][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos - 7), pos, (ushort)MoveEncodingCodes.CAPTURE);
-                    MoveCount++;
-                }
-                while (PawnRightAttackMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnRightAttackMask);
-                    PawnRightAttackMask &= PawnRightAttackMask - 1;
-                    if (IsPinned((ushort)(pos - 9)) == true && (PrecomputedInfo.LineBitBoard[pos - 9][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos - 9), pos, (ushort)MoveEncodingCodes.CAPTURE);
-                    MoveCount++;
-                }
-            } else
-            {
-                PawnLeftAttackMask &= ((PawnBitBoard & ~BitBoardConstants.A_FILE) >> 9) & BoardPosition.InCheckValidSquares & ~SameColorBitBoard;
-                PawnRightAttackMask &= ((PawnBitBoard & ~BitBoardConstants.H_FILE) >> 7) & BoardPosition.InCheckValidSquares & ~SameColorBitBoard;
-
-                ulong LeftPromotingPawns = BitBoardConstants.FIRST_RANK & PawnLeftAttackMask;
-                ulong RightPromotingPawns = BitBoardConstants.FIRST_RANK & PawnRightAttackMask;
-                PawnLeftAttackMask &= ~BitBoardConstants.FIRST_RANK;
-                PawnRightAttackMask &= ~BitBoardConstants.FIRST_RANK;
-
-                while (LeftPromotingPawns != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(LeftPromotingPawns);
-                    LeftPromotingPawns &= LeftPromotingPawns - 1;
-                    if (IsPinned((ushort)(pos + 9)) == true && (PrecomputedInfo.LineBitBoard[pos + 9][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
-
-                    MoveCount += 4;
-                }
-
-                while (RightPromotingPawns != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(RightPromotingPawns);
-                    RightPromotingPawns &= RightPromotingPawns - 1;
-                    if (IsPinned((ushort)(pos + 7)) == true && (PrecomputedInfo.LineBitBoard[pos + 7][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 8);
-                    moveList[MoveCount + 1] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 9);
-                    moveList[MoveCount + 2] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 10);
-                    moveList[MoveCount + 3] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE + 11);
-
-                    MoveCount += 4;
-                }
-
-                while (PawnLeftAttackMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnLeftAttackMask);
-                    PawnLeftAttackMask &= PawnLeftAttackMask - 1;
-                    if (IsPinned((ushort)(pos + 9)) == true && (PrecomputedInfo.LineBitBoard[pos + 9][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 9), pos, (ushort)MoveEncodingCodes.CAPTURE);
-                    MoveCount++;
-                }
-                while (PawnRightAttackMask != 0)
-                {
-                    ushort pos = (ushort)BitOperations.TrailingZeroCount(PawnRightAttackMask);
-                    PawnRightAttackMask &= PawnRightAttackMask - 1;
-                    if (IsPinned((ushort)(pos + 7)) == true && (PrecomputedInfo.LineBitBoard[pos + 7][KingPos] & (1ul << pos)) == 0)
-                    {
-                        //piece is pinned and can't move here
-                        continue;
-                    }
-                    moveList[MoveCount] = new Move((ushort)(pos + 7), pos, (ushort)MoveEncodingCodes.CAPTURE);
-                    MoveCount++;
-                }
-            }
-        }
-        public static void GeneratePsuedoQuietBishopMoves(ushort piecePosition, Span<Move> moveList, ulong target)
-        {
-            ulong AttackMask = PrecomputedInfo.BishopBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.BishopMagicNumbers[piecePosition];
-            int ShiftNum = 64 - PrecomputedInfo.BishopBlockingMaskCount[piecePosition];
-
-            ulong BlockersMask = AttackMask & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.BishopMovesBitBoard[piecePosition][Index] & target;
-
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GeneratePsuedoCaptureBishopMoves(ushort piecePosition, Span<Move> moveList, ulong target)
-        {
-            ulong AttackMask = PrecomputedInfo.BishopBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.BishopMagicNumbers[piecePosition];
-            int ShiftNum = 64 - PrecomputedInfo.BishopBlockingMaskCount[piecePosition];
-
-            ulong BlockersMask = AttackMask & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.BishopMovesBitBoard[piecePosition][Index] & target;
-
-            MoveMask &= BoardPosition.BitBoards[BoardPosition.OppositeColor];
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
-                MoveCount++;
-            }
-        }
-
         public static void GeneratePsuedoBishopMoves(ushort piecePosition, Span<Move> moveList, ulong target, bool GenerateOnlyCaptures)
         {
             ulong AttackMask = PrecomputedInfo.BishopBlockingMasks[piecePosition];
@@ -778,104 +358,6 @@ namespace TOML
                 ushort pos = (ushort)BitOperations.TrailingZeroCount(QuietMask);
                 QuietMask &= QuietMask - 1;
                 moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GenerateLegalQuietBishopMoves(ushort piecePosition, Span<Move> moveList)
-        {
-            ulong SudoLegalMoves = PrecomputedInfo.BishopBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.BishopMagicNumbers[piecePosition];
-            int ShiftNum = PrecomputedInfo.BishopMagicShift[piecePosition];
-
-            ulong BlockersMask = SudoLegalMoves & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.BishopMovesBitBoard[piecePosition][Index];
-
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
-            MoveMask &= BoardPosition.InCheckValidSquares;
-
-            if (IsPinned(piecePosition))
-            {
-                MoveMask &= PrecomputedInfo.LineBitBoard[piecePosition][KingPos];
-            }
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GenerateLegalCaptureBishopMoves(ushort piecePosition, Span<Move> moveList)
-        {
-            ulong SudoLegalMoves = PrecomputedInfo.BishopBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.BishopMagicNumbers[piecePosition];
-            int ShiftNum = PrecomputedInfo.BishopMagicShift[piecePosition];
-
-            ulong MoveMask = 0;
-
-            ulong BlockersMask = SudoLegalMoves & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            MoveMask = MoveMask | PrecomputedInfo.BishopMovesBitBoard[piecePosition][Index];
-
-            MoveMask &= BoardPosition.InCheckValidSquares;
-            MoveMask &= DifColorBitBoard;
-
-            if (IsPinned(piecePosition))
-            {
-                MoveMask &= PrecomputedInfo.LineBitBoard[piecePosition][KingPos];
-            }
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
-                MoveCount++;
-            }
-        }
-        public static void GeneratePsuedoQuietRookMoves(ushort piecePosition, Span<Move> moveList, ulong target)
-        {
-            ulong AttackMask = PrecomputedInfo.RookBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.RookMagicNumbers[piecePosition];
-            int ShiftNum = 64 - PrecomputedInfo.RookBlockingMaskCount[piecePosition];
-
-            ulong BlockersMask = AttackMask & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.RookMovesBitBoard[piecePosition][Index] & target;
-
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GeneratePsuedoCaptureRookMoves(ushort piecePosition, Span<Move> moveList, ulong target)
-        {
-            ulong AttackMask = PrecomputedInfo.RookBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.RookMagicNumbers[piecePosition];
-            int ShiftNum = 64 - PrecomputedInfo.RookBlockingMaskCount[piecePosition];
-
-            ulong BlockersMask = AttackMask & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.RookMovesBitBoard[piecePosition][Index] & target;
-
-            MoveMask &= BoardPosition.BitBoards[OppositeColor];
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
                 MoveCount++;
             }
         }
@@ -909,93 +391,9 @@ namespace TOML
                 MoveCount++;
             }
         }
-        public static void GenerateLegalQuietRookMoves(ushort piecePosition, Span<Move> moveList)
-        {
-            ulong SudoLegalMoves = PrecomputedInfo.RookBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.RookMagicNumbers[piecePosition];
-            int ShiftNum = PrecomputedInfo.RookMagicShift[piecePosition];
-
-            ulong BlockersMask = SudoLegalMoves & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            ulong MoveMask = PrecomputedInfo.RookMovesBitBoard[piecePosition][Index];
-
-            MoveMask &= ~BoardPosition.AllPieceBitBoard;
-            MoveMask &= BoardPosition.InCheckValidSquares;
-
-            if (IsPinned(piecePosition))
-            {
-                MoveMask &= PrecomputedInfo.LineBitBoard[piecePosition][KingPos];
-            }
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.QUIET);
-                MoveCount++;
-            }
-        }
-        public static void GenerateLegalCaptureRookMoves(ushort piecePosition, Span<Move> moveList)
-        {
-            ulong SudoLegalMoves = PrecomputedInfo.RookBlockingMasks[piecePosition];
-            ulong MagicNumber = MagicNumbers.RookMagicNumbers[piecePosition];
-            int ShiftNum = PrecomputedInfo.RookMagicShift[piecePosition];
-            ulong MoveMask = 0;
-
-            ulong BlockersMask = SudoLegalMoves & BoardPosition.AllPieceBitBoard;
-            ulong Index = (BlockersMask * MagicNumber) >> ShiftNum;
-
-            MoveMask = MoveMask | PrecomputedInfo.RookMovesBitBoard[piecePosition][Index];
-
-            MoveMask &= BoardPosition.InCheckValidSquares;
-            MoveMask &= DifColorBitBoard;
-
-            if (IsPinned(piecePosition))
-            {
-                MoveMask &= PrecomputedInfo.LineBitBoard[piecePosition][KingPos];
-            }
-
-            while (MoveMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(MoveMask);
-                MoveMask &= MoveMask - 1;
-                moveList[MoveCount] = new Move(piecePosition, pos, (ushort)MoveEncodingCodes.CAPTURE);
-                MoveCount++;
-            }
-        }
         //checks if EP move is possible for pins
         //assumes the piece is a pawn
-        public static bool CanPlayEPMove(ushort startPos)
-        {
-            //logic: EP is not possible only if the pawn pos is between the king and rook/queen
-            //if there are more than 2 pieces between then there is at least 1 extra piece blocking the attack after pawns clear
-            
-            Position.GetXYPosition(startPos, out ushort X, out ushort Y);
-            ulong Rank = BitBoardConstants.FIRST_RANK << (Y * 8);
 
-            if ((Rank & BoardPosition.BitBoards[Piece.KING + ActiveColor]) == 0) {
-                //king not on rank
-                return true;
-            }
-            ulong PossiblePinners = Rank & (BoardPosition.BitBoards[Piece.ROOK + OppositeColor] | BoardPosition.BitBoards[Piece.QUEEN + OppositeColor]);
-            while (PossiblePinners != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(PossiblePinners);
-                PossiblePinners &= PossiblePinners - 1;
-
-                ulong Blockers = PrecomputedInfo.InBetweenBitBoard[pos][KingPos] & BoardPosition.AllPieceBitBoard;
-                if (((Blockers >> startPos) & 1) == 0)
-                {
-                    //pawn isn't here
-                    continue;
-                } else if (BitOperations.PopCount(Blockers) < 3) 
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
 
         //generates legal moves for a piece given its position
         public static byte GenerateAllPseudoLegalMoves(Position boardPosition, Span<Move> moveList, bool GenerateOnlyCaptures = false)
@@ -1011,7 +409,7 @@ namespace TOML
             BoardPosition.UpdatePositionStats();
             UpdateInfo();
 
-            ulong MoveMask = ulong.MaxValue;
+            ulong moveMask = ulong.MaxValue;
 
             GeneratePsuedoCaptureKingMoves(KingPos, moveList);
             if (GenerateOnlyCaptures == false)
@@ -1023,186 +421,97 @@ namespace TOML
                 return MoveCount; 
             } else if (BoardPosition.CheckCount == 1)
             {
-                MoveMask = BoardPosition.InCheckValidSquares;
+                moveMask = BoardPosition.InCheckValidSquares;
             }
-            GeneratePsuedoCapturePawnMoves(moveList, MoveMask);
+            GeneratePsuedoCapturePawnMoves(moveList, moveMask);
             if (GenerateOnlyCaptures == false)
             {
-                GeneratePsuedoQuitePawnMoves(moveList, MoveMask);
+                GeneratePsuedoQuitePawnMoves(moveList, moveMask);
             }
             
-            ulong KnightMask = BoardPosition.BitBoards[ActiveColor + Piece.KNIGHT] & ~BoardPosition.PinnedPiecesBitBoard[ActiveColor]; // pinned knights cannot move
-            while (KnightMask != 0)
+            ulong knightMask = BoardPosition.BitBoards[ActiveColor + Piece.KNIGHT] & ~BoardPosition.PinnedPiecesBitBoard[ActiveColor]; // pinned knights cannot move
+            while (knightMask != 0)
             {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(KnightMask);
-                KnightMask &= KnightMask - 1;
+                ushort pos = (ushort)BitOperations.TrailingZeroCount(knightMask);
+                knightMask &= knightMask - 1;
 
-                GeneratePsuedoCaptureKnightMoves(pos, moveList, MoveMask);
+                GeneratePsuedoCaptureKnightMoves(pos, moveList, moveMask);
 
                 if (GenerateOnlyCaptures == false)
                 {
-                    GeneratePsuedoQuietKnightMoves(pos, moveList, MoveMask);
+                    GeneratePsuedoQuietKnightMoves(pos, moveList, moveMask);
                 }
             }
 
-            ulong BishopQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.BISHOP] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
-            while (BishopQueenMask != 0)
+            ulong bishopQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.BISHOP] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
+            while (bishopQueenMask != 0)
             {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(BishopQueenMask);
-                BishopQueenMask &= BishopQueenMask - 1;
+                ushort pos = (ushort)BitOperations.TrailingZeroCount(bishopQueenMask);
+                bishopQueenMask &= bishopQueenMask - 1;
 
-                GeneratePsuedoBishopMoves(pos, moveList, MoveMask, GenerateOnlyCaptures);
+                GeneratePsuedoBishopMoves(pos, moveList, moveMask, GenerateOnlyCaptures);
             }
-            ulong RookQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.ROOK] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
-            while (RookQueenMask != 0)
+            ulong rookQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.ROOK] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
+            while (rookQueenMask != 0)
             {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(RookQueenMask);
-                RookQueenMask &= RookQueenMask - 1;
-                GeneratePsuedoRookMoves(pos, moveList, MoveMask, GenerateOnlyCaptures);
+                ushort pos = (ushort)BitOperations.TrailingZeroCount(rookQueenMask);
+                rookQueenMask &= rookQueenMask - 1;
+                GeneratePsuedoRookMoves(pos, moveList, moveMask, GenerateOnlyCaptures);
             }
             return MoveCount;
         }
 
-        public static byte GenerateAllLegalMoves(Position boardPosition, Span<Move> moveList, bool GenerateOnlyCaptures = false)
-        {
-            BoardPosition = boardPosition;
-            if (BoardPosition.HalfMoveClock == 100)
-            {
-                //50 move rule triggered
-                return 0;
-            }
-
-            BoardPosition.UpdatePositionStats();
-            UpdateInfo();
-
-            MoveCount = 0;
-
-            GenerateLegalKingMoves(KingPos, moveList, GenerateOnlyCaptures);
-            
-            //double check, can only move king
-            if (BoardPosition.CheckCount > 1) { return MoveCount; }
-
-            GenerateAllLegalCapturePawnMoves(moveList);
-            if (GenerateOnlyCaptures == false)
-            {
-                GenerateAllLegalQuietPawnMoves(moveList);
-            }
-
-            ulong KnightMask = BoardPosition.BitBoards[ActiveColor + Piece.KNIGHT] & ~BoardPosition.PinnedPiecesBitBoard[ActiveColor]; // pinned knights cannot move
-            while (KnightMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(KnightMask);
-                KnightMask &= KnightMask - 1;
-
-                GenerateLegalCaptureKnightMoves(pos, moveList);
-
-                if (GenerateOnlyCaptures == false)
-                {
-                    GenerateLegalQuietKnightMoves(pos, moveList);
-                }
-            }
-
-            ulong BishopQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.BISHOP] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
-            while (BishopQueenMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(BishopQueenMask);
-                BishopQueenMask &= BishopQueenMask - 1;
-
-                GenerateLegalCaptureBishopMoves(pos, moveList);
-                if (GenerateOnlyCaptures == false)
-                {
-                    GenerateLegalQuietBishopMoves(pos, moveList);
-                }
-            }
-
-            ulong RookQueenMask = BoardPosition.BitBoards[ActiveColor + Piece.ROOK] | BoardPosition.BitBoards[ActiveColor + Piece.QUEEN];
-            while (RookQueenMask != 0)
-            {
-                ushort pos = (ushort)BitOperations.TrailingZeroCount(RookQueenMask);
-                RookQueenMask &= RookQueenMask - 1;
-
-                GenerateLegalCaptureRookMoves(pos, moveList);
-                if (GenerateOnlyCaptures == false)
-                {
-                    GenerateLegalQuietRookMoves(pos, moveList);
-                }
-            }
-
-            return MoveCount;
-        }
         public static int GetTotalMoveCombinationCount(Position boardPosition, int depth)
         {
-            int Count = 0;
-            if (depth == 1)
-            {
-                Span<Move> moveList = stackalloc Move[218];
-                byte e = GenerateAllLegalMoves(boardPosition, moveList);
-                return e;
-            }
-            Span<Move> moves = stackalloc Move[218];
-            byte MoveCount = GenerateAllLegalMoves(boardPosition, moves);
-
-            for (int i = 0; i < MoveCount; i++)
-            {
-                Move move = moves[i];
-
-                UnMove unmove = BoardPosition.MakeMove(move);
-                PositionsGenerated++;
-                Count += GetTotalMoveCombinationCount(boardPosition, depth - 1);
-                BoardPosition.UnMakeMove(unmove);
-            }
-            
-            return Count;
-        }
-        public static int GetTotalMoveCombinationCountTest(Position boardPosition, int depth)
-        {
-            int Count = 0;
-            if (depth == 1)
-            {
-                Span<Move> moveList = stackalloc Move[218];
-                byte e = GenerateAllLegalMoves(boardPosition, moveList);
-                for (int i = 0; i < e; i++)
-                {
-                    Move move = moveList[i];
-                    Console.WriteLine(Position.NumberToBoardLetter(move.startPos) + Position.NumberToBoardLetter(move.endPos) + " " + e);
-                }
-                return e;
-            }
-            Span<Move> moves = stackalloc Move[218];
-            byte MoveCount = GenerateAllLegalMoves(boardPosition, moves);
-
-            for (int i = 0; i < MoveCount; i++)
-            {
-                Move move = moves[i];
-
-                UnMove unmove = BoardPosition.MakeMove(move);
-                int e = GetTotalMoveCombinationCount(boardPosition, depth - 1);
-                if (depth == 2)
-                {
-                    Console.WriteLine(Position.NumberToBoardLetter(move.startPos) + Position.NumberToBoardLetter(move.endPos) + " " + e);
-                }
-                Count += e;
-                BoardPosition.UnMakeMove(unmove);
-            }
-
-            return Count;
-        }
-        public static int GetMoveCountTest(Position boardPosition, int depth)
-        {
-            int Count = 0;
+            int count = 0;
             if (depth == 1)
             {
                 Span<Move> moveList = stackalloc Move[218];
                 byte MaxMoves = GenerateAllPseudoLegalMoves(boardPosition, moveList);
-                for(int i = 0; i < MaxMoves; i++)
+                for (int i = 0; i < MaxMoves; i++)
                 {
                     if (boardPosition.IsLegal(moveList[i]))
                     {
-                        Count++;
-                        Console.WriteLine(Position.NumberToBoardLetter(moveList[i].startPos) + Position.NumberToBoardLetter(moveList[i].endPos) );
+                        count++;
                     }
                 }
-                return Count;
+                return count;
+            }
+
+            Span<Move> moves = stackalloc Move[218];
+            byte moveCount = GenerateAllPseudoLegalMoves(boardPosition, moves);
+
+            for (int i = 0; i < moveCount; i++)
+            {
+                Move move = moves[i];
+
+                if (boardPosition.IsLegal(move) == false)
+                {
+                    continue;
+                }
+                UnMove unmove = BoardPosition.MakeMove(move);
+                count += GetTotalMoveCombinationCount(boardPosition, depth - 1);
+                BoardPosition.UnMakeMove(unmove);
+            }
+
+            return count;
+        }
+        public static int GetTotalMoveCombinationCountTest(Position boardPosition, int depth)
+        {
+            int count = 0;
+            if (depth == 1)
+            {
+                Span<Move> moveList = stackalloc Move[218];
+                byte MaxMoves = GenerateAllPseudoLegalMoves(boardPosition, moveList);
+                for (int i = 0; i < MaxMoves; i++)
+                {
+                    if (boardPosition.IsLegal(moveList[i]))
+                    {
+                        count++;
+                        Console.WriteLine(BoardHelper.NumberToBoardLetter(moveList[i].StartPos) + BoardHelper.NumberToBoardLetter(moveList[i].EndPos));
+                    }
+                }
+                return count;
             }
 
             Span<Move> moves = stackalloc Move[218];
@@ -1217,12 +526,12 @@ namespace TOML
                     continue;
                 }
                 UnMove unmove = BoardPosition.MakeMove(move);
-                int e = GetMoveCountTest(boardPosition, depth - 1);
-                Count += e;
+                int e = GetTotalMoveCombinationCountTest(boardPosition, depth - 1);
+                count += e;
                 BoardPosition.UnMakeMove(unmove);
             }
 
-            return Count;
+            return count;
         }
     }
 }

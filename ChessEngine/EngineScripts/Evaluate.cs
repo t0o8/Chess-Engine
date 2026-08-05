@@ -24,12 +24,12 @@ namespace TOML
             {(ushort)PieceType.KING , 0 },
         };*/
 
-        public static ushort[] PieceTypeToPieceValue = new ushort[]
+        public static readonly ushort[] PieceTypeToPieceValue = new ushort[]
         {
             PAWN, PAWN, KNIGHT, BISHOP, ROOK, QUEEN, KING
         };
 
-        public static int[] KnightPositionBonuses = new int[]
+        public static readonly int[] KnightPositionBonuses = new int[]
         {
             -12, -10,  -7,  -7,  -7,  -7, -10, -12,
             -10,  -7,  -3,  -3,  -3,  -3,  -7, -10,
@@ -41,7 +41,7 @@ namespace TOML
            -12, -10,  -7,  -7,  -7,  -7, -10, -12,
         };
 
-        public static int[] BishopPositionBonuses = new int[]
+        public static readonly int[] BishopPositionBonuses = new int[]
                 {
             -12, -11, -11, -10, -10, -11, -11, -12,
             -11, -11, -10,  -8,  -8, -10, -11, -11,
@@ -52,7 +52,7 @@ namespace TOML
             -11, -11, -10,  -8,  -8, -10, -11, -11,
             -12, -11, -11, -10, -10, -11, -11, -12,
         };
-        public static int[] RookPositionBonuses = new int[]
+        public static readonly int[] RookPositionBonuses = new int[]
         {
               0,   0,   0,   0,   0,   0,   0,   0,
               0,   0,   0,   0,   0,   0,   0,   0,
@@ -63,7 +63,7 @@ namespace TOML
             -25, -23, -21, -17, -17, -21, -23, -25,
             -25, -25, -25, -25, -25, -25, -25, -25,
         };
-        public static int[] QueenPositionBonuses = new int[]
+        public static readonly int[] QueenPositionBonuses = new int[]
         {
             -12, -11, -11, -10, -10, -11, -11, -12,
             -11, -11, -10,  -8,  -8, -10, -11, -11,
@@ -75,7 +75,7 @@ namespace TOML
             -12, -11, -11, -10, -10, -11, -11, -12,
         };
 
-        public static int[] PawnPositionBonuses = new int[]
+        public static readonly int[] PawnPositionBonuses = new int[]
         {
               0,   0,   0,   0,   0,   0,   0,   0,
              60,  50,  50,  50,  50,  50,  50,  60,
@@ -92,42 +92,19 @@ namespace TOML
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
-            0,   0,   0,  30,   30,   0,   0,   0,
+            0,   0,   0,  30,  30,   0,   0,   0,
             0,   0,   0,  30,  30,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
         };
 
-        public static int[] PassedPawnBonuses = new int[] { 0, 5, 5, 10, 15, 25, 70 };
+        public static readonly int[] PassedPawnBonuses = new int[] { 0, 5, 5, 10, 25, 35, 70 };
 
-        public static int[] PawnChainBonuses = new int[] { 0, 20, 35, 50, 60, 70, 75, 80 };
+        public static readonly int[] PawnChainBonuses = new int[] { 0, 20, 35, 50, 60, 70, 75, 80 };
         public static ulong GetPassedPawnMask(int pos, ushort color)
         {
             return PrecomputedInfo.PassedPawnMask[pos][color];
-            ushort File = 0;
-            Position.GetXYPosition((ushort)pos, out File, out ushort Y);
-            ulong Mask = 0;
-            if (File != 0)
-            {
-                Mask |= BitBoardConstants.A_FILE << (File - 1);
-            }
-            if (File != 7)
-            {
-                Mask |= BitBoardConstants.A_FILE << (File + 1);
-            }
-
-            Mask |= BitBoardConstants.A_FILE << File;
-            if (color == Piece.WHITE)
-            {
-                Mask &= ulong.MaxValue << ((Y + 1) * 8);
-            } else
-            {
-                Mask &= ulong.MaxValue >> (8 - (Y + 1) * 8);
-
-            }
-
-            return Mask;
         }
 
 
@@ -145,32 +122,17 @@ namespace TOML
         //returns an evaluation only based on added up piece values for both sides
         public static int Evaluate(Position boardPosition)
         {
-            int WhiteScore = 0;
-            int BlackScore = 0;
-
-
-            WhiteScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.WHITE]) * KNIGHT;
-            WhiteScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.WHITE]) * BISHOP;
-            WhiteScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.WHITE]) * ROOK;
-            WhiteScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.WHITE]) * QUEEN;
-
-            BlackScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK]) * KNIGHT;
-            BlackScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.BLACK]) * BISHOP;
-            BlackScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.BLACK]) * ROOK;
-            BlackScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.BLACK]) * QUEEN;
+            int whiteScore = CalculatePieceValueEval(boardPosition, Piece.WHITE);
+            int blackScore = CalculatePieceValueEval(boardPosition, Piece.BLACK);
 
             //further penalize being down pieces
-            if (WhiteScore > BlackScore + 100)
+            if (whiteScore > blackScore + 100)
             {
-                WhiteScore += 150;
-            } else if (BlackScore > WhiteScore + 100)
+                whiteScore += 150;
+            } else if (blackScore > whiteScore + 100)
             {
-                BlackScore += 150;
+                blackScore += 150;
             }
-
-            WhiteScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.WHITE]) * PAWN;
-            BlackScore += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.BLACK]) * PAWN;
-
 
             ulong Mask = boardPosition.BitBoards[Piece.KNIGHT + Piece.WHITE];
             while (Mask != 0)
@@ -178,7 +140,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                WhiteScore += KnightPositionBonuses[pos];
+                whiteScore += KnightPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.BISHOP + Piece.WHITE];
             while (Mask != 0)
@@ -186,7 +148,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                WhiteScore += BishopPositionBonuses[pos];
+                whiteScore += BishopPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.ROOK + Piece.WHITE];
             while (Mask != 0)
@@ -194,7 +156,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                WhiteScore += RookPositionBonuses[pos];
+                whiteScore += RookPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.QUEEN + Piece.WHITE];
             while (Mask != 0)
@@ -202,7 +164,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                WhiteScore += QueenPositionBonuses[pos];
+                whiteScore += QueenPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
             while (Mask != 0)
@@ -211,12 +173,11 @@ namespace TOML
                 Mask &= Mask - 1;
                 if ((GetPassedPawnMask(pos, Piece.WHITE) & boardPosition.BitBoards[Piece.PAWN + Piece.BLACK]) == 0)
                 {
-                    WhiteScore += PassedPawnBonuses[pos >> 3];
+                    whiteScore += PassedPawnBonuses[pos >> 3];
                 }
 
-                ushort File = 0;
+                ushort File = BoardHelper.GetXPos((ushort)pos);
                 ulong IsolatedMask = 0;
-                Position.GetXYPosition((ushort)pos, out File, out ushort Y);
                 if (File != 0)
                 {
                     IsolatedMask |= BitBoardConstants.A_FILE << (File - 1);
@@ -229,7 +190,7 @@ namespace TOML
                 {
                     //isolated
 
-                    WhiteScore -= 20;
+                    whiteScore -= 20;
                 }
 
                 //WhiteScore += PawnPositionBonuses[pos]; 
@@ -241,7 +202,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                BlackScore += KnightPositionBonuses[pos];
+                blackScore += KnightPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.BISHOP + Piece.BLACK];
             while (Mask != 0)
@@ -249,7 +210,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                BlackScore += BishopPositionBonuses[pos];
+                blackScore += BishopPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.ROOK + Piece.BLACK];
             while (Mask != 0)
@@ -257,7 +218,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                BlackScore += RookPositionBonuses[pos];
+                blackScore += RookPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.QUEEN + Piece.BLACK];
             while (Mask != 0)
@@ -265,7 +226,7 @@ namespace TOML
                 int pos = BitOperations.TrailingZeroCount(Mask);
                 Mask &= Mask - 1;
 
-                BlackScore += QueenPositionBonuses[pos];
+                blackScore += QueenPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.PAWN + Piece.BLACK];
             while (Mask != 0)
@@ -275,12 +236,11 @@ namespace TOML
 
                 if ((GetPassedPawnMask(pos, Piece.BLACK) & boardPosition.BitBoards[Piece.PAWN + Piece.WHITE]) == 0)
                 {
-                    BlackScore += PassedPawnBonuses[7 - (pos >> 3)];
+                    blackScore += PassedPawnBonuses[7 - (pos >> 3)];
                 }
 
-                ushort File = 0;
+                ushort File = BoardHelper.GetXPos((ushort)pos);
                 ulong IsolatedMask = 0;
-                Position.GetXYPosition((ushort)pos, out File, out ushort Y);
                 if (File != 0)
                 {
                     IsolatedMask |= BitBoardConstants.A_FILE << (File - 1);
@@ -292,7 +252,7 @@ namespace TOML
                 if ((IsolatedMask & boardPosition.BitBoards[Piece.BLACK + Piece.PAWN]) == 0)
                 {
                     //isolated
-                    BlackScore -= 20;
+                    blackScore -= 20;
                 }
 
                 //BlackScore += PawnPositionBonuses[64 - pos]; //flip the score table
@@ -302,27 +262,36 @@ namespace TOML
             //not working
             //WhiteScore += PawnChainBonuses[BitOperations.PopCount(boardPosition.BitBoards[Piece.WHITE + Piece.PAWN] & boardPosition.AttackingSquaresBitBoard[Piece.WHITE + Piece.PAWN])];
             //BlackScore += PawnChainBonuses[BitOperations.PopCount(boardPosition.BitBoards[Piece.BLACK + Piece.PAWN] & boardPosition.AttackingSquaresBitBoard[Piece.BLACK + Piece.PAWN])];
-            return WhiteScore - BlackScore;
+            return whiteScore - blackScore;
         }
+        public static int CalculatePieceValueEval(Position boardPosition, ushort color)
+        {
+            int score = BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + color]) * KNIGHT;
+            score += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + color]) * BISHOP;
+            score += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + color]) * ROOK;
+            score += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + color]) * QUEEN;
+            score += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + color]) * PAWN;
 
+            return score;
+        }
         public static int SimpleEvaluation(Position boardPosition)
         {
-            int WhiteCount = 0;
-            int BlackCount = 0;
+            int whiteCount = 0;
+            int blackCount = 0;
 
-            WhiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.WHITE]) * PAWN;
-            WhiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.WHITE]) * KNIGHT;
-            WhiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.WHITE]) * BISHOP;
-            WhiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.WHITE]) * ROOK;
-            WhiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.WHITE]) * QUEEN;
+            whiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.WHITE]) * PAWN;
+            whiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.WHITE]) * KNIGHT;
+            whiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.WHITE]) * BISHOP;
+            whiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.WHITE]) * ROOK;
+            whiteCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.WHITE]) * QUEEN;
 
-            BlackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.BLACK]) * PAWN;
-            BlackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK]) * KNIGHT;
-            BlackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.BLACK]) * BISHOP;
-            BlackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.BLACK]) * ROOK;
-            BlackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.BLACK]) * QUEEN;
+            blackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.PAWN + Piece.BLACK]) * PAWN;
+            blackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK]) * KNIGHT;
+            blackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.BISHOP + Piece.BLACK]) * BISHOP;
+            blackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.ROOK + Piece.BLACK]) * ROOK;
+            blackCount += BitOperations.PopCount(boardPosition.BitBoards[Piece.QUEEN + Piece.BLACK]) * QUEEN;
 
-            return WhiteCount - BlackCount;
+            return whiteCount - blackCount;
         }
     }
 }

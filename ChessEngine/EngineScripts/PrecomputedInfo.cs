@@ -261,8 +261,8 @@ namespace TOML
 
                 //do pawn stuff now
 
-                ushort File = 0;
-                Position.GetXYPosition((ushort)i, out File, out ushort Y);
+                ushort File = BoardHelper.GetXPos((ushort)i);
+                ushort Y = BoardHelper.GetYPos((ushort)i);
                 ulong Mask = 0;
                 if (File != 0)
                 {

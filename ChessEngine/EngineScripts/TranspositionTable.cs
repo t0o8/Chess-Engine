@@ -23,10 +23,10 @@ namespace TOML{
     }
     public static class TranspositionTable
     {
-        const int TABLE_SIZE = 1048576;
+        private const int TABLE_SIZE = 1048576;
         
 
-        static TranspositionEntry[] Table = new TranspositionEntry[TABLE_SIZE];
+        private static readonly TranspositionEntry[] Table = new TranspositionEntry[TABLE_SIZE];
 
         public static void StorePosition(ulong zobristKey, Move bestMove, byte depth, int eval, byte nodeType)
         {
@@ -55,15 +55,15 @@ namespace TOML{
         }
         public static int GetSize()
         {
-            int Size = 0;
+            int size = 0;
             foreach (TranspositionEntry Entry in Table)
             {
                 if (Entry.Depth != 0)
                 {
-                    Size++;
+                    size++;
                 }
             }
-            return Size;
+            return size;
         }
     }
 }

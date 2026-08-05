@@ -66,8 +66,8 @@ public static class ZobristHashing
     }
     public static ulong ChangeEnpassant(ulong key, int enpassantPos)
     {
-        int File = enpassantPos >> 3;
-        key ^= PseudoRandomNumbers[785 + File];
+        int file = enpassantPos >> 3;
+        key ^= PseudoRandomNumbers[785 + file];
 
         return key;
     }
@@ -80,98 +80,98 @@ public static class ZobristHashing
     {
         ulong key = 0;
 
-        ulong PawnMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
-        while (PawnMask != 0)
+        ulong pawnMask = position.BitBoards[Piece.PAWN + Piece.WHITE];
+        while (pawnMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(PawnMask);
-            PawnMask &= PawnMask - 1;
+            int pos = BitOperations.TrailingZeroCount(pawnMask);
+            pawnMask &= pawnMask - 1;
 
             key ^= PseudoRandomNumbers[pos];
         }
-        PawnMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
-        while (PawnMask != 0)
+        pawnMask = position.BitBoards[Piece.PAWN + Piece.BLACK];
+        while (pawnMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(PawnMask);
-            PawnMask &= PawnMask - 1;
+            int pos = BitOperations.TrailingZeroCount(pawnMask);
+            pawnMask &= pawnMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 64];
         }
 
-        ulong KnightMask = position.BitBoards[Piece.KNIGHT + Piece.WHITE];
-        while (KnightMask != 0)
+        ulong knightMask = position.BitBoards[Piece.KNIGHT + Piece.WHITE];
+        while (knightMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(KnightMask);
-            KnightMask &= KnightMask - 1;
+            int pos = BitOperations.TrailingZeroCount(knightMask);
+            knightMask &= knightMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 128];
         }
-        KnightMask = position.BitBoards[Piece.KNIGHT + Piece.BLACK];
-        while (KnightMask != 0)
+        knightMask = position.BitBoards[Piece.KNIGHT + Piece.BLACK];
+        while (knightMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(KnightMask);
-            KnightMask &= KnightMask - 1;
+            int pos = BitOperations.TrailingZeroCount(knightMask);
+            knightMask &= knightMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 192];
         }
 
-        ulong BishopMask = position.BitBoards[Piece.BISHOP + Piece.WHITE];
-        while (BishopMask != 0)
+        ulong bishopMask = position.BitBoards[Piece.BISHOP + Piece.WHITE];
+        while (bishopMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(BishopMask);
-            BishopMask &= BishopMask - 1;
+            int pos = BitOperations.TrailingZeroCount(bishopMask);
+            bishopMask &= bishopMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 256];
         }
-        BishopMask = position.BitBoards[Piece.BISHOP + Piece.BLACK];
-        while (BishopMask != 0)
+        bishopMask = position.BitBoards[Piece.BISHOP + Piece.BLACK];
+        while (bishopMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(BishopMask);
-            BishopMask &= BishopMask - 1;
+            int pos = BitOperations.TrailingZeroCount(bishopMask);
+            bishopMask &= bishopMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 320];
         }
 
-        ulong RookMask = position.BitBoards[Piece.ROOK + Piece.WHITE];
-        while (RookMask != 0)
+        ulong rookMask = position.BitBoards[Piece.ROOK + Piece.WHITE];
+        while (rookMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(RookMask);
-            RookMask &= RookMask - 1;
+            int pos = BitOperations.TrailingZeroCount(rookMask);
+            rookMask &= rookMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 384];
         }
-        RookMask = position.BitBoards[Piece.ROOK + Piece.BLACK];
-        while (RookMask != 0)
+        rookMask = position.BitBoards[Piece.ROOK + Piece.BLACK];
+        while (rookMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(RookMask);
-            RookMask &= RookMask - 1;
+            int pos = BitOperations.TrailingZeroCount(rookMask);
+            rookMask &= rookMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 448];
         }
 
-        ulong QueenMask = position.BitBoards[Piece.QUEEN + Piece.WHITE];
-        while (QueenMask != 0)
+        ulong queenMask = position.BitBoards[Piece.QUEEN + Piece.WHITE];
+        while (queenMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(QueenMask);
-            QueenMask &= QueenMask - 1;
+            int pos = BitOperations.TrailingZeroCount(queenMask);
+            queenMask &= queenMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 512];
         }
-        QueenMask = position.BitBoards[Piece.QUEEN + Piece.BLACK];
-        while (QueenMask != 0)
+        queenMask = position.BitBoards[Piece.QUEEN + Piece.BLACK];
+        while (queenMask != 0)
         {
-            int pos = BitOperations.TrailingZeroCount(QueenMask);
-            QueenMask &= QueenMask - 1;
+            int pos = BitOperations.TrailingZeroCount(queenMask);
+            queenMask &= queenMask - 1;
 
             key ^= PseudoRandomNumbers[pos + 576];
         }
         key ^= PseudoRandomNumbers[BitOperations.TrailingZeroCount(position.BitBoards[Piece.KING + Piece.WHITE]) + 640];
         key ^= PseudoRandomNumbers[BitOperations.TrailingZeroCount(position.BitBoards[Piece.KING + Piece.BLACK]) + 704];
-        if (position.ActiveColor == (ushort)PieceType.BLACK)
+        if (position.ActiveColor == Piece.BLACK)
         {
             key ^= PseudoRandomNumbers[768];
         }
         key ^= PseudoRandomNumbers[769 + position.CastlingAvailability];
-        if (position.EnPassantTargetSquare != PositionConstants.NoEnPassantMoves)
+        if (position.EnPassantTargetSquare != PositionConstants.NO_EN_PASSANT_MOVES)
         {
             key ^= PseudoRandomNumbers[785 + position.EnPassantTargetSquare % 8];
         }

@@ -120,7 +120,7 @@ namespace TOML
         }
         public static bool PerftTest(Position position, int depth, int expectedResult)
         {
-            int GivenResult = MoveGeneration.GetMoveCountTest(position, depth);
+            int GivenResult = MoveGeneration.GetTotalMoveCombinationCount(position, depth);
             total += (ulong)GivenResult;
             if (GivenResult == expectedResult)
             {
