@@ -13,26 +13,27 @@ namespace TOML
             {
                 Move move = moves[i];
                 int moveValue = 0;
-                ushort piece = (ushort)(boardPosition.UshortBoard[move.StartPos] & 7);
+                ushort piece = PieceHelper.GetPieceWithoutColor(boardPosition.UshortBoard[move.StartPos]);
                 ushort pieceValue = Evaluation.PieceTypeToPieceValue[piece];
 
                 if (move.IsEqual(predictedGoodMove))
                 {
                     moveValue += 200000; //arbitrary really large number, bumps move to the front
-                }
-                if (KillerMoves.ContainsMove(move, depthFromRoot))
+                } else if (KillerMoves.ContainsMove(move, depthFromRoot))
                 {
                     moveValue += 100000; // arbitrary really large number, should be smaller than the TT bump though
-                }
-                if ((move.MoveInfo & 4) == (ushort)MoveEncodingCodes.CAPTURE)
+                } else
                 {
-                    ushort CapturedPieceValue = Evaluation.PieceTypeToPieceValue[(ushort)(boardPosition.UshortBoard[move.EndPos] & 7)];
-                    moveValue += ((CapturedPieceValue * 10) - pieceValue);
-                } 
-                if ((move.MoveInfo >> 3) == 1)
-                {
-                    //promotion is likely to be good
-                    moveValue += Evaluation.PieceTypeToPieceValue[(ushort)((move.MoveInfo & 3) + 2)];
+                    if ((move.MoveInfo & 4) == (ushort)MoveEncodingCodes.CAPTURE)
+                    {
+                        ushort CapturedPieceValue = Evaluation.PieceTypeToPieceValue[PieceHelper.GetPieceWithoutColor(boardPosition.UshortBoard[move.EndPos])];
+                        moveValue += ((CapturedPieceValue * 10) - pieceValue);
+                    }
+                    if ((move.MoveInfo >> 3) == 1)
+                    {
+                        //promotion is likely to be good
+                        moveValue += Evaluation.PieceTypeToPieceValue[(ushort)((move.MoveInfo & 3) + 2)];
+                    }
                 }
 
                 moveValues[i] = moveValue;

@@ -1,9 +1,10 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 
+using System.Diagnostics;
 using System.Numerics;
 using TOML;
-
+using System.Collections.Generic;
 Main.Start();
 
 while (true)
@@ -93,7 +94,7 @@ while (true)
                     IsPerft = true;
                     await Task.Run(() =>
                     {
-                        Console.WriteLine(MoveGeneration.GetTotalMoveCombinationCountTest(Main.position, int.Parse(SplitString[i + 1])));
+                        Benchmark.RunPositionPerftTest(Main.position, int.Parse(SplitString[i + 1]));
                     });
                 }
             }
@@ -136,6 +137,27 @@ while (true)
             break;
         case "test":
             Console.WriteLine(MoveGeneration.GenerateAllPseudoLegalMoves(new Position("rnbqkbnr/1ppppppp/p7/8/8/3P4/PPP1PPPP/RNBQKBNR w KQkq - 0 2"), stackalloc Move[218], true));
+            break;
+        case "generatemagic":
+            Task.Run(() =>
+            {
+                MagicNumberGenerator.StartMagicNumberGeneration();
+            });
+            break;
+        case "printmagic":
+            MagicNumberGenerator.StopGeneration();
+
+            Console.WriteLine("Bishop Magics");
+            for (int i = 0; i < 64; i++)
+            {
+                Console.Write(MagicNumberGenerator.BishopMagicNumbers[i] + ", ");
+            }
+            Console.WriteLine("");
+            Console.WriteLine("Rook Magics");
+            for (int i = 0; i < 64; i++)
+            {
+                Console.Write(MagicNumberGenerator.RookMagicNumbers[i] + ", ");
+            }
             break;
     }
 }

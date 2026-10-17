@@ -19,7 +19,6 @@ namespace TOML
         {
             PrecomputedInfo.PrecomputeInfo();
             ZobristHashing.GeneratePseudoRandomNumbers();
-
             Console.WriteLine("engine ready");
 
         }

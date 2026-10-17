@@ -43,7 +43,6 @@ namespace TOML
             Span<Move> moveList = stackalloc Move[MoveGenConstants.MAX_POSSIBLE_LEGAL_MOVES];
             byte moveCount = MoveGeneration.GenerateAllPseudoLegalMoves(boardPosition, moveList);
 
-
             if (moveCount == 0)
             {
                 return new Move();
@@ -52,6 +51,7 @@ namespace TOML
             Span<int> moveValueList = stackalloc int[moveCount];
             
             Move bestMove = moveList[0];
+            bool hasLegalMove = false;
             //iterative deepening
             while (SearchCancelled == false)
             {
@@ -65,15 +65,67 @@ namespace TOML
 
                 MoveOrdering.GenerateMoveValues(boardPosition, moveValueList, moveList, moveCount, bestMove, CurrentSearchDepth);
 
-                for (int i = 0; i < moveCount; i++)
+                //Principal Variation Search. We'll try the first move first
+                ushort attemptFirstMoveIndex = 0;
+                Move attemptFirstMove = new Move();
+
+                for (attemptFirstMoveIndex = 0; attemptFirstMoveIndex < moveCount; attemptFirstMoveIndex++)
+                {
+                    attemptFirstMove = MoveOrdering.GetNextMove(moveList, moveCount, moveValueList, attemptFirstMoveIndex);
+                    if (boardPosition.IsLegal(attemptFirstMove) == true)
+                    {
+                        hasLegalMove = true;
+                        break;
+                    }
+                }
+                if (hasLegalMove == false)
+                {
+                    //position is checkmate or stalemate
+                    if (boardPosition.CheckCount == 0)
+                    {
+                        //stalemate
+                        Console.WriteLine("info depth " + CurrentSearchDepth + " score cp 0");
+                        return new Move();
+                    } else
+                    {
+                        //checkmate
+
+                        Console.WriteLine("info depth " + CurrentSearchDepth + " score mate 0");
+                        return new Move();
+                    }
+                }
+
+                UnMove attemptFirstUnmove = boardPosition.MakeMove(attemptFirstMove);
+                positionRelativeEval = -GetEval(boardPosition, (byte)(CurrentSearchDepth - 1), -upperBound, -lowerBound);
+                boardPosition.UnMakeMove(attemptFirstUnmove);
+
+                if (SearchCancelled) return bestMoveThisDepth;
+
+                if (positionRelativeEval > lowerBound)
+                {
+                    //move gives better position!
+                    bestMoveThisDepth = attemptFirstMove;
+                    //the lower bound should be best opponent so far. Ignore moves that are worse since we want the best position possible
+                    lowerBound = positionRelativeEval;
+                }
+                
+                for (int i = attemptFirstMoveIndex + 1; i < moveCount; i++)
                 {
                     Move move = MoveOrdering.GetNextMove(moveList, moveCount, moveValueList, i);
                     if (boardPosition.IsLegal(move) == false)
                     {
                         continue;
                     }
+                    
+                    //Principal Variation Search. Now we'll try all the moves with bounds -alpha, alpha. If all values are less than or equal to alpha then we don't need a full search
                     UnMove unmove = boardPosition.MakeMove(move);
-                    positionRelativeEval = -GetEval(boardPosition, (byte)(CurrentSearchDepth - 1), -upperBound, -lowerBound);
+                    positionRelativeEval = -GetEval(boardPosition, (byte)(CurrentSearchDepth - 1), -lowerBound - 1, -lowerBound);
+
+                    if (positionRelativeEval > lowerBound)
+                    {
+                        positionRelativeEval = -GetEval(boardPosition, (byte)(CurrentSearchDepth - 1), -upperBound, -lowerBound);
+                    }
+
                     boardPosition.UnMakeMove(unmove);
                     //since we return 0 when search is cancelled we must check that the eval is from a search that isn't cancelled
                     if (SearchCancelled == true)
@@ -82,7 +134,6 @@ namespace TOML
                         //since we've realized the previous move wasn't as good as we thought it to be 
                         return bestMoveThisDepth;
                     }
-
                     if (positionRelativeEval > lowerBound)
                     {
                         //move gives better position!
@@ -106,7 +157,7 @@ namespace TOML
                     Console.WriteLine("info depth " + CurrentSearchDepth + " score mate " + Math.Ceiling((decimal)(lowerBound - EvaluationConstants.CHECKMATE_BASE_EVAL)/2).ToString() + " nodes " + EvaluatedPositions +" nps " + NPS);
                 } else 
                 {
-                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound.ToString() + " nodes " + EvaluatedPositions +" nps " + NPS); //+ Position.NumberToBoardLetter(bestMove.startPos) + Position.NumberToBoardLetter(bestMove.endPos)
+                    Console.WriteLine("info depth " + CurrentSearchDepth + " score cp " + lowerBound.ToString() + " nodes " + EvaluatedPositions +" nps " + NPS); // + bestMove.GetText()
                 }
                 TranspositionTable.StorePosition(boardPosition.ZobristHash, bestMove, CurrentSearchDepth, lowerBound, NodeConstants.PV);
                 CurrentSearchDepth++;
@@ -180,7 +231,62 @@ namespace TOML
             MoveOrdering.GenerateMoveValues(boardPosition, moveValueList, moveList, moveCount, predictedbestMove, depthFromRoot);
 
             int bestRelativeEval = EvaluationConstants.ABSOLUTE_LOWER_BOUND;
+            //Principal Variation Search. We'll try the first move first
+            ushort attemptFirstMoveIndex = 0;
+            Move attemptFirstMove = new Move();
 
+            for (attemptFirstMoveIndex = 0; attemptFirstMoveIndex < moveCount; attemptFirstMoveIndex++)
+            {
+                attemptFirstMove = MoveOrdering.GetNextMove(moveList, moveCount, moveValueList, attemptFirstMoveIndex);
+                if (boardPosition.IsLegal(attemptFirstMove) == true)
+                {
+                    hasLegalMove = true;
+                    break;
+                }
+            }
+            if (hasLegalMove == false)
+            {
+                if (boardPosition.CheckCount == 0)
+                {
+                    //stalemate
+                    return 0;
+                } else
+                {
+                    //checkmate
+                    return EvaluationConstants.CHECKMATE_BASE_EVAL + depthFromRoot;
+                }
+            }
+
+            UnMove attemptFirstUnmove = boardPosition.MakeMove(attemptFirstMove);
+            positionRelativeEval = -GetEval(boardPosition, (byte)(depth - 1), -upperBound, -lowerBound);
+            boardPosition.UnMakeMove(attemptFirstUnmove);
+
+            if (SearchCancelled)
+                {
+                    return 0;
+                }
+            if (positionRelativeEval >= upperBound)
+            {
+                int cutNodeStoreEval = positionRelativeEval;
+
+                // Adjust score before storing if it's checkmate
+                if (cutNodeStoreEval > -EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                {
+                    cutNodeStoreEval += depthFromRoot;
+                } else if (cutNodeStoreEval < EvaluationConstants.CHECKMATE_MINIMAL_EVAL)
+                {
+                    cutNodeStoreEval -= depthFromRoot;
+                }
+                TranspositionTable.StorePosition(boardPosition.ZobristHash, attemptFirstMove, depth, cutNodeStoreEval, NodeConstants.CUT);
+                KillerMoves.AddMove(attemptFirstMove, depthFromRoot);
+                return positionRelativeEval;
+            } else if (positionRelativeEval >= lowerBound)
+            {
+                //the lower bound should be best opponent so far. Ignore moves that are worse since we want the best position possible
+                lowerBound = positionRelativeEval;
+            }
+            bestRelativeEval = positionRelativeEval;
+            bestMove = attemptFirstMove;
             //check to see if we can use futility pruning
             bool futilityPruningPossible = true;
 
@@ -188,7 +294,7 @@ namespace TOML
             {
                 futilityPruningPossible = false;
             }
-            for (int i = 0; i < moveCount; i++)
+            for (int i = attemptFirstMoveIndex + 1; i < moveCount; i++)
             {
                 Move move = MoveOrdering.GetNextMove(moveList, moveCount, moveValueList, i);
                 if (boardPosition.IsLegal(move) == false)
@@ -199,15 +305,20 @@ namespace TOML
                 UnMove unmove = boardPosition.MakeMove(move);
 
                 //futility pruning
-                if (futilityPruningPossible && -Evaluation.GetRelativeEvaluation(boardPosition) < (lowerBound - 300) && boardPosition.CheckCount == 0 && (move.MoveInfo & 4) != 4)
+                /*if (futilityPruningPossible && -Evaluation.GetRelativeEvaluation(boardPosition) < (lowerBound - 300) && boardPosition.CheckCount == 0 && (move.MoveInfo & 4) != 4)
                 {
                     boardPosition.UnMakeMove(unmove);
                     continue;
+                } */
+
+                //Principal Variation Search
+                positionRelativeEval = -GetEval(boardPosition, (byte)(depth - 1), -lowerBound - 1, -lowerBound);
+                if (positionRelativeEval > lowerBound)
+                {
+                    //needs research
+                    positionRelativeEval = -GetEval(boardPosition, (byte)(depth - 1), -upperBound, -lowerBound);
                 }
-
-                positionRelativeEval = -GetEval(boardPosition, (byte)(depth - 1), -upperBound, -lowerBound);
                 boardPosition.UnMakeMove(unmove);
-
 
                 if (SearchCancelled)
                 {
@@ -240,18 +351,6 @@ namespace TOML
                 if (positionRelativeEval > lowerBound)
                 {
                     lowerBound = positionRelativeEval;
-                }
-            }
-            if (hasLegalMove == false)
-            {
-                if (boardPosition.CheckCount == 0)
-                {
-                    //stalemate
-                    return 0;
-                } else
-                {
-                    //checkmate
-                    return EvaluationConstants.CHECKMATE_BASE_EVAL + depthFromRoot;
                 }
             }
             int pvNodeStoreEval = bestRelativeEval;

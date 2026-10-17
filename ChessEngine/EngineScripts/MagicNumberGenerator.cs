@@ -58,7 +58,6 @@ namespace TOML {
                     bool Passed = true;
                     bool[] UniqueIndexs = new bool[GetBlockerMaskSize(PrecomputedInfo.BishopBlockingMasks[AttemptSquare])];
 
-                    int CheckClearedCount = 0;
                     for (ulong BlockerIndex = 0; BlockerIndex < GetBlockerMaskSize(PrecomputedInfo.BishopBlockingMasks[AttemptSquare]); BlockerIndex++)
                     {
                         
@@ -70,7 +69,6 @@ namespace TOML {
                         } else
                         {
                             UniqueIndexs[AttemptIndex] = true;
-                            CheckClearedCount++;
                         }
                     }
                     if (Passed == true)
@@ -90,7 +88,6 @@ namespace TOML {
                     Passed = true;
                     UniqueIndexs = new bool[GetBlockerMaskSize(PrecomputedInfo.RookBlockingMasks[AttemptSquare])];
 
-                    CheckClearedCount = 0;
                     for (ulong BlockerIndex = 0; BlockerIndex < GetBlockerMaskSize(PrecomputedInfo.RookBlockingMasks[AttemptSquare]); BlockerIndex++)
                     {
                         ulong AttemptIndex = (GetBlockerMask(PrecomputedInfo.RookBlockingMasks[AttemptSquare], BlockerIndex) * AttemptNum) >> (int)(64 - PrecomputedInfo.RookBlockingMaskCount[AttemptSquare]);
@@ -101,7 +98,6 @@ namespace TOML {
                         } else
                         {
                             UniqueIndexs[AttemptIndex] = true;
-                            CheckClearedCount++;
                         }
                     }
                     if (Passed == true)

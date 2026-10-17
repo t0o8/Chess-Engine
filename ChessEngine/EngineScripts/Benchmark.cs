@@ -120,16 +120,24 @@ namespace TOML
         }
         public static bool PerftTest(Position position, int depth, int expectedResult)
         {
-            int GivenResult = MoveGeneration.GetTotalMoveCombinationCount(position, depth);
-            total += (ulong)GivenResult;
-            if (GivenResult == expectedResult)
+            int givenResult = MoveGeneration.GetTotalMoveCombinationCount(position, depth);
+            total += (ulong)givenResult;
+            if (givenResult == expectedResult)
             {
-                Console.WriteLine("At depth " + depth + " Got " + GivenResult + " Success");
+                Console.WriteLine("At depth " + depth + " Got " + givenResult + " Success");
             } else
             {
-                Console.WriteLine("At depth " + depth + " Got " + GivenResult + " expected " + expectedResult);
+                Console.WriteLine("At depth " + depth + " Got " + givenResult + " expected " + expectedResult);
             }
-            return (GivenResult == expectedResult);
+            return (givenResult == expectedResult);
+        }
+        public static void RunPositionPerftTest(Position position, int depth)
+        {
+            stopWatch.Restart();
+            stopWatch.Start();
+            int givenResult = MoveGeneration.GetTotalMoveCombinationCount(position, depth);
+            float timeInSeconds = (float)stopWatch.ElapsedMilliseconds / 1000;
+            Console.WriteLine("Took " + timeInSeconds + " NPS: " + givenResult / timeInSeconds + " nodes: " + givenResult);
         }
     }
 }
