@@ -75,7 +75,8 @@ namespace TOML
             -12, -11, -11, -10, -10, -11, -11, -12,
         };
 
-        public static readonly int[] PawnPositionBonuses = new int[]
+        /*
+         * public static readonly int[] PawnPositionBonuses = new int[]
         {
               0,   0,   0,   0,   0,   0,   0,   0,
              60,  50,  50,  50,  50,  50,  50,  60,
@@ -85,6 +86,17 @@ namespace TOML
              30, -40, -20,  30,  30, -40, -40,  30,
              40,  40,  40,   0,   0,   0,  40,  40,
               0,   0,   0,   0,   0,   0,   0,   0,
+        }; */
+        public static readonly int[] PawnPositionBonuses = new int[]
+        {
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
+            0,   0,   0,   0,   0,   0,   0,   0,
         };
 
         public static int[] CenterBonuses = new int[]
@@ -97,6 +109,11 @@ namespace TOML
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
             0,   0,   0,   0,   0,   0,   0,   0,
+        };
+
+        public static readonly int[][] PieceBonuses = new int[][]
+        {
+            new int[0], PawnPositionBonuses, KnightPositionBonuses, BishopPositionBonuses, RookPositionBonuses, QueenPositionBonuses, new int[64]
         };
 
         public static readonly int[] PassedPawnBonuses = new int[] { 0, 5, 5, 10, 25, 35, 70 };
@@ -122,8 +139,8 @@ namespace TOML
         //returns an evaluation only based on added up piece values for both sides
         public static int Evaluate(Position boardPosition)
         {
-            int whiteScore = CalculatePieceValueEval(boardPosition, Piece.WHITE);
-            int blackScore = CalculatePieceValueEval(boardPosition, Piece.BLACK);
+            int whiteScore = boardPosition.PieceScores[Piece.WHITE];
+            int blackScore = boardPosition.PieceScores[Piece.BLACK];
 
             //further penalize being down pieces
             if (whiteScore > blackScore + 100)
@@ -134,39 +151,11 @@ namespace TOML
                 blackScore += 150;
             }
 
-            ulong Mask = boardPosition.BitBoards[Piece.KNIGHT + Piece.WHITE];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
+            whiteScore += boardPosition.PiecePosScores[Piece.WHITE];
+            blackScore += boardPosition.PiecePosScores[Piece.BLACK];
 
-                whiteScore += KnightPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.BISHOP + Piece.WHITE];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
 
-                whiteScore += BishopPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.ROOK + Piece.WHITE];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                whiteScore += RookPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.QUEEN + Piece.WHITE];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                whiteScore += QueenPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
+            ulong Mask = boardPosition.BitBoards[Piece.PAWN + Piece.WHITE];
             while (Mask != 0)
             {
                 int pos = BitOperations.TrailingZeroCount(Mask);
@@ -194,39 +183,6 @@ namespace TOML
                 }
 
                 //WhiteScore += PawnPositionBonuses[pos]; 
-            }
-
-            Mask = boardPosition.BitBoards[Piece.KNIGHT + Piece.BLACK];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                blackScore += KnightPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.BISHOP + Piece.BLACK];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                blackScore += BishopPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.ROOK + Piece.BLACK];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                blackScore += RookPositionBonuses[pos];
-            }
-            Mask = boardPosition.BitBoards[Piece.QUEEN + Piece.BLACK];
-            while (Mask != 0)
-            {
-                int pos = BitOperations.TrailingZeroCount(Mask);
-                Mask &= Mask - 1;
-
-                blackScore += QueenPositionBonuses[pos];
             }
             Mask = boardPosition.BitBoards[Piece.PAWN + Piece.BLACK];
             while (Mask != 0)

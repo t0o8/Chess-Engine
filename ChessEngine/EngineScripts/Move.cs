@@ -28,7 +28,7 @@ namespace TOML
 
     public readonly struct Move
     {
-        readonly ushort MoveValue;   //IIIIEEEEEESSSSSS
+        public readonly ushort MoveValue;   //IIIIEEEEEESSSSSS
         // 8: promotion
         // 4: capture
         // 1: double pawn push
@@ -116,6 +116,10 @@ namespace TOML
         public void Print()
         {
             Console.WriteLine("Move is " + this.StartPos + ", " + this.EndPos);
+        }
+        public string GetText()
+        {
+            return BoardHelper.NumberToBoardLetter(StartPos) + BoardHelper.NumberToBoardLetter(EndPos);
         }
         public bool IsEqual(Move comparisonMove)
         {

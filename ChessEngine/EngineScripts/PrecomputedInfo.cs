@@ -48,6 +48,8 @@ namespace TOML
 
         public readonly static ulong[][] PassedPawnMask = new ulong[64][];
 
+        public readonly static ushort[] ZobristPieceLookup = new ushort[960];
+
         public static void PrecomputeInfo()
         {
             for (int i = 0; i < 64; i++)
@@ -279,10 +281,14 @@ namespace TOML
                 PassedPawnMask[i] = new ulong[9];
                 PassedPawnMask[i][Piece.WHITE] = WhiteMask;
                 PassedPawnMask[i][Piece.BLACK] = BlackMask;
-
+                for (int piece = 1; piece < 7; piece++) {
+                    ZobristPieceLookup[(piece << 6) + i] = (ushort)((128 * ((piece & 7) - 1)) + (((piece >> 3) & 1) * 64) + i);
+                    ZobristPieceLookup[((piece + 8) << 6) + i] = (ushort)((128 * (((piece + 8) & 7) - 1)) + ((((piece + 8) >> 3) & 1) * 64) + i);
+                }
             }
             Console.WriteLine("precompute info done");
         }
     }
+    
 }
 

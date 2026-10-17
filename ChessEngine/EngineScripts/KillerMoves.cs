@@ -9,24 +9,25 @@ namespace TOML
     static class KillerMoves
     {
 
-        public static Move[,] MovesTable = new Move[byte.MaxValue, 2];
+        public static Move[] PrimaryMove = new Move[byte.MaxValue];
+        public static Move[] SecondaryMove = new Move[byte.MaxValue];
 
         public static bool ContainsMove(Move move, int depth)
         {
-            if (MovesTable[depth, 0].IsEqual(move) || MovesTable[depth, 1].IsEqual(move)) { return true; }
-            return false;
+            return (PrimaryMove[depth].IsEqual(move) || SecondaryMove[depth].IsEqual(move));
         }
         public static void AddMove(Move move, int depth)
         {
-            if (MovesTable[depth, 0].IsEqual(move)) { return; }
+            if (PrimaryMove[depth].IsEqual(move)) { return; }
 
-            MovesTable[depth, 1] = MovesTable[depth, 0];
-            MovesTable[depth, 0] = move;
+            SecondaryMove[depth] = PrimaryMove[depth];
+            PrimaryMove[depth] = move;
         }
 
         public static void ResetTable()
         {
-            Array.Clear(MovesTable, 0, MovesTable.Length);
+            Array.Clear(PrimaryMove, 0, PrimaryMove.Length);
+            Array.Clear(SecondaryMove, 0, SecondaryMove.Length);
         }
     }
 }

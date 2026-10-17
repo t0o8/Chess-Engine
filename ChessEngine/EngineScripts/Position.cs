@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Numerics;
 
 namespace TOML
@@ -62,7 +63,15 @@ namespace TOML
         public ulong[] BitBoards = new ulong[15];
         public ulong AllPieceBitBoard = 0;
 
+        public ushort[] FullMoveAdditionArray = new ushort[9] { 0, 0, 0, 0, 0, 0, 0, 0, 1 };
+        public ushort[] HalfMoveClockArray = new ushort[7] { ushort.MaxValue, 0, ushort.MaxValue, ushort.MaxValue, ushort.MaxValue, ushort.MaxValue, ushort.MaxValue };
+
         public PrevStates PreviousStates = new PrevStates();
+
+        //eval scores
+
+        public int[] PieceScores;
+        public int[] PiecePosScores;
 
         public Position(string fenString)
         {
@@ -72,6 +81,9 @@ namespace TOML
 
             bool recordedEnpassant = false;
             UshortBoard = new ushort[64];
+
+            PieceScores = new int[9];
+            PiecePosScores = new int[9];
 
             for (int stringPosition = 0; stringPosition < fenString.Length; stringPosition++)
             {
@@ -107,8 +119,9 @@ namespace TOML
                     int piece = Conversions.FenToPieceType[char.ToLower(fenCharacter)];
 
                     ushort pieceValue = (ushort)(piece + pieceColor);
-                    UshortBoard[position] = pieceValue;
-                    BitBoards[pieceValue] += 1ul << position;
+
+                    AddPiece(position, pieceValue);
+
                     column++;
 
                 }
@@ -240,14 +253,10 @@ namespace TOML
             ZobristHash = ZobristHashing.ChangeCastling(ZobristHash, CastlingAvailability);
 
             HalfMoveClock++;
-            if (color == Piece.BLACK)
-            {
-                FullMoveNumber++;
-            }
-            if (pieceWithoutColor == Piece.PAWN)
-            {
-                HalfMoveClock = 0; 
-            }
+
+            FullMoveNumber += FullMoveAdditionArray[ActiveColor];
+            HalfMoveClock &= HalfMoveClockArray[pieceWithoutColor];
+
             if (move.MoveInfo == 1)
             {
                 //double pawn push
@@ -584,33 +593,53 @@ namespace TOML
             ulong endMask = 1ul << endPos;
             ulong moveMask = startMask | endMask;
 
+            ushort color = PieceHelper.GetColor(piece);
+            ushort pieceWithoutColor = PieceHelper.GetPieceWithoutColor(piece);
+
             BitBoards[piece] ^= moveMask;
-            BitBoards[PieceHelper.GetColor(piece)] ^= moveMask;
+            BitBoards[color] ^= moveMask;
             AllPieceBitBoard ^= moveMask;
 
             UshortBoard[startPos] = Piece.EMPTY;
             UshortBoard[endPos] = piece;
             ZobristHash = ZobristHashing.MovePiece(ZobristHash, startPos, endPos, piece);
+
+            PiecePosScores[color] -= Evaluation.PieceBonuses[pieceWithoutColor][startPos];
+            PiecePosScores[color] += Evaluation.PieceBonuses[pieceWithoutColor][endPos];
+
         }
         public void AddPiece(ushort pos, ushort piece)
         {
             ulong mask = 1ul << pos;
+            ushort color = PieceHelper.GetColor(piece);
+            ushort pieceWithoutColor = PieceHelper.GetPieceWithoutColor(piece);
+
             BitBoards[piece] |= mask;
-            BitBoards[PieceHelper.GetColor(piece)] |= mask;
+            BitBoards[color] |= mask;
             AllPieceBitBoard |= mask;
 
             UshortBoard[pos] = piece;
             ZobristHash = ZobristHashing.AddPiece(ZobristHash, pos, piece);
+
+            PiecePosScores[color] += Evaluation.PieceBonuses[pieceWithoutColor][pos];
+            PieceScores[color] += Evaluation.PieceTypeToPieceValue[pieceWithoutColor];
+
         }
         public void RemovePiece(ushort pos, ushort piece)
         {
             ulong mask = ~(1ul << pos);
+            ushort color = PieceHelper.GetColor(piece);
+            ushort pieceWithoutColor = PieceHelper.GetPieceWithoutColor(piece);
+
             BitBoards[piece] &= mask;
-            BitBoards[PieceHelper.GetColor(piece)] &= mask;
+            BitBoards[color] &= mask;
             AllPieceBitBoard &= mask;
 
             UshortBoard[pos] = Piece.EMPTY;
             ZobristHash = ZobristHashing.RemovePiece(ZobristHash, pos, piece);
+
+            PiecePosScores[color] -= Evaluation.PieceBonuses[pieceWithoutColor][pos];
+            PieceScores[color] -= Evaluation.PieceTypeToPieceValue[pieceWithoutColor];
         }
         public bool FoundRepetition(ulong ZobristKey)
         {
